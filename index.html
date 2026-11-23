@@ -456,6 +456,9 @@
     color:var(--g900);transition:background-color .15s,box-shadow .15s}
   .field input:focus{outline:0;background:#fff;box-shadow:inset 0 0 0 2px var(--blue)}
   .field input::placeholder{color:var(--g400)}
+  .field textarea{width:100%;padding:16px;border:0;border-radius:14px;background:var(--g100);font-family:inherit;font-size:16px;resize:vertical;min-height:90px;line-height:1.5}
+  .field textarea:focus{outline:0;background:#fff;box-shadow:inset 0 0 0 2px var(--blue)}
+  .field textarea::placeholder{color:var(--g400)}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chip{position:relative}
   .chip input{position:absolute;opacity:0;width:1px;height:1px}
@@ -911,6 +914,10 @@
             <label class="chip"><input type="radio" name="topic" value="기타"><span>기타</span></label>
           </div>
         </div>
+        <div class="field" id="memoField" style="display:none">
+          <span class="lbl">어떤 점이 궁금하신가요?</span>
+          <textarea id="inqMemo" name="memo" placeholder="문의 내용을 자유롭게 적어 주세요"></textarea>
+        </div>
         <label class="agree">
           <input type="checkbox" required>
           <span><a href="privacy.html" target="_blank">개인정보 수집·이용</a>에 동의해요 <span class="req">(필수)</span></span>
@@ -1086,6 +1093,7 @@
     setMenu(false);   // 메뉴를 연 채 상단 "문의하기"를 누른 경우
     document.getElementById('inquiryForm').style.display='block';
     document.getElementById('inquiryDone').style.display='none';
+    document.getElementById('memoField').style.display='none';
     if(isOpen())return;
     // 스크롤바가 사라지면서 페이지가 옆으로 밀리지 않게 그 폭만큼 채운다
     root.style.paddingRight=(innerWidth-root.clientWidth)+'px';
@@ -1134,10 +1142,12 @@
     e.preventDefault();
     const form=e.target;
     const btn=form.querySelector('.submit');
+    const topicVal=form.topic.value;
     const body={
       name:form.name.value.trim(),
       phone:form.phone.value.trim(),
-      topic:form.topic.value
+      topic:topicVal,
+      memo:(topicVal==='기타'&&form.memo)?form.memo.value.trim():''
     };
     btn.disabled=true;const old=btn.textContent;btn.textContent='접수 중...';
     try{
@@ -1149,6 +1159,7 @@
       const data=await res.json().catch(()=>({}));
       if(res.ok){
         form.reset();
+        document.getElementById('memoField').style.display='none';
         document.getElementById('inquiryForm').style.display='none';
         document.getElementById('inquiryDone').style.display='block';
       }else{
@@ -1161,6 +1172,12 @@
     }
     return false;
   }
+  // '기타'를 고를 때만 메모 입력란을 보여준다.
+  document.querySelectorAll('input[name="topic"]').forEach(function(r){
+    r.addEventListener('change',function(){
+      document.getElementById('memoField').style.display=(r.value==='기타'&&r.checked)?'block':'none';
+    });
+  });
   window.openInquiry=openInquiry;window.closeInquiry=closeInquiry;window.submitInquiry=submitInquiry;
 </script>
 </body>
