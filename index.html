@@ -102,11 +102,13 @@
   .lead span{display:block;text-wrap:balance}
   .hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-  /* 히어로 무대: 손님 태블릿 + 사장님 폰을 겹쳐 놓는다 */
-  .stage{position:relative;max-width:960px;height:500px;margin:88px auto 0;border-radius:40px;overflow:hidden;
+  /* 히어로 무대: 가운데 손님 태블릿 메인 화면을 깔고, 그 위에 스탬프 팝업(왼쪽)과 사장님 폰(오른쪽)을 겹친다.
+     팝업·폰은 태블릿의 흰 여백까지만 덮고 로고·상호명·키패드·버튼은 가리지 않게 자리를 잡았다. */
+  .stage{position:relative;max-width:960px;height:560px;margin:88px auto 0;border-radius:40px;overflow:hidden;
     background:linear-gradient(180deg,#eaf3ff 0%,var(--g50) 100%)}
-  .stage .s-tablet{position:absolute;left:calc(50% - 330px);top:76px;width:400px;transform:rotate(-2deg)}
-  .stage .s-phone{position:absolute;left:calc(50% + 40px);top:120px;transform:rotate(4deg)}
+  .stage .s-main{position:absolute;left:calc(50% - 244px);top:84px;width:560px}
+  .stage .s-tablet{position:absolute;left:calc(50% - 458px);top:200px;width:336px;transform:rotate(-2deg);z-index:2}
+  .stage .s-phone{position:absolute;left:calc(50% + 216px);top:164px;transform:rotate(4deg);z-index:2}
   /* reveal이 transform을 쓰므로, 기울임은 안쪽 요소에 따로 둔다 */
   .stage .s-tablet.reveal.in{transform:rotate(-2deg)}
   .stage .s-phone.reveal.in{transform:rotate(4deg)}
@@ -179,6 +181,48 @@
   .demo-hint .dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:ping 1.6s infinite}
   @keyframes ping{0%{box-shadow:0 0 0 0 rgba(240,68,82,.5)}70%,100%{box-shadow:0 0 0 8px rgba(240,68,82,0)}}
 
+  /* 손님 태블릿 메인 화면(번호 입력): pojjak-tablet의 main_page.dart를 실제 화면(1280x800)
+     크기 그대로 옮겼다. 앱의 SizeUtil이 모든 치수에 0.73을 곱하므로 여기 숫자도 원본×0.73이다
+     (예: 카드 좌 610·우 630 → 445·460, 높이 760 → 555, 키 105 → 76.65).
+     글꼴만 앱의 잘난체 대신 홈페이지 글꼴을 쓴다 - 스탬프 팝업 목업과 같은 방식.
+     앱 메인 화면을 고치면 여기도 같이 맞춘다. */
+  .m-pad{background:var(--g900);border-radius:30px;padding:14px;box-shadow:0 30px 70px rgba(0,29,58,.18);
+    cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+  .m-pad .fit{aspect-ratio:1280/800;border-radius:16px;background:#fff}
+  .tm{width:1280px;height:800px;background:#fff;display:flex;align-items:center;justify-content:center;
+    color:#000;font-weight:700;line-height:1.2;letter-spacing:0;text-align:center}
+  .tm svg{display:block;fill:currentColor}
+  .tm-card{display:flex;height:555px;border-radius:25px;background:#fff;box-shadow:0 0 14px rgba(0,0,0,.25)}
+  .tm-info{width:445px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:36.5px}
+  .tm-brand{display:flex;align-items:center;gap:5.8px}
+  .tm-brand img{width:64px;height:72px;object-fit:contain;transform:translateY(5.8px)}
+  .tm-brand span{font-size:27.7px;color:#8a8a8a;letter-spacing:2px}
+  .tm-store{margin-top:6.6px;font-size:35px}
+  .tm-agree{display:flex;align-items:center;margin-top:20.4px;padding-left:25.5px}
+  .tm-box{width:17.5px;height:17.5px;margin:5.8px;border:2.2px solid #000;display:grid;place-items:center}
+  .tm-box svg{width:13px;height:13px}
+  .tm-terms{margin-left:8.8px;padding:4.4px 0;font-size:11.7px;color:#8a8a8a}
+  .tm-req{margin-left:14.6px;font-size:10.2px;color:#0059ff}
+  .tm-contact{display:flex;align-items:center;gap:11.7px;margin-top:29.2px;padding-left:25.5px}
+  .tm-contact span{font-size:13.1px;color:#8a8a8a}
+  .tm-contact b{font-size:19px;font-weight:700}
+  .tm-input{width:460px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .tm-pad{padding:11.7px}
+  .tm-num{width:372px;height:51px;display:grid;place-items:center;font-size:29.2px;line-height:1}
+  .tm-keys{display:grid;grid-template-columns:repeat(3,76.65px);column-gap:43.8px;row-gap:11px;justify-content:center;
+    margin-top:11.7px;padding:8.8px 0}
+  .tm-keys span{height:76.65px;display:grid;place-items:center;font-size:26.3px}
+  .tm-keys svg{width:30.7px;height:30.7px}
+  .tm-acts{display:flex;justify-content:center;gap:14.6px;width:100%;margin-top:14.6px;padding:5.8px 16px 5.8px 32.9px}
+  .tm-btn{display:flex;align-items:center;gap:7.3px;padding:16px 11.7px 13px;border-radius:16px;color:#fff;
+    font-size:23.4px;line-height:1;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+  .tm-btn svg{width:26.3px;height:26.3px;transform:translateY(-2.2px)}
+  .tm-btn.tm-stamp{background:#019863}   /* 스탬프 판 칸(.stamp)과 이름이 겹치지 않게 tm- 를 붙인다 */
+  .tm-btn.tm-coupon{background:#fe679c}
+  /* 태블릿을 누르면 초록 "스탬프 적립" 버튼이 눌리고, 팝업에 도장이 찍힌다 */
+  .tm-btn.press{animation:press .3s ease}
+  @keyframes press{40%{scale:.9;filter:brightness(.88)}}
+
   /* 사장님 관리자 화면: pojjak-admin의 실제 대시보드를 Tailwind 색·크기 그대로 옮겼다.
      실제 화면 크기(PC 1024px / 폰 375px)로 그린 뒤 자리에 맞게 통째로 줄인다(아래 fit 스크립트).
      관리자 화면을 고치면 여기도 같이 맞춘다 - Dashboard.js, MetricCard.js, CustomerCard.js(compact). */
@@ -188,7 +232,7 @@
   .b-url{margin-left:10px;font-size:13px;color:var(--g500);background:#fff;border-radius:8px;padding:4px 12px}
   .fit{position:relative;overflow:hidden}
   .fit.narrow{display:none}
-  .fit>.adm{position:absolute;left:0;top:0;transform-origin:0 0}
+  .fit>.adm,.fit>.tm{position:absolute;left:0;top:0;transform-origin:0 0}
   .adm{background:#f3f4f6;color:#111827;font-size:16px;line-height:1.5;letter-spacing:0;text-align:left;word-break:keep-all}
   .adm svg{display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .adm-h{display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e5e7eb;
@@ -370,7 +414,7 @@
     .reveal{opacity:1;transform:none;transition:none}
     .stage .s-tablet.reveal{transform:rotate(-2deg)}
     .stage .s-phone.reveal{transform:rotate(4deg)}
-    .stamp img.new,.m-tablet.thud,.demo-hint .dot{animation:none}
+    .stamp img.new,.m-tablet.thud,.demo-hint .dot,.tm-btn.press{animation:none}
   }
 
   /* ===== 반응형 ===== */
@@ -379,8 +423,13 @@
     .why{grid-template-columns:1fr 1fr}
     .showcase{grid-template-columns:1fr;gap:56px}
     .split{grid-template-columns:1fr;gap:48px}
+  }
+  /* 히어로 무대는 세 화면을 옆으로 겹치느라 폭 960이 거의 다 필요하다.
+     그보다 좁으면 폰은 빼고, 태블릿 메인 화면 아래쪽 여백에 팝업을 살짝 걸쳐 세로로 쌓는다. */
+  @media(max-width:1000px){
     .stage{height:auto;padding:48px 24px}
-    .stage .s-tablet{position:static;width:auto;max-width:400px;margin:0 auto;transform:none}
+    .stage .s-main{position:static;width:auto;max-width:520px;margin:0 auto}
+    .stage .s-tablet{position:relative;left:auto;top:auto;width:auto;max-width:400px;margin:-28px auto 0;transform:none}
     .stage .s-tablet.reveal.in{transform:none}
     .stage .s-phone{display:none}
     .demo-hint{position:static;margin:0 auto 20px}
@@ -396,6 +445,8 @@
     .hero-actions{flex-direction:column}
     .hero-actions .btn{width:100%}
     .stage{margin-top:56px;padding:32px 16px;border-radius:28px}
+    .m-pad{padding:9px;border-radius:20px}
+    .m-pad .fit{border-radius:11px}
     .m-tablet{padding:24px 18px 20px;border-radius:24px}
     .card,.step{padding:28px 24px 30px;border-radius:24px}
     .ico{margin-bottom:22px}
@@ -467,6 +518,41 @@
   <div class="wrap">
     <div class="stage">
       <div class="demo-hint reveal" style="--d:.4s"><span class="dot"></span>태블릿을 눌러 도장을 찍어보세요</div>
+      <!-- 손님 태블릿 메인 화면. 아래 팝업과 같은 동작(도장 찍기)이라 화면 읽기 프로그램에는 팝업 쪽만 알린다 -->
+      <div class="s-main reveal">
+        <div class="m-pad" id="mainDemo" aria-hidden="true">
+          <div class="fit" data-scale="1280">
+            <div class="tm">
+              <div class="tm-card">
+                <div class="tm-info">
+                  <div class="tm-brand"><img src="pojjak-of-main-page.png" alt=""><span>스탬프 적립</span></div>
+                  <div class="tm-store">우리동네 카페</div>
+                  <div class="tm-agree">
+                    <span class="tm-box"><svg viewBox="0 0 24 24"><path d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"/></svg></span>
+                    <span class="tm-terms">개인정보 이용약관 확인 ▼</span><span class="tm-req">필수</span>
+                  </div>
+                  <div class="tm-contact"><span>이용문의</span><b>☎️ 1800 - 6235</b></div>
+                </div>
+                <div class="tm-input">
+                  <div class="tm-pad">
+                    <div class="tm-num">010-1234-5678</div>
+                    <div class="tm-keys">
+                      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                      <span><svg viewBox="0 0 24 24"><path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2v2a8 8 0 1 0 4.5 1.385V8h-2V2h6v2H18a9.99 9.99 0 0 1 4 8"/></svg></span>
+                      <span>0</span>
+                      <span><svg viewBox="0 0 24 24"><path d="M19 15.59L17.59 17L14 13.41L10.41 17L9 15.59L12.59 12L9 8.41L10.41 7L14 10.59L17.59 7L19 8.41L15.41 12zM22 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7c-.69 0-1.23-.36-1.59-.89L0 12l5.41-8.12C5.77 3.35 6.31 3 7 3zm0 2H7l-4.72 7L7 19h15z"/></svg></span>
+                    </div>
+                  </div>
+                  <div class="tm-acts">
+                    <span class="tm-btn tm-stamp" data-stamp-btn><svg viewBox="-2 -2 24 24"><path d="M18 18v-2H2v2zM7 14V9a5 5 0 1 1 6 0v5h5a2 2 0 0 1 2 2v4H0v-4a2 2 0 0 1 2-2zm4 0V8.001l.799-.6a3 3 0 1 0-3.598 0l.799.6V14z"/></svg>스탬프 적립</span>
+                    <span class="tm-btn tm-coupon"><svg viewBox="0 0 56 56"><path fill-rule="evenodd" stroke="currentColor" stroke-width="1.5" d="m49.336 12.768l1.152 4.298a3.2 3.2 0 0 1-.967 3.22l-.155.13a5.001 5.001 0 0 0 2.218 8.87l.216.033a3.08 3.08 0 0 1 2.575 2.255l1.173 4.376a4 4 0 0 1-2.828 4.9L12.15 51.72a4 4 0 0 1-4.898-2.829l-1.103-4.117a3.49 3.49 0 0 1 .997-3.459l.163-.14a5.001 5.001 0 0 0-2.37-8.813a3.46 3.46 0 0 1-2.791-2.52L1.04 25.709a4 4 0 0 1 2.83-4.899L44.437 9.94a4 4 0 0 1 4.9 2.828m-4.165.607L4.951 24.152c-.555.149-.885.72-.736 1.275l.791 2.953a9.37 9.37 0 0 1 7.2 6.76a9.37 9.37 0 0 1-2.855 9.455l.791 2.953c.15.555.72.885 1.275.736l40.22-10.777c.555-.149.885-.72.736-1.275l-.79-2.952a9.37 9.37 0 0 1-7.2-6.761a9.37 9.37 0 0 1 2.854-9.455l-.791-2.953a1.04 1.04 0 0 0-1.275-.736m-1.283 21.559a3 3 0 1 1-5.796 1.552a3 3 0 0 1 5.796-1.552m-2.07-7.728a3 3 0 1 1-5.796 1.553a3 3 0 0 1 5.795-1.553m-2.071-7.727a3 3 0 1 1-5.796 1.553a3 3 0 0 1 5.796-1.553M29.383 6.347l2.552 3.644q.056.081.107.164L7.627 16.697L23.812 5.364a4 4 0 0 1 5.57.983"/></svg>쿠폰 사용</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="s-tablet reveal" style="--d:.15s">
         <div class="m-tablet demo" data-board="7" id="stampDemo" role="button" tabindex="0" aria-label="눌러서 도장 찍어보기">
           <div class="t-title">스탬프 적립 완료</div>
@@ -579,7 +665,7 @@
     <div class="head center reveal">
       <p class="kicker">효과</p>
       <h2>스탬프의 힘은<br>'재방문'이에요</h2>
-      <p class="desc">새 손님을 찾는 것보다, 온 손님이 다시 오게 하는 게<br>더 큰 매출로 이어져요.</p>
+      <p class="desc">새 손님을 찾는 것보다, 온 손님을 다시 오게 하는 게<br>더 큰 매출로 이어져요.</p>
     </div>
     <div class="cards">
       <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
@@ -793,8 +879,16 @@
   }
   demo.addEventListener('click',()=>{demoTouched=true;stampOnce()});
   demo.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();demoTouched=true;stampOnce()}});
+  // 뒤에 깔린 태블릿 메인 화면을 눌러도 찍힌다. 실제 앱처럼 초록 "스탬프 적립" 버튼이 먼저 눌리고 도장이 찍힌다.
+  const mainDemo=document.getElementById('mainDemo'),stampBtn=mainDemo.querySelector('[data-stamp-btn]');
+  function pressAndStamp(){
+    if(reduceMotion){stampOnce();return}
+    stampBtn.classList.remove('press');void stampBtn.offsetWidth;stampBtn.classList.add('press');
+    setTimeout(stampOnce,120);
+  }
+  mainDemo.addEventListener('click',()=>{demoTouched=true;pressAndStamp()});
   // 처음 보일 때 한 번은 저절로 찍어서, 눌러볼 수 있다는 걸 보여준다
-  new IntersectionObserver(([e],o)=>{if(e.isIntersecting){o.disconnect();setTimeout(()=>{if(!demoTouched)stampOnce()},1200)}},{threshold:.5}).observe(demo);
+  new IntersectionObserver(([e],o)=>{if(e.isIntersecting){o.disconnect();setTimeout(()=>{if(!demoTouched)pressAndStamp()},1200)}},{threshold:.5}).observe(demo);
 
   // 떠 있는 문의 버튼: 히어로의 문의 버튼이 안 보이고, 맨 아래 도입 안내도 안 보일 때만 띄운다
   const floatCta=document.getElementById('floatCta');
@@ -828,10 +922,8 @@
   const admHead='<div class="adm-h"><div class="adm-brand"><img src="pojjak-icon.png" alt=""><div><div class="t">뽀짝 스탬프 적립</div><div class="s">우리동네 카페 관리자</div></div></div>'
     +'<div class="adm-hbtns"><span>'+ico('user')+'마이페이지</span><span>로그아웃</span></div></div>';
   const admSide='<nav class="adm-side"><span class="on">'+ico('chart')+'대시보드</span><span>'+ico('ticket')+'쿠폰 사용 내역</span><span>'+ico('users')+'고객 관리</span><span>'+ico('gear')+'매장 설정</span></nav>';
-  document.querySelectorAll('[data-fit]').forEach(box=>{
-    const width=+box.dataset.fit,desktop=width>=1024;
-    box.innerHTML='<div class="adm'+(desktop?'':' m')+'" style="width:'+width+'px">'
-      +(desktop?admHead+'<div class="adm-wrap">'+admSide+admMain+'</div>':admMain)+'</div>';
+  // 실제 화면 크기(width px)로 그린 첫 자식을 box 폭에 맞게 통째로 줄인다
+  function fitToBox(box,width){
     const canvas=box.firstElementChild;let lastW=0;
     new ResizeObserver(()=>{
       const w=box.clientWidth;
@@ -843,7 +935,15 @@
         if(box.dataset.crop)box.style.height=(+box.dataset.crop*s)+'px';
       });
     }).observe(box);
+  }
+  document.querySelectorAll('[data-fit]').forEach(box=>{
+    const width=+box.dataset.fit,desktop=width>=1024;
+    box.innerHTML='<div class="adm'+(desktop?'':' m')+'" style="width:'+width+'px">'
+      +(desktop?admHead+'<div class="adm-wrap">'+admSide+admMain+'</div>':admMain)+'</div>';
+    fitToBox(box,width);
   });
+  // 태블릿 메인 화면은 마크업에 그대로 들어 있어서 줄이기만 한다
+  document.querySelectorAll('[data-scale]').forEach(box=>fitToBox(box,+box.dataset.scale));
 
   // 간편문의
   const modal=document.getElementById('inquiryModal');

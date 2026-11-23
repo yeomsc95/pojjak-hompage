@@ -11,6 +11,8 @@ nginx가 `pojjak.kr/main/` 경로로 이 폴더(`C:/coupon/homepage`)를 직접 
 - `privacy.html` : 개인정보처리방침 (`pojjak-admin/front/public/privacy.html`과 같은 내용 - 고칠 때 둘 다)
 - `pojjak-icon.png` : 로고
 - `pojjak-stamp.png` : 손님 화면 목업의 빨간 뽀짝 도장. `pojjak-tablet/app/assets/images/`의 같은 파일을 복사한 것
+- `pojjak-of-main-page.png` : 히어로의 태블릿 메인 화면 목업 왼쪽 위 티켓 로고. 위와 같은 폴더의 같은 파일을 복사한 것
+  (메인 화면 목업은 `pojjak-tablet` **main 브랜치**의 `main_page.dart` 기준. 매장 브랜치는 도장 이미지 등이 다를 수 있음)
 
 ## 작업 흐름
 
