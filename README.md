@@ -7,9 +7,15 @@
 nginx가 `pojjak.kr/main/` 경로로 이 폴더(`C:/coupon/homepage`)를 직접 정적 서빙한다.
 빌드 과정 없이 파일 저장 = 즉시 반영.
 
-- `index.html` : 소개 페이지 본문 (인라인 CSS/JS)
-- `privacy.html` : 개인정보처리방침
+- `index.html` : 소개 페이지 본문 (인라인 CSS/JS). 글꼴은 Pretendard를 jsDelivr CDN에서 받는다.
+- `privacy.html` : 개인정보처리방침 (`pojjak-admin/front/public/privacy.html`과 같은 내용 - 고칠 때 둘 다)
 - `pojjak-icon.png` : 로고
+- `pojjak-stamp.png` : 손님 화면 목업의 빨간 뽀짝 도장. `pojjak-tablet/app/assets/images/`의 같은 파일을 복사한 것
+
+## 작업 흐름
+
+이 폴더에서 바로 고치면 수정 중인 상태가 그대로 손님에게 보인다. 다른 PC에서 고치고
+커밋·푸시한 뒤, 서버(`C:/coupon/homepage`)에서는 `git pull`만 한다.
 
 ## 관련 저장소
 
