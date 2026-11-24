@@ -1188,14 +1188,15 @@
       const hit=tiers.find(([p])=>p===n);
       if(hit){
         // 앱처럼 보상 칸 도장은 판 대신 바로 쿠폰 발급 창만 뜬다. 잠깐 보여주고 닫으면 판에 그 도장까지 찍혀 있다.
-        // 마지막 칸(10개)이면 앱에서 판이 0개로 새로 시작하므로, 창이 닫히면 빈 판으로 돌아간다
-        // (10개가 다 찍힌 판 + 발급 문구는 실제 앱에서 볼 일이 없는 화면이라 보여주지 않는다)
+        // 마지막 칸(10개)의 쿠폰 창은 닫지 않고 띄운 채로 끝낸다 - 빈 판으로 끝나면 김이 빠져서, 하이라이트에서 멈춘다.
+        // (뒤의 판은 앱처럼 0개로 새로 시작한 상태로 갱신해 둔다. 판이나 탭을 누르면 처음부터 다시)
         const last=n===GOAL;
         paintBoard(exBoard,last?0:n,false,tiers);   // 창 뒤에서 미리 갱신
         showIssue(exBoard,hit[1],n);
+        if(last)return;
         await exWait(1900);if(run!==exRun)return;
         hideIssue(exBoard);
-        await exWait(last?0:300);
+        await exWait(300);
       }else{
         paintBoard(exBoard,n,true,tiers);
         exBoard.classList.remove('thud');void exBoard.offsetWidth;exBoard.classList.add('thud');
