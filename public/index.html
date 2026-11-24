@@ -72,14 +72,9 @@
   .nav{display:flex;align-items:center;justify-content:space-between;height:60px}
   .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:19px;letter-spacing:-.03em}
   .brand>img{width:30px;height:30px;object-fit:contain}
-  /* "뽀짝" 옆에 작은 회색 "스탬프 적립"(처음 홈페이지 디자인). 토스풍 개편 때 빠졌다가 되살림 -
-     로고 그림에도 "뽀짝"이 적혀 있어서 글자가 "뽀짝"뿐이면 "뽀짝 뽀짝"으로 읽혔다.
-     "뽀짝" 글자는 앱·홍보 이미지와 같은 잘난체(Jalnan2)를 로고 청록(#21c4c1)으로 그린 그림이다.
-     글꼴 파일이 3.7MB라 웹에서 받지 않고, 두 글자만 미리 그려 둔 것(pojjak-wordmark@2x/@3x.png) */
-  .brand-name{display:flex;align-items:baseline;gap:7px}
-  .brand-name .wordmark{height:21px;width:auto}
-  .brand-name em{font-style:normal;font-weight:600;font-size:13px;color:var(--g500);letter-spacing:0}
-  @media(max-width:340px){.brand-name em{display:none}}
+  /* 로고 그림에 이미 "뽀짝"이 적혀 있어서 글자로는 "스탬프 적립"만 둔다 - 태블릿 앱 메인 화면 왼쪽 위와 같은 구성.
+     ("뽀짝" 글자를 같이 두면 "뽀짝 뽀짝"으로 읽혀서 뺐다. 2026-11-24) 화면 읽기용 이름은 로고 alt="뽀짝" */
+  .brand-name{font-size:17px;font-weight:700;color:var(--g700);letter-spacing:-.02em}
   .menu{display:flex;gap:2px}
   .menu a{padding:8px 12px;border-radius:10px;font-size:15px;font-weight:500;color:var(--g600);transition:.15s}
   .menu a:hover{background:var(--g100);color:var(--g900)}
@@ -633,7 +628,7 @@
 <!-- 헤더 -->
 <header id="top">
   <div class="wrap nav">
-    <a class="brand" href="#top"><img src="pojjak-icon.png" alt=""><span class="brand-name"><img class="wordmark" src="pojjak-wordmark@2x.png" srcset="pojjak-wordmark@2x.png 2x, pojjak-wordmark@3x.png 3x" alt="뽀짝"><em>스탬프 적립</em></span></a>
+    <a class="brand" href="#top"><img src="pojjak-icon.png" alt="뽀짝"><span class="brand-name">스탬프 적립</span></a>
     <nav class="menu" id="menu">
       <a href="#service">서비스</a>
       <a href="#screens">화면 예시</a>
@@ -1005,7 +1000,7 @@
   <div class="wrap">
     <div class="foot">
       <div>
-        <a class="brand" href="#top"><img src="pojjak-icon.png" alt=""><span class="brand-name"><img class="wordmark" src="pojjak-wordmark@2x.png" srcset="pojjak-wordmark@2x.png 2x, pojjak-wordmark@3x.png 3x" alt="뽀짝"><em>스탬프 적립</em></span></a>
+        <a class="brand" href="#top"><img src="pojjak-icon.png" alt="뽀짝"><span class="brand-name">스탬프 적립</span></a>
         <p class="about">매장을 위한 스탬프 적립·쿠폰 서비스</p>
       </div>
       <div class="fcols">
