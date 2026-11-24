@@ -478,7 +478,9 @@
   .story .heart{width:56px;height:56px;margin:0 auto 24px;border-radius:50%;background:#ffeef0;color:var(--red);display:grid;place-items:center}
   .story .heart svg{width:26px;height:26px}
   .story-body{margin-top:40px}
-  .story-body p{font-size:clamp(17px,2vw,19px);color:var(--g700);line-height:1.85;margin-bottom:20px}
+  .story-body p{font-size:clamp(17px,2vw,19px);color:var(--g700);line-height:1.85;margin-bottom:20px;text-wrap:balance}  /* 가운데 정렬 문단은 줄 길이를 고르게 */
+  /* 설명 글이 마지막 줄에 한 단어만 남지 않게 (예: "수 있도록요.") */
+  .card p,.step p,.why p,.feat p{text-wrap:pretty}
   .story-body p:last-child{margin-bottom:0}
   .story-body p b{color:var(--g900);font-weight:700}
 
@@ -593,8 +595,9 @@
   }
   @media(max-width:600px){
     .wrap{padding:0 20px}
-    section.block{padding:96px 0}
-    .head{margin-bottom:44px}
+    /* 폰은 세로로 길게 내려가므로 섹션 위아래 빈 곳을 줄여 내용이 끊기지 않게 (96 → 72px) */
+    section.block{padding:72px 0}
+    .head{margin-bottom:36px}
     .kicker{font-size:15px;margin-bottom:10px}
     .hero{padding-top:56px}
     .hero h1{font-size:36px}
@@ -615,7 +618,10 @@
     .bubble{font-size:16px;padding:14px 18px}
     .bridge{margin-top:64px}
     .feat-stage{height:auto;padding:36px 20px;border-radius:24px}
-    .why{grid-template-columns:1fr}
+    /* 특징 6개: 같은 크기 상자 6개가 줄줄이 쌓이면 눈 둘 곳이 없어서, 흰 상자 하나에 구분선 목록으로 묶는다 */
+    .why{grid-template-columns:1fr;gap:0;background:#fff;border-radius:24px;overflow:hidden}
+    .why .item{border-radius:0;padding:22px 22px 24px}
+    .why .item+.item{border-top:1px solid var(--g100)}
     .checks li{font-size:17px}
     .phone-stage{border-radius:28px}
     .cta{padding:56px 24px;border-radius:28px}
