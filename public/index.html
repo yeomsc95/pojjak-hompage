@@ -170,7 +170,15 @@
   .bubble .nb{display:inline-block}  /* 폰에서 쉼표 뒤에서 줄바꿈 */
   .msg.l .bubble{background:var(--g100);color:var(--g800);border-top-left-radius:8px}
   .msg.r .bubble{background:var(--blue);color:#fff;border-top-right-radius:8px}
-  .bridge{text-align:center;margin-top:88px;font-size:clamp(24px,3.4vw,36px);font-weight:700;line-height:1.4;letter-spacing:-.045em}
+  /* 대화 끝에서 점선을 내려 뽀짝 로고와 마무리 문장으로 잇는다. 빈 칸만 두고 띄웠더니
+     대화와 상관없는 문장처럼 따로 보였다(2026-11-24). 점선은 "이용 방법" 단계 점선과 같은 모양 */
+  .bridge-wrap{display:flex;flex-direction:column;align-items:center;margin-top:28px}
+  .bridge-wrap::before{content:"";width:2px;height:64px;background:repeating-linear-gradient(180deg,#a9cbfb 0 6px,transparent 6px 12px)}
+  .bridge-ico{display:grid;place-items:center;width:72px;height:72px;margin-top:14px;border-radius:50%;background:#fff;
+    box-shadow:0 0 0 8px var(--blue-soft),0 14px 36px rgba(0,29,58,.12)}
+  .bridge-ico img{width:44px;height:auto}
+  .bridge{text-align:center;margin-top:28px;font-size:clamp(24px,3.4vw,36px);font-weight:700;line-height:1.4;letter-spacing:-.045em}
+  .bridge span{color:var(--g500);font-weight:600}  /* 앞줄은 흐리게, 해결 문장에 눈이 가게 */
   .bridge b{color:var(--blue);font-weight:700}
 
   /* ===== 화면 예시: 히어로에 없는 태블릿 화면들(쿠폰 발급·쿠폰 조회·네이버 리뷰 QR) =====
@@ -512,6 +520,13 @@
     background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/13px no-repeat}
   .phone-stage{display:flex;justify-content:center;padding:48px 0;border-radius:40px;background:linear-gradient(180deg,#eaf3ff 0%,var(--g50) 100%)}
   .phone-stage .m-phone{width:280px}
+  /* 폰 화면 속 "총 31회 · 평균 3일마다"는 너무 작아서, 같은 숫자를 폰 아래에 크게 꺼내 보여준다(앱 화면이 아니라 설명용 표시) */
+  .phone-stage{position:relative}
+  .reg-chip{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;
+    background:#fff;border-radius:999px;padding:9px 18px 9px 9px;font-size:15px;font-weight:600;color:var(--g700);
+    box-shadow:0 12px 32px rgba(0,29,58,.16)}
+  .reg-chip b{color:var(--blue);font-weight:700}
+  .reg-chip .tag{background:var(--blue);color:#fff;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
 
   /* "왜 뽀짝일까요"(특징 6개)는 지웠다 - 6개 중 4개가 다른 섹션과 겹쳤다(2026-11-24).
      겹치지 않던 "방문 설치·세팅", "안전한 데이터 보관"은 요금 카드 목록으로 옮겼다 */
@@ -685,7 +700,11 @@
     .card p,.step p{font-size:16px}
     .step .num{width:44px;height:44px;font-size:18px;margin-bottom:20px}
     .bubble{font-size:16px;padding:14px 18px}
-    .bridge{margin-top:64px}
+    .bridge-wrap{margin-top:20px}
+    .bridge-wrap::before{height:48px}
+    .bridge-ico{width:64px;height:64px}
+    .bridge-ico img{width:38px}
+    .bridge{margin-top:24px}
     .feat{border-radius:24px}
     .feat-stage{height:auto;padding:36px 20px}
     .feat-txt{padding:20px 22px 24px}
@@ -823,7 +842,10 @@
       <div class="msg l reveal" style="--d:.16s"><span class="who">손님</span><div class="bubble">도장 종이가 여러 장인데 하나로 합쳐 주세요!</div></div>
       <div class="msg r reveal" style="--d:.24s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">메뉴 바뀔 때마다 종이 새로 뽑고,</span> <span class="nb">인쇄비도 은근히 계속 나가네…</span></div></div>
     </div>
-    <p class="bridge reveal">이 모든 번거로움,<br><b>뽀짝</b>은 전화번호 하나로 해결해요</p>
+    <div class="bridge-wrap reveal">
+      <div class="bridge-ico"><img src="pojjak-icon.png" alt=""></div>
+      <p class="bridge"><span>이 모든 번거로움,</span><br><b>뽀짝</b>은 전화번호 하나로 해결해요</p>
+    </div>
   </div>
 </section>
 
@@ -1018,12 +1040,16 @@
   <div class="wrap split">
     <div class="reveal">
       <p class="kicker">사장님 휴대폰</p>
-      <h2>적립도 쿠폰도 태블릿에서,<br>관리는 <span class="hl">사장님 폰</span>으로</h2>
-      <p class="desc">손님은 계산대 태블릿에서 도장도 모으고 쿠폰도 써요. 사장님은 휴대폰으로 매장 현황을 보고,
-        태블릿을 잠시 못 쓸 때는 손님 번호로 적립과 쿠폰 사용을 대신 처리할 수 있어요.</p>
+      <!-- 단골 확인을 이 섹션의 중심으로 둔다: 종이 도장으로는 절대 알 수 없고, 도입해 봐야 아는 기능이라(사장님 의견 2026-11-24).
+           근거: 관리자 고객 화면의 "총 N회 · 평균 N일마다", "방문 많은 순" 정렬(pojjak-admin CustomerCard.js, Customer.js).
+           태블릿이 메인이라는 건 설명 둘째 문장에서 말한다 - 폰에서만 쓰는 서비스처럼 보이지 않게 -->
+      <h2>종이로는 몰랐던 <span class="hl">단골</span>,<br>이제 폰으로 보여요</h2>
+      <p class="desc">손님마다 몇 번 왔는지, 며칠마다 오는지 사장님 휴대폰에서 바로 확인해요.
+        적립과 쿠폰 사용은 계산대 태블릿에서 하고, 태블릿을 잠시 못 쓸 때는 폰으로 대신 처리할 수 있어요.</p>
       <ul class="checks">
-        <li>실시간 방문 현황 확인</li>
-        <li>적립 규칙·매장 설정 변경</li>
+        <li>손님별 방문 횟수·방문 주기</li>
+        <li>방문 많은 순으로 단골 한눈에</li>
+        <li>실시간 방문 현황·매장 설정</li>
         <li>필요할 땐 폰으로 적립·쿠폰 처리</li>
       </ul>
     </div>
@@ -1031,6 +1057,7 @@
       <div class="m-phone">
         <div class="scr"><div class="fit" data-fit="375" data-screen="customers"></div></div>
       </div>
+      <div class="reg-chip" aria-hidden="true"><span class="tag">단골</span><span><b>총 31회</b> 방문 · 평균 <b>3일</b>마다</span></div>
     </div>
   </div>
 </section>
@@ -1354,10 +1381,11 @@
     +'<div class="cu-bar"><i style="width:'+stamps*10+'%"></i></div><div class="next">'+(10-stamps)+'개 더 모으면 '+REWARD+'!</div></div></div>';
   const admCustomers='<div class="adm-main">'
     +'<div class="cu-box"><h3>'+ico('userPlus')+'스탬프 적립</h3><div class="cu-form"><div class="cu-input">고객 휴대폰 번호 (예: 01012345678)</div><div class="cu-submit">적립</div></div></div>'
-    +'<div class="cu-sort"><span class="on">최근 방문순</span><span>방문 많은 순</span></div>'
+    // 옆 글이 "단골 확인"이라 "방문 많은 순"을 켜 둔 상태로 보여준다
+    +'<div class="cu-sort"><span>최근 방문순</span><span class="on">방문 많은 순</span></div>'
     +'<div><h4 class="cu-title">고객 관리</h4><div class="cu-search"><div class="cu-input">'+ico('search')+'전화번호 검색 (끝자리 4자리)</div><span class="cu-refresh">'+ico('refresh')+'</span></div>'
     +'<div class="cu-box cu-count"><h3>등록된 고객 (486명)</h3></div></div>'
-    +'<div class="cu-box cu-list">'+custCard('010-***8-5759',1,'14:32',13,5,3)+custCard('010-***1-0384',0,'14:26',7,4,7)+'</div>'
+    +'<div class="cu-box cu-list">'+custCard('010-***8-5759',1,'14:32',31,3,1)+custCard('010-***1-0384',0,'11:05',24,4,4)+'</div>'
     +'</div>';
   const admScreens={dashboard:admMain,customers:admCustomers};
   // 실제 화면 크기(width px)로 그린 첫 자식을 box 폭에 맞게 통째로 줄인다.
