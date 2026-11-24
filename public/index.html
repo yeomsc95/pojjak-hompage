@@ -434,6 +434,15 @@
   .why h3{font-size:19px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
   .why p{font-size:16px;color:var(--g600);line-height:1.6}
 
+  /* 카드 공통: 아이콘(번호·체크)을 제목 옆에 붙인다. 아이콘이 제목 위 한 줄을 따로 차지하면
+     폰에서 카드가 세로로 길게 늘어져서(2026-11-24). 설명은 아래 두 칸을 다 쓴다. */
+  .card,.step,.why .item{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;align-content:start}
+  .card>.ico{width:44px;height:44px;border-radius:14px;margin-bottom:0}
+  .card>.ico svg{width:22px;height:22px}
+  .step .num,.why .chk{margin-bottom:0}
+  .card h3,.step h3,.why h3{margin-bottom:0}
+  .card p,.step p,.why p{grid-column:1/-1;margin-top:12px}
+
   /* ===== 스토리 ===== */
   .story{max-width:680px;margin:0 auto;text-align:center}
   .story .heart{width:56px;height:56px;margin:0 auto 24px;border-radius:50%;background:#ffeef0;color:var(--red);display:grid;place-items:center}
