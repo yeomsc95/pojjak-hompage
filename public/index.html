@@ -224,6 +224,9 @@
   .t-notice{text-align:center;font-size:14px;font-weight:600;color:var(--g800);line-height:1.5;min-height:21px;text-wrap:balance}
   .t-notice em{font-style:normal;color:#019863}
   .t-notice.done{color:#019863}
+  /* 안내 문구는 늘 두 줄("→ N회 더 방문하시면" / "OO 쿠폰을 드립니다!")로 고정한다.
+     한 줄에 딱 걸치는 폭이라 숫자(9와 7의 글자 폭 차이)나 "10회"에 따라 한 줄↔두 줄로 바뀌며 판이 들썩였다 */
+  .t-notice .n1,.t-notice .n2{display:block}
   /* 보상 2단계 이상일 때 요약 줄: 앱처럼 지난 단계는 흐리게+취소선 */
   .t-tiers{text-align:center;font-size:13px;font-weight:600;color:#8a8a8a;margin-top:6px;line-height:1.5;text-wrap:balance}
   .t-tiers:empty{display:none}
@@ -244,6 +247,8 @@
   .m-tablet{position:relative;transition:background-color .2s,box-shadow .2s,border-color .2s}
   .m-tablet>*{transition:opacity .15s}
   .m-tablet.issuing{background-color:transparent;box-shadow:none;border-color:transparent}
+  /* 판 → 쿠폰 카드는 바로 바뀌어야 한다(서서히 사라지면 "판이 보였다가 알림이 뜨는" 것처럼 보였다). 닫을 때만 서서히 */
+  .m-tablet.issuing,.m-tablet.issuing>*{transition:none}
   .m-tablet.issuing>:not(.issue){opacity:0}
   .issue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     padding:16px;opacity:0;transition:opacity .2s ease;pointer-events:none}
@@ -1123,7 +1128,7 @@
     const issuedTitle=hit&&(issued||!next)?hit[1]:null,notice=board.querySelector('[data-notice]');
     notice.classList.toggle('done',!!issuedTitle);
     notice.innerHTML=issuedTitle?issuedTitle+' 쿠폰이 발급되었습니다!'
-      :next?'→ '+(next[0]-count)+'회 더 방문하시면 <em>'+next[1]+'</em> 쿠폰을 드립니다!':'';
+      :next?'<span class="n1">→ '+(next[0]-count)+'회 더 방문하시면</span> <span class="n2"><em>'+next[1]+'</em> 쿠폰을 드립니다!</span>':'';
     const sum=board.querySelector('[data-tiers]');
     if(sum)sum.innerHTML=tiers.length<2?'':tiers.map(([p,t])=>p<=count?'<s>'+p+'개 '+t+'</s>':'<span>'+p+'개 '+t+'</span>').join('<i> · </i>');
   }
