@@ -234,6 +234,17 @@
   .ex-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
   .ex-board{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 
+  /* 쿠폰 발급 창: 쿠폰이 나오는 도장에서 스탬프 판을 덮는다(앱의 coupon_issue_popup.dart와 같은 문구) */
+  .m-tablet{position:relative}
+  .issue{position:absolute;inset:0;border-radius:inherit;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:24px;opacity:0;transform:scale(.94);transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
+  .issue.show{opacity:1;transform:none}
+  .issue-title{font-size:20px;font-weight:700;letter-spacing:-.03em}
+  .issue-sub{font-size:14px;color:var(--g600);margin-top:4px}
+  .issue-body{font-size:16px;font-weight:600;color:var(--g800);line-height:1.6;margin:18px 0 22px;text-wrap:balance}
+  .issue-body em{font-style:normal;color:#019863}
+  .issue-btn{display:inline-block;background:#191919;color:#fff;font-size:14px;font-weight:700;padding:10px 26px;border-radius:10px}
+
   /* 첫 화면 태블릿: 누르면 도장이 쾅 찍힌다 */
   .m-tablet.demo{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
   .m-tablet.demo:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
@@ -1126,10 +1137,24 @@
   // (실제로도 쿠폰을 받은 다음 방문이 새 판의 1번째 도장이다).
   const demo=document.getElementById('stampDemo');
   let demoCount=+demo.dataset.board,demoTouched=false;
+  // 쿠폰이 나오는 도장이면 실제 앱처럼 스탬프 판 대신 "쿠폰 발급" 창(coupon_issue_popup.dart)을 띄운다.
+  // 도장이 찍히는 걸 먼저 보여준 뒤 잠깐 있다가 바뀐다. 판 안에 덮는 층으로 만든다.
+  function showIssue(board,title,count){
+    let el=board.querySelector('.issue');
+    if(!el){el=document.createElement('div');el.className='issue';board.appendChild(el)}
+    el.innerHTML='<div class="issue-title">쿠폰 발급</div><div class="issue-sub">현재 스탬프 '+count+'/10개</div>'
+      +'<p class="issue-body"><em>'+title+'</em> 쿠폰이 발급되었습니다.<br>축하합니다!</p><span class="issue-btn">확인</span>';
+    void el.offsetWidth;el.classList.add('show');
+  }
+  function hideIssue(board){const el=board.querySelector('.issue');if(el)el.classList.remove('show')}
+
+  let issueTimer=0;
   function stampOnce(){
+    clearTimeout(issueTimer);hideIssue(demo);
     demoCount=demoCount>=GOAL?1:demoCount+1;
     paintBoard(demo,demoCount,true);
     if(!reduceMotion){demo.classList.remove('thud');void demo.offsetWidth;demo.classList.add('thud')}
+    if(demoCount===GOAL)issueTimer=setTimeout(()=>showIssue(demo,REWARD,GOAL),reduceMotion?0:550);
   }
   demo.addEventListener('click',()=>{demoTouched=true;stampOnce()});
   demo.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();demoTouched=true;stampOnce()}});
@@ -1157,15 +1182,23 @@
   async function playEx(key){
     const run=++exRun,tiers=EX[key];exKey=key;
     exTabs.forEach(t=>{const on=t.dataset.ex===key;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)});
+    hideIssue(exBoard);
     if(reduceMotion){paintBoard(exBoard,GOAL,false,tiers);return}
     paintBoard(exBoard,0,false,tiers);
     await exWait(350);
     for(let n=1;n<=GOAL;n++){
       if(run!==exRun)return;
-      const hit=tiers.some(([p])=>p===n);
-      paintBoard(exBoard,n,true,tiers,hit);
+      const hit=tiers.find(([p])=>p===n);
+      paintBoard(exBoard,n,true,tiers,!!hit);
       exBoard.classList.remove('thud');void exBoard.offsetWidth;exBoard.classList.add('thud');
-      await exWait(hit?1200:260);
+      if(hit){
+        // 도장 찍히는 걸 보여준 뒤 쿠폰 발급 창 → 잠깐 보여주고 닫고 이어서 찍는다
+        await exWait(550);if(run!==exRun)return;
+        showIssue(exBoard,hit[1],n);
+        await exWait(1700);if(run!==exRun)return;
+        hideIssue(exBoard);
+        await exWait(350);
+      }else await exWait(260);
     }
   }
   exTabs.forEach(t=>t.addEventListener('click',()=>playEx(t.dataset.ex)));
