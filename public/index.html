@@ -543,6 +543,23 @@
   .btn-glass{background:rgba(255,255,255,.16);color:#fff}
   .btn-glass:hover{background:rgba(255,255,255,.24)}
 
+  /* ===== 요금 ===== */
+  /* 광고로 들어온 사장님이 제일 먼저 찾는 게 가격이라 숨기지 않고 보여준다(2026-11-24).
+     요금: 월 3만 원, 태블릿 비용·설치비는 따로 안 받음. 약정·부가세는 정해지지 않아 적지 않았다 - 정해지면 .pc-note로 추가 */
+  .hero-note{display:inline-block;margin-top:20px;font-size:15px;font-weight:600;color:var(--g500);transition:color .15s}
+  .hero-note:hover{color:var(--blue)}
+  .price-card{max-width:520px;margin:0 auto;background:#fff;border-radius:32px;padding:44px 40px 40px;
+    box-shadow:0 20px 60px rgba(0,29,58,.06)}
+  .pc-name{font-size:17px;font-weight:600;color:var(--g600)}
+  .pc-price{margin-top:6px;font-size:24px;font-weight:700;color:var(--g900);letter-spacing:-.03em}
+  .pc-price b{font-size:56px;letter-spacing:-.045em;line-height:1.15}
+  .pc-day{margin-top:4px;font-size:16px;font-weight:500;color:var(--g500)}
+  .pc-zero{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+  .pc-zero li{background:var(--blue-soft);border-radius:18px;padding:16px 20px}
+  .pc-zero span{display:block;font-size:15px;font-weight:600;color:var(--g600)}
+  .pc-zero b{display:block;margin-top:2px;font-size:26px;font-weight:700;color:var(--blue);letter-spacing:-.03em}
+  .price-card .checks{margin-top:28px;padding-top:28px;border-top:1px solid var(--g100)}
+
   /* ===== 푸터 ===== */
   footer{background:var(--g50);padding:64px 0 72px}
   .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
@@ -677,6 +694,10 @@
     .cta{padding:56px 24px;border-radius:28px}
     .cta-actions{flex-direction:column}
     .cta-actions .btn{width:100%}
+    .price-card{padding:32px 24px 30px;border-radius:24px}
+    .pc-price b{font-size:46px}
+    .pc-zero li{padding:14px 16px}
+    .pc-zero b{font-size:22px}
     .fcols{gap:40px}
 
     .sheet-overlay{align-items:flex-end;padding:0}
@@ -699,6 +720,7 @@
       <a href="#screens">화면 예시</a>
       <a href="#examples">업종별 예시</a>
       <a href="#effect">효과</a>
+      <a href="#pricing">요금</a>
       <a href="#start">도입 안내</a>
       <a class="menu-login" href="/admin">관리자 로그인</a>
     </nav>
@@ -723,6 +745,7 @@
         <button class="btn btn-primary btn-lg" onclick="openInquiry()">간편 문의하기</button>
         <a class="btn btn-grey btn-lg" href="#how">이용 방법 보기</a>
       </div>
+      <a class="hero-note" href="#pricing">월 3만 원 · 태블릿 비용·설치비 0원 <span aria-hidden="true">›</span></a>
     </div>
   </div>
   <div class="wrap">
@@ -1067,6 +1090,32 @@
   </div>
 </section>
 
+<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 히어로 .hero-note도 같이 고친다 -->
+<section class="block tint" id="pricing">
+  <div class="wrap">
+    <div class="head center reveal">
+      <p class="kicker">요금 안내</p>
+      <h2>요금은<br><span class="hl">월 3만 원</span>이에요</h2>
+      <p class="desc">태블릿 비용도, 설치비도 따로 받지 않아요.</p>
+    </div>
+    <div class="price-card reveal" style="--d:.08s">
+      <p class="pc-name">뽀짝 스탬프 적립</p>
+      <p class="pc-price">월 <b>30,000</b>원</p>
+      <p class="pc-day">하루 1,000원꼴이에요</p>
+      <ul class="pc-zero">
+        <li><span>태블릿 비용</span><b>0원</b></li>
+        <li><span>설치비</span><b>0원</b></li>
+      </ul>
+      <ul class="checks">
+        <li>스탬프 적립과 쿠폰 발급·사용</li>
+        <li>네이버 리뷰 QR</li>
+        <li>사장님 폰·PC로 매장 관리</li>
+        <li>방문 설치와 적립 규칙 세팅</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- 도입 안내 + CTA -->
 <section class="block" id="start">
   <div class="wrap">
@@ -1092,7 +1141,7 @@
       <div class="fcols">
         <div class="fcol"><strong>바로가기</strong>
           <a href="#service">서비스</a><br><a href="#how">이용 방법</a><br><a href="#examples">업종별 예시</a><br>
-          <a href="#start">도입 안내</a><br><a href="/admin">관리자 로그인</a></div>
+          <a href="#pricing">요금</a><br><a href="#start">도입 안내</a><br><a href="/admin">관리자 로그인</a></div>
         <div class="fcol"><strong>문의</strong>
           전화 <a href="tel:18006235">1800-6235</a><br>
           <a href="javascript:openInquiry()">간편 문의</a><br>
