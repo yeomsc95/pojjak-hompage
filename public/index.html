@@ -159,7 +159,8 @@
   .msg.l{align-self:flex-start;align-items:flex-start}
   .msg.r{align-self:flex-end;align-items:flex-end}
   .msg .who{font-size:13px;font-weight:500;color:var(--g500);margin:0 8px 6px}
-  .bubble{padding:16px 20px;border-radius:24px;font-size:18px;font-weight:500;line-height:1.5}
+  .bubble{padding:16px 20px;border-radius:24px;font-size:18px;font-weight:500;line-height:1.5;text-wrap:balance}
+  .bubble .nb{display:inline-block}  /* 폰에서 쉼표 뒤에서 줄바꿈 */
   .msg.l .bubble{background:var(--g100);color:var(--g800);border-top-left-radius:8px}
   .msg.r .bubble{background:var(--blue);color:#fff;border-top-right-radius:8px}
   .bridge{text-align:center;margin-top:88px;font-size:clamp(24px,3.4vw,36px);font-weight:700;line-height:1.4;letter-spacing:-.045em}
@@ -675,10 +676,11 @@
       <p class="desc">작은 가게일수록 더 크게 다가오는 번거로움들이에요.</p>
     </div>
     <div class="chat">
-      <div class="msg l reveal"><span class="who">손님</span><div class="bubble">쿠폰을 잃어버렸는데, 적립 안 될까요?</div></div>
-      <div class="msg r reveal" style="--d:.08s"><span class="who">사장님 속마음</span><div class="bubble">메뉴랑 가격이 바뀌었으니 쿠폰을 또 새로 만들어야겠네…</div></div>
-      <div class="msg l reveal" style="--d:.16s"><span class="who">손님</span><div class="bubble">쿠폰이 여러 장인데 하나로 합쳐 주세요!</div></div>
-      <div class="msg r reveal" style="--d:.24s"><span class="who">사장님 속마음</span><div class="bubble">쿠폰 용지랑 인쇄비, 은근히 계속 나가네…</div></div>
+      <!-- 종이를 잃어버린 손님은 보통 "다시 찍어달라"고 한다. 말하는 쪽도 들어주는 쪽도 불편한 그 순간을 보여준다 -->
+      <div class="msg l reveal"><span class="who">손님</span><div class="bubble"><span class="nb">저… 도장 종이를 잃어버렸는데,</span> <span class="nb">다시 찍어주시면 안 될까요?</span></div></div>
+      <div class="msg r reveal" style="--d:.08s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">몇 개였는지 알 수도 없고…</span> <span class="nb">안 해주자니 미안하고, 해주자니 찜찜하고</span></div></div>
+      <div class="msg l reveal" style="--d:.16s"><span class="who">손님</span><div class="bubble">도장 종이가 여러 장인데 하나로 합쳐 주세요!</div></div>
+      <div class="msg r reveal" style="--d:.24s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">메뉴 바뀔 때마다 종이 새로 뽑고,</span> <span class="nb">인쇄비도 은근히 계속 나가네…</span></div></div>
     </div>
     <p class="bridge reveal">이 모든 번거로움,<br><b>뽀짝</b>은 전화번호 하나로 해결해요</p>
   </div>
