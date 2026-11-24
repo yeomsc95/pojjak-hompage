@@ -152,6 +152,7 @@
   .ico svg{width:26px;height:26px}
   .card h3{font-size:22px;font-weight:700;letter-spacing:-.035em;margin-bottom:10px}
   .card p{font-size:17px;color:var(--g600);line-height:1.6}
+  .card .nb{display:inline-block}  /* 따옴표 안 문구가 줄바꿈으로 갈라지지 않게 */
 
   /* ===== 공감: 말풍선 ===== */
   .chat{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
@@ -795,7 +796,7 @@
         <h3>궁금해서 눌러봐요</h3><p>계산대 위 귀여운 도장판이 눈에 띄어요. 처음 온 손님도 궁금해서 먼저 번호를 눌러봐요.</p></div>
       <!-- 키오스크 적립은 "적립되었습니다"·점수 같은 글자로 끝나는데, 뽀짝은 도장판이 바로 떠서 모인 게 눈에 보인다 -->
       <div class="card reveal" style="--d:.08s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>도장이 바로 보여요</h3><p>번호를 누르면 도장판이 바로 떠요. 몇 개 모였는지, 몇 번 더 오면 되는지 한눈에 보여요.</p></div>
+        <h3>도장도 보상도 바로 보여요</h3><p>번호를 누르면 도장판이 바로 떠요. <span class="nb">"2번 더 오면 아메리카노"처럼</span> 받을 보상까지 한눈에 보여요.</p></div>
       <!-- 키오스크는 적립만 하고 쓰는 법이 어려워 쿠폰을 못 쓰는 경우가 많다 -->
       <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg></div>
         <h3>쓰는 것도 쉬워요</h3><p>모아 놓고 쓰는 법을 몰라 묵히지 않아요. 번호만 누르면 가진 쿠폰이 뜨고, 골라 누르면 끝이에요.</p></div>
