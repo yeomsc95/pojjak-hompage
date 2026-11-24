@@ -236,6 +236,44 @@
   .t-tiers s{color:#b2b2b2}
   .t-tiers i{font-style:normal;color:#ccc}
 
+  /* 다른 점: 그림 먼저 보이는 타일 (위 그림 / 아래 제목·한 줄 설명). 그림 바탕은 로고 색 */
+  .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:920px;margin:0 auto}
+  .tile{background:var(--g50);border-radius:28px;overflow:hidden}
+  .tile-vis{height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+  .tile-vis.red{background:#fff1ee}
+  .tile-vis.blue{background:#eaf3ff}
+  .tile-vis.yellow{background:#fff7dc}
+  .tile-vis.teal{background:#e2f7f6}
+  .tile-txt{padding:24px 28px 28px}
+  .tile h3{font-size:21px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
+  .tile p{font-size:16px;color:var(--g600);line-height:1.6;text-wrap:pretty}
+  .tv-tap{position:relative;width:96px;height:96px}
+  .tv-tap img{width:100%;height:100%;transform:rotate(-8deg)}
+  .tv-tap .ring{position:absolute;inset:-12px;border:2px solid rgba(229,83,63,.35);border-radius:50%;animation:tvRing 2.4s ease-out infinite}
+  .tv-tap .ring.r2{animation-delay:1.2s}
+  @keyframes tvRing{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.4);opacity:0}}
+  .tv-pill{position:absolute;right:-44px;top:-6px;background:#fff;color:#e5533f;font-size:14px;font-weight:800;padding:6px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(229,83,63,.18)}
+  .tv-row{display:flex;gap:8px}
+  .tv-cell{position:relative;width:42px;height:42px;border-radius:50%;background:#e0e0e0;color:#b2b2b2;font-weight:700;font-size:14px;display:grid;place-items:center}
+  .tv-cell img{position:absolute;inset:-4%;width:108%;height:108%}
+  .tv-chip{background:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;color:var(--g800);box-shadow:0 4px 14px rgba(0,29,58,.08)}
+  .tv-chip em{font-style:normal;color:#019863}
+  .tv-coupon{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid #191919;border-radius:14px;padding:12px 20px;min-width:210px;text-align:left}
+  .tv-coupon .ck{width:24px;height:24px;border-radius:50%;background:#191919;color:#fff;display:grid;place-items:center;flex:none}
+  .tv-coupon .ck svg{width:13px;height:13px}
+  .tv-coupon b{display:block;font-size:15px}
+  .tv-coupon small{display:block;font-size:12px;color:#8b95a1}
+  .tv-btn{background:#191919;color:#fff;font-size:13px;font-weight:700;padding:9px 18px;border-radius:10px}
+  .tv-num{display:flex;align-items:center;background:#fff;border-radius:14px;padding:12px 22px;font-size:21px;font-weight:800;letter-spacing:.01em;box-shadow:0 4px 14px rgba(0,29,58,.08)}
+  .tv-num .caret{width:2px;height:22px;background:var(--blue);margin-left:3px;animation:tvBlink 1s steps(1) infinite}
+  @keyframes tvBlink{50%{opacity:0}}
+  .tv-no{display:flex;gap:8px}
+  .tv-no span{display:flex;align-items:center;gap:5px;background:#fff;color:var(--g700);font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px}
+  .tv-no i{font-style:normal;color:#e5533f;font-weight:800}
+  @media(max-width:900px){.tiles{grid-template-columns:1fr;max-width:560px}}
+  @media(max-width:600px){.tile-vis{height:176px}.tile-txt{padding:20px 22px 24px}.tile h3{font-size:20px}}
+  @media(prefers-reduced-motion:reduce){.tv-tap .ring,.tv-num .caret{animation:none}}
+
   /* 업종별 예시 */
   .ex{max-width:420px;margin:0 auto}
   .ex-tabs{display:flex;gap:4px;width:max-content;margin:0 auto 24px;padding:4px;border-radius:14px;background:var(--g100)}
@@ -867,17 +905,37 @@
       <h2>손님이 <span class="hl">먼저 눌러보는</span><br>적립 태블릿</h2>
       <p class="desc">딱딱한 키오스크나 앱을 깔아야 하는 적립과는 달라요.</p>
     </div>
-    <div class="cards two">
-      <div class="card reveal"><div class="ico red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
-        <h3>궁금해서 눌러봐요</h3><p>계산대 위 귀여운 도장판이 눈에 띄어요. 처음 온 손님도 궁금해서 먼저 번호를 눌러봐요.</p></div>
-      <!-- 키오스크 적립은 "적립되었습니다"·점수 같은 글자로 끝나는데, 뽀짝은 도장판이 바로 떠서 모인 게 눈에 보인다 -->
-      <div class="card reveal" style="--d:.08s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>도장도 보상도 바로 보여요</h3><p>번호를 누르면 도장판이 바로 떠요. <span class="nb">"2번 더 오면 아메리카노"처럼</span> 받을 보상까지 한눈에 보여요.</p></div>
+    <!-- 그림이 먼저 눈에 들어오도록: 위에 큰 그림, 아래에 제목 + 한 줄 설명 (2026-11-24, 글 위주 카드가 눈에 안 감겨서) -->
+    <div class="tiles">
+      <div class="tile reveal">
+        <div class="tile-vis red" aria-hidden="true">
+          <div class="tv-tap"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="96px" alt=""><span class="ring"></span><span class="ring r2"></span><span class="tv-pill">톡!</span></div>
+        </div>
+        <div class="tile-txt"><h3>궁금해서 눌러봐요</h3><p>귀여운 도장판이 눈에 띄어서, 처음 온 손님도 먼저 번호를 눌러봐요.</p></div>
+      </div>
+      <!-- 키오스크 적립은 "적립되었습니다"·점수 같은 글자로 끝나는데, 뽀짝은 도장판과 받을 보상이 바로 보인다 -->
+      <div class="tile reveal" style="--d:.08s">
+        <div class="tile-vis blue" aria-hidden="true">
+          <div class="tv-row"><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell">4</span><span class="tv-cell">5</span></div>
+          <div class="tv-chip">→ 2회 더 방문하시면 <em>아메리카노</em> 쿠폰!</div>
+        </div>
+        <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 보여요.</p></div>
+      </div>
       <!-- 키오스크는 적립만 하고 쓰는 법이 어려워 쿠폰을 못 쓰는 경우가 많다 -->
-      <div class="card reveal"><div class="ico yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg></div>
-        <h3>쓰는 것도 쉬워요</h3><p>모아 놓고 쓰는 법을 몰라 묵히지 않아요. 번호만 누르면 가진 쿠폰이 뜨고, 골라 누르면 끝이에요.</p></div>
-      <div class="card reveal" style="--d:.08s"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/><path d="m2 2 20 20"/></svg></div>
-        <h3>앱 다운로드가 필요 없어요</h3><p>손님은 앱 설치도 회원가입도 필요 없어요. 전화번호만 누르면 끝이라 어르신 손님도 쉽게 써요.</p></div>
+      <div class="tile reveal">
+        <div class="tile-vis yellow" aria-hidden="true">
+          <div class="tv-coupon"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>아메리카노</b><small>쿠폰 1장</small></span></div>
+          <span class="tv-btn">선택한 쿠폰 사용하기</span>
+        </div>
+        <div class="tile-txt"><h3>쓰는 것도 쉬워요</h3><p>번호만 누르면 가진 쿠폰이 떠요. 골라서 누르면 끝이에요.</p></div>
+      </div>
+      <div class="tile reveal" style="--d:.08s">
+        <div class="tile-vis teal" aria-hidden="true">
+          <div class="tv-num">010-1234-5678<span class="caret"></span></div>
+          <div class="tv-no"><span><i>✕</i>앱 설치</span><span><i>✕</i>회원가입</span></div>
+        </div>
+        <div class="tile-txt"><h3>앱 다운로드가 필요 없어요</h3><p>번호만 누르면 끝이라 어르신 손님도 쉽게 써요.</p></div>
+      </div>
     </div>
   </div>
 </section>
