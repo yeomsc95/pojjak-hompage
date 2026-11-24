@@ -127,12 +127,11 @@
   /* 메인 화면 카드가 태블릿 화면을 거의 꽉 채워서(960x600 기준) 겹칠 수 있는 폭이 좁다:
      왼쪽은 테두리+약 80px(상호명 앞), 오른쪽은 테두리+약 45px(키패드·버튼 뒤)까지만 덮는다. */
   .stage .s-main{position:absolute;left:calc(50% - 260px);top:84px;width:520px}
-  .stage .s-tablet{position:absolute;left:calc(50% - 468px);top:196px;width:290px;transform:rotate(-2deg);z-index:2}
-  .stage .s-phone{position:absolute;left:calc(50% + 218px);top:150px;transform:rotate(4deg);z-index:2}
+  /* 팝업·폰은 기울이지 않는다 - 조금만 기울여도 브라우저가 그림처럼 돌려 그려서
+     PC 화면에서 글자와 도장이 흐려졌다(2026-11-24). */
+  .stage .s-tablet{position:absolute;left:calc(50% - 468px);top:196px;width:290px;z-index:2}
+  .stage .s-phone{position:absolute;left:calc(50% + 218px);top:150px;z-index:2}
   .stage .s-phone .m-phone{width:220px}
-  /* reveal이 transform을 쓰므로, 기울임은 안쪽 요소에 따로 둔다 */
-  .stage .s-tablet.reveal.in{transform:rotate(-2deg)}
-  .stage .s-phone.reveal.in{transform:rotate(4deg)}
 
   /* ===== 섹션 공통 ===== */
   section.block{padding:144px 0}
@@ -500,8 +499,6 @@
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
-    .stage .s-tablet.reveal{transform:rotate(-2deg)}
-    .stage .s-phone.reveal{transform:rotate(4deg)}
     .stamp img.new,.m-tablet.thud,.demo-hint .dot,.tm-btn.press{animation:none}
   }
 
@@ -519,9 +516,8 @@
   @media(max-width:1000px){
     .stage{height:auto;padding:48px 24px}
     .stage .s-main{position:static;width:auto;max-width:520px;margin:0 auto}
-    .stage .s-tablet{position:relative;left:auto;top:auto;width:auto;max-width:400px;margin:16px auto 0;transform:none}
+    .stage .s-tablet{position:relative;left:auto;top:auto;width:auto;max-width:400px;margin:16px auto 0}
     .stage .m-tablet{border:14px solid var(--g900);border-radius:30px;box-shadow:0 30px 70px rgba(0,29,58,.18)}
-    .stage .s-tablet.reveal.in{transform:none}
     .stage .s-phone{display:none}
     .demo-hint{position:static;margin:0 auto 20px}
   }
