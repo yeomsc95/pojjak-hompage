@@ -4,11 +4,18 @@
 
 ## 서빙
 
-nginx가 `pojjak.kr/` 루트로 이 폴더(`C:/coupon/homepage`)를 직접 정적 서빙한다
+nginx가 `pojjak.kr/` 루트로 **`public/` 폴더만** (`C:/coupon/homepage/public`) 정적 서빙한다
 (예전 주소 `pojjak.kr/main/`은 `/`로 리다이렉트). 빌드 과정 없이 파일 저장 = 즉시 반영.
 없는 경로는 `index.html`로 떨어지므로, 새 파일은 실제로 올라갔는지 크기·내용으로 확인할 것.
 
+**손님에게 보여줄 파일은 전부 `public/` 안에 둔다.** 저장소 루트(`.git`, README 등)는
+인터넷에 나가지 않게 일부러 서빙 폴더 밖에 둔 것이다. 루트에 웹 파일을 두면 안 보인다.
+
+`public/` 안의 파일:
+
 - `index.html` : 소개 페이지 본문 (인라인 CSS/JS). 글꼴은 Pretendard를 jsDelivr CDN에서 받는다.
+- `favicon.ico`, `apple-touch-icon.png` : 탭·홈 화면 아이콘. `pojjak-admin/front/public/`의 같은 파일을 복사한 것
+- `robots.txt` : 검색엔진 수집 허용 + 사이트맵 위치
 - `privacy.html` : 개인정보처리방침 (`pojjak-admin/front/public/privacy.html`과 같은 내용 - 고칠 때 둘 다)
 - `pojjak-icon.png` : 로고
 - `pojjak-stamp.png` : 손님 화면 목업의 빨간 뽀짝 도장. `pojjak-tablet/app/assets/images/`의 같은 파일을 복사한 것
