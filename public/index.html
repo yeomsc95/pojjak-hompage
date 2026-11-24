@@ -246,7 +246,9 @@
      실제 앱과 달라 어색해서, 판(.issuing)은 투명하게 비우고 카드만 남긴다(2026-11-24) */
   .m-tablet{position:relative;transition:background-color .2s,box-shadow .2s,border-color .2s}
   .m-tablet>*{transition:opacity .15s}
-  .m-tablet.issuing{background-color:transparent;box-shadow:none;border-color:transparent}
+  /* 판의 겉모양(둥근 카드·그림자·테두리)은 남기고 안만 연회색으로 비워, 화면 위에 알림이 뜬 것처럼 보이게 한다.
+     겉모양까지 없애면 자리가 갑자기 텅 빈 것처럼 보였다 */
+  .m-tablet.issuing{background-color:var(--g100)}
   /* 판 → 쿠폰 카드는 바로 바뀌어야 한다(서서히 사라지면 "판이 보였다가 알림이 뜨는" 것처럼 보였다). 닫을 때만 서서히 */
   .m-tablet.issuing,.m-tablet.issuing>*{transition:none}
   .m-tablet.issuing>:not(.issue){opacity:0}
