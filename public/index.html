@@ -177,12 +177,17 @@
      pojjak-tablet main 브랜치의 coupon_issue_popup / coupon_list_popup / review_qr_popup 내용과
      popup_style.dart의 색(글자 #1a1a1a, 회색 #767676, 테두리 #e4e4e4, 발급 초록 #019863,
      확인 버튼 검정, 닫기 버튼 연회색)을 따른다. 크기는 스탬프 팝업 목업처럼 자리에 맞게 다시 그렸다. */
+  /* 그림과 설명을 카드 하나로 묶는다("다른 점" .tile과 같은 모양). 그림 상자와 글이 따로 떨어져 있으니
+     폰에서 제목·설명·그림이 따로 노는 것처럼 보였다(2026-11-24) */
   .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   .features>*{min-width:0}
-  .feat-stage{display:flex;align-items:center;justify-content:center;height:400px;padding:28px 20px;border-radius:28px;
-    background:linear-gradient(180deg,#eaf3ff 0%,var(--g50) 100%)}
-  .feat h3{font-size:22px;font-weight:700;letter-spacing:-.035em;margin:24px 4px 8px}
-  .feat p{font-size:17px;color:var(--g600);line-height:1.6;margin:0 4px}
+  .feat{background:var(--g50);border-radius:28px;overflow:hidden}
+  .feat-stage{display:flex;align-items:center;justify-content:center;height:400px;padding:28px 20px;background:#eaf3ff}
+  .feat-stage.yellow{background:#fff7dc}
+  .feat-stage.teal{background:#e2f7f6}
+  .feat-txt{padding:24px 28px 30px}
+  .feat h3{font-size:21px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
+  .feat p{font-size:16px;color:var(--g600);line-height:1.6}
   .pp{width:100%;max-width:290px;background:#fff;border-radius:22px;padding:26px 20px 22px;text-align:center;color:#1a1a1a;
     letter-spacing:-.02em;box-shadow:0 24px 60px rgba(0,29,58,.10)}
   .pp-title{font-size:19px;font-weight:700;letter-spacing:-.03em}
@@ -637,13 +642,7 @@
   /* ===== 반응형 ===== */
   @media(max-width:900px){
     .cards,.cards.two,.steps,.features{grid-template-columns:1fr;max-width:560px;margin:0 auto}
-    /* 세로로 쌓이면 "그림 → 글 → 그림 → 글"이 되어 글이 아래 그림 설명처럼 보였다.
-       폰에서는 제목·설명을 그림 위로 올려 "제목 → 설명 → 그림"을 한 묶음으로 읽히게 한다 */
-    .features{gap:64px}
-    .feat{display:flex;flex-direction:column}
-    .feat h3{order:1;margin:0 4px 8px}
-    .feat p{order:2;margin:0 4px 20px}
-    .feat-stage{order:3}
+    /* 카드로 묶여 있어서 세로로 쌓여도 "그림 → 글"이 한 묶음으로 읽힌다 */
     .why{grid-template-columns:1fr 1fr}
     .split{grid-template-columns:1fr;gap:48px}
   }
@@ -684,7 +683,10 @@
     .card p,.step p{font-size:16px}
     .bubble{font-size:16px;padding:14px 18px}
     .bridge{margin-top:64px}
-    .feat-stage{height:auto;padding:36px 20px;border-radius:24px}
+    .feat{border-radius:24px}
+    .feat-stage{height:auto;padding:36px 20px}
+    .feat-txt{padding:20px 22px 24px}
+    .feat h3{font-size:20px}
     /* 특징 6개: 같은 크기 상자 6개가 줄줄이 쌓이면 눈 둘 곳이 없어서, 흰 상자 하나에 구분선 목록으로 묶는다 */
     .why{grid-template-columns:1fr;gap:0;background:#fff;border-radius:24px;overflow:hidden}
     .why .item{border-radius:0;padding:22px 22px 24px}
@@ -855,7 +857,7 @@
     <!-- 스탬프 팝업·대시보드는 히어로에 이미 있어서, 여기서는 그 다음 화면들을 보여준다 -->
     <div class="features">
       <div class="feat reveal">
-        <div class="feat-stage">
+        <div class="feat-stage yellow">
           <div class="pp" aria-hidden="true">
             <div class="pp-title">쿠폰 발급</div>
             <div class="pp-sub">현재 스탬프 10/10개</div>
@@ -864,11 +866,11 @@
             <div class="pp-btns"><span class="pp-btn">확인</span></div>
           </div>
         </div>
-        <h3>쿠폰은 알아서 발급돼요</h3>
-        <p>정해둔 개수를 채우면 그 자리에서 쿠폰이 나와요. 아메리카노든 케이크든, 쿠폰은 사장님이 정해요.</p>
+        <div class="feat-txt"><h3>쿠폰은 알아서 발급돼요</h3>
+        <p>정해둔 개수를 채우면 그 자리에서 쿠폰이 나와요. 아메리카노든 케이크든, 쿠폰은 사장님이 정해요.</p></div>
       </div>
       <div class="feat reveal" style="--d:.08s">
-        <div class="feat-stage">
+        <div class="feat-stage teal">
           <div class="pp">
             <div class="pp-title">쿠폰 조회</div>
             <div class="pp-sub">현재 스탬프 3/10개</div>
@@ -885,8 +887,8 @@
             <div class="pp-btns" aria-hidden="true"><span class="pp-btn">선택한 쿠폰 사용하기</span><span class="pp-btn weak">취소</span></div>
           </div>
         </div>
-        <h3>앱 다운로드 없이 쿠폰도 쉽게 써요</h3>
-        <p>태블릿에 번호만 누르면 가진 쿠폰이 떠요. 골라서 누르면 사용 처리까지 한 번에 끝나요.</p>
+        <div class="feat-txt"><h3>앱 다운로드 없이 쿠폰도 쉽게 써요</h3>
+        <p>태블릿에 번호만 누르면 가진 쿠폰이 떠요. 골라서 누르면 사용 처리까지 한 번에 끝나요.</p></div>
       </div>
       <div class="feat reveal" style="--d:.16s">
         <div class="feat-stage">
@@ -897,8 +899,8 @@
             <div class="pp-btns"><span class="pp-btn close">닫기</span></div>
           </div>
         </div>
-        <h3>네이버 리뷰도 받아요</h3>
-        <p>태블릿에서 '네이버 리뷰 작성하기'를 누르면 QR이 떠요. 손님은 자기 휴대폰으로 찍고, 영수증 인증 후 리뷰를 남겨요.</p>
+        <div class="feat-txt"><h3>네이버 리뷰도 받아요</h3>
+        <p>태블릿에서 '네이버 리뷰 작성하기'를 누르면 QR이 떠요. 손님은 자기 휴대폰으로 찍고, 영수증 인증 후 리뷰를 남겨요.</p></div>
       </div>
     </div>
   </div>
