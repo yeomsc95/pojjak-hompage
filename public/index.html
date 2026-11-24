@@ -1146,10 +1146,12 @@
   function hideIssue(board){const el=board.querySelector('.issue');if(el)el.classList.remove('show');board.classList.remove('issuing')}
 
   function stampOnce(){
-    hideIssue(demo);
-    demoCount=demoCount>=GOAL?1:demoCount+1;
-    // 쿠폰이 나오는 도장은 앱처럼 판이 채워지는 걸 보여주지 않고 바로 쿠폰 발급 창이 뜬다(판은 그 뒤에 숨어서 갱신)
-    if(demoCount===GOAL){paintBoard(demo,demoCount,false);showIssue(demo,REWARD,GOAL);return}
+    // 쿠폰 발급 창이 떠 있을 때 누르면 앱의 "확인"처럼 창만 닫는다(그 뒤의 판은 이미 0개로 새로 시작한 상태)
+    if(demo.classList.contains('issuing')){hideIssue(demo);return}
+    demoCount++;
+    // 쿠폰이 나오는 도장은 앱처럼 판이 채워지는 걸 보여주지 않고 바로 쿠폰 발급 창이 뜬다.
+    // 앱은 10개를 채우면 판이 0개로 새로 시작하므로, 창 뒤의 판은 0개로 갱신해 둔다
+    if(demoCount===GOAL){demoCount=0;paintBoard(demo,0,false);showIssue(demo,REWARD,GOAL);return}
     paintBoard(demo,demoCount,true);
     if(!reduceMotion){demo.classList.remove('thud');void demo.offsetWidth;demo.classList.add('thud')}
   }
@@ -1158,7 +1160,7 @@
   // 뒤에 깔린 태블릿 메인 화면을 눌러도 찍힌다. 실제 앱처럼 초록 "스탬프 적립" 버튼이 먼저 눌리고 도장이 찍힌다.
   const mainDemo=document.getElementById('mainDemo'),stampBtn=mainDemo.querySelector('[data-stamp-btn]');
   function pressAndStamp(){
-    if(reduceMotion){stampOnce();return}
+    if(reduceMotion||demo.classList.contains('issuing')){stampOnce();return}   // 창이 떠 있으면 버튼 누름 없이 창만 닫는다
     stampBtn.classList.remove('press');void stampBtn.offsetWidth;stampBtn.classList.add('press');
     setTimeout(stampOnce,120);
   }
@@ -1176,8 +1178,11 @@
   const exBoard=document.getElementById('exBoard'),exTabs=[...document.querySelectorAll('.ex-tab')];
   let exRun=0,exKey='hair';
   const exWait=ms=>new Promise(r=>setTimeout(r,ms));
+  // 쿠폰 창을 띄워 두고 기다리는 중이면, 판(확인 버튼)을 눌렀을 때 기다림을 바로 끝낸다
+  let exSkip=null;
+  const exWaitIssue=ms=>new Promise(r=>{exSkip=r;setTimeout(r,ms)});
   async function playEx(key){
-    const run=++exRun,tiers=EX[key];exKey=key;
+    const run=++exRun,tiers=EX[key];exKey=key;exSkip=null;
     exTabs.forEach(t=>{const on=t.dataset.ex===key;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)});
     hideIssue(exBoard);
     if(reduceMotion){paintBoard(exBoard,GOAL,false,tiers);return}
@@ -1189,12 +1194,12 @@
       if(hit){
         // 앱처럼 보상 칸 도장은 판 대신 바로 쿠폰 발급 창만 뜬다. 잠깐 보여주고 닫으면 판에 그 도장까지 찍혀 있다.
         // 마지막 칸(10개)의 쿠폰 창은 닫지 않고 띄운 채로 끝낸다 - 빈 판으로 끝나면 김이 빠져서, 하이라이트에서 멈춘다.
-        // (뒤의 판은 앱처럼 0개로 새로 시작한 상태로 갱신해 둔다. 판이나 탭을 누르면 처음부터 다시)
+        // (뒤의 판은 앱처럼 0개로 새로 시작한 상태로 갱신해 둔다. "확인"을 누르면 창만 닫히고, 그다음 판을 누르면 다시 재생)
         const last=n===GOAL;
         paintBoard(exBoard,last?0:n,false,tiers);   // 창 뒤에서 미리 갱신
         showIssue(exBoard,hit[1],n);
         if(last)return;
-        await exWait(1900);if(run!==exRun)return;
+        await exWaitIssue(1900);exSkip=null;if(run!==exRun)return;
         hideIssue(exBoard);
         await exWait(300);
       }else{
@@ -1205,7 +1210,11 @@
     }
   }
   exTabs.forEach(t=>t.addEventListener('click',()=>playEx(t.dataset.ex)));
-  exBoard.addEventListener('click',()=>playEx(exKey));
+  // 판을 누르면: 쿠폰 창이 떠 있으면 앱의 "확인"처럼 창만 닫고(진행 중이면 바로 이어서 찍음), 아니면 처음부터 다시
+  exBoard.addEventListener('click',()=>{
+    if(exBoard.classList.contains('issuing')){if(exSkip){exSkip();exSkip=null}else hideIssue(exBoard);return}
+    playEx(exKey);
+  });
   paintBoard(exBoard,0,false,EX.hair);
   new IntersectionObserver(([e],o)=>{if(e.isIntersecting){o.disconnect();playEx(exKey)}},{threshold:.5}).observe(exBoard);
 
