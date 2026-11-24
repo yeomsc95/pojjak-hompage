@@ -184,7 +184,8 @@
     letter-spacing:-.02em;box-shadow:0 24px 60px rgba(0,29,58,.10)}
   .pp-title{font-size:19px;font-weight:700;letter-spacing:-.03em}
   .pp-sub{font-size:14px;color:#767676;margin-top:4px}
-  .pp-body{font-size:15px;font-weight:500;line-height:1.55;margin:24px 0}
+  /* .pp를 붙여야 아래 '.feat p'(화면 예시 설명 글씨: 여백 0, 회색)에 덮이지 않는다 - 덮이면 확인 버튼이 글에 붙었다 */
+  .pp .pp-body{font-size:15px;font-weight:500;line-height:1.55;margin:22px 0;color:#333}
   .pp-body b{color:#019863;font-weight:700}
   .pp-btns{display:flex;gap:8px;justify-content:center}
   .pp-btn{padding:11px 26px;border-radius:7px;background:#1a1a1a;color:#fff;font-size:14px;font-weight:700;white-space:nowrap}
