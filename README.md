@@ -4,8 +4,9 @@
 
 ## 서빙
 
-nginx가 `pojjak.kr/main/` 경로로 이 폴더(`C:/coupon/homepage`)를 직접 정적 서빙한다.
-빌드 과정 없이 파일 저장 = 즉시 반영.
+nginx가 `pojjak.kr/` 루트로 이 폴더(`C:/coupon/homepage`)를 직접 정적 서빙한다
+(예전 주소 `pojjak.kr/main/`은 `/`로 리다이렉트). 빌드 과정 없이 파일 저장 = 즉시 반영.
+없는 경로는 `index.html`로 떨어지므로, 새 파일은 실제로 올라갔는지 크기·내용으로 확인할 것.
 
 - `index.html` : 소개 페이지 본문 (인라인 CSS/JS). 글꼴은 Pretendard를 jsDelivr CDN에서 받는다.
 - `privacy.html` : 개인정보처리방침 (`pojjak-admin/front/public/privacy.html`과 같은 내용 - 고칠 때 둘 다)
@@ -13,6 +14,9 @@ nginx가 `pojjak.kr/main/` 경로로 이 폴더(`C:/coupon/homepage`)를 직접 
 - `pojjak-stamp.png` : 손님 화면 목업의 빨간 뽀짝 도장. `pojjak-tablet/app/assets/images/`의 같은 파일을 복사한 것
 - `pojjak-of-main-page.png` : 히어로의 태블릿 메인 화면 목업 왼쪽 위 티켓 로고. 위와 같은 폴더의 같은 파일을 복사한 것
   (메인 화면 목업은 `pojjak-tablet` **main 브랜치**의 `main_page.dart` 기준. 매장 브랜치는 도장 이미지 등이 다를 수 있음)
+- `sitemap.xml` : 검색엔진용 사이트맵 (네이버 서치어드바이저에 제출)
+- `naver8f9d1271d5b02dcba43246b91f2dcb3a.html` : 네이버 서치어드바이저 사이트 소유확인 파일. **지우지 말 것**
+  (`index.html` 머리말의 `naver-site-verification` 메타 태그도 같은 용도)
 
 ## 작업 흐름
 
