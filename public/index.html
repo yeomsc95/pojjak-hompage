@@ -1018,12 +1018,14 @@
   }
   document.querySelectorAll('[data-board]').forEach(b=>paintBoard(b,+b.dataset.board));
 
-  // 첫 화면 태블릿은 눌러볼 수 있다. 10개를 채우면 쿠폰 발급, 한 번 더 누르면 처음부터.
+  // 첫 화면 태블릿은 눌러볼 수 있다. 10개를 채우면 쿠폰 발급, 한 번 더 누르면 새 판의 첫 도장(1개).
+  // 0개 빈 판으로 돌리면 눌렀는데 아무것도 안 찍힌 것처럼 보여서, 누를 때마다 항상 도장이 찍히게 한다
+  // (실제로도 쿠폰을 받은 다음 방문이 새 판의 1번째 도장이다).
   const demo=document.getElementById('stampDemo');
   let demoCount=+demo.dataset.board,demoTouched=false;
   function stampOnce(){
-    if(demoCount>=GOAL){demoCount=0;paintBoard(demo,0);return}
-    demoCount++;paintBoard(demo,demoCount,true);
+    demoCount=demoCount>=GOAL?1:demoCount+1;
+    paintBoard(demo,demoCount,true);
     if(!reduceMotion){demo.classList.remove('thud');void demo.offsetWidth;demo.classList.add('thud')}
   }
   demo.addEventListener('click',()=>{demoTouched=true;stampOnce()});
