@@ -220,6 +220,19 @@
   .t-notice{text-align:center;font-size:14px;font-weight:600;color:var(--g800);line-height:1.5;min-height:21px;text-wrap:balance}
   .t-notice em{font-style:normal;color:#019863}
   .t-notice.done{color:#019863}
+  /* 보상 2단계 이상일 때 요약 줄: 앱처럼 지난 단계는 흐리게+취소선 */
+  .t-tiers{text-align:center;font-size:13px;font-weight:600;color:#8a8a8a;margin-top:6px;line-height:1.5;text-wrap:balance}
+  .t-tiers:empty{display:none}
+  .t-tiers s{color:#b2b2b2}
+  .t-tiers i{font-style:normal;color:#ccc}
+
+  /* 업종별 예시 */
+  .ex{max-width:420px;margin:0 auto}
+  .ex-tabs{display:flex;gap:4px;width:max-content;margin:0 auto 24px;padding:4px;border-radius:14px;background:var(--g100)}
+  .ex-tab{border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--g500);padding:9px 18px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s}
+  .ex-tab.on{background:#fff;color:var(--g900);box-shadow:0 1px 4px rgba(0,29,58,.08)}
+  .ex-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .ex-board{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 
   /* 첫 화면 태블릿: 누르면 도장이 쾅 찍힌다 */
   .m-tablet.demo{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
@@ -806,6 +819,33 @@
   </div>
 </section>
 
+<!-- 업종별 예시: 같은 도장판이라도 보상은 매장이 정한다. 업종을 누르면 도장이 딱딱딱 찍히며 보상 칸에서 쿠폰이 나온다 -->
+<section class="block tint" id="examples">
+  <div class="wrap">
+    <div class="head center reveal">
+      <p class="kicker">업종별 예시</p>
+      <h2>보상은 우리 가게에<br>맞게 정해요</h2>
+      <p class="desc">몇 번째 방문에 어떤 쿠폰을 줄지 사장님이 정해요.<br>업종을 눌러 보세요.</p>
+    </div>
+    <div class="ex reveal">
+      <div class="ex-tabs" role="tablist" aria-label="업종 예시">
+        <button type="button" class="ex-tab on" role="tab" aria-selected="true" data-ex="hair">미용실</button>
+        <button type="button" class="ex-tab" role="tab" aria-selected="false" data-ex="wash">세차장</button>
+        <button type="button" class="ex-tab" role="tab" aria-selected="false" data-ex="cafe">카페</button>
+      </div>
+      <div class="m-tablet ex-board" id="exBoard" aria-hidden="true">
+        <div class="t-title">스탬프 적립 완료</div>
+        <div class="t-sub">현재 스탬프 <b data-count>0</b>/10개</div>
+        <div class="board">
+          <div class="stamp-grid" data-grid></div>
+          <div class="t-notice" data-notice></div>
+          <div class="t-tiers" data-tiers></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 효과 -->
 <section class="block dark" id="effect">
   <div class="wrap">
@@ -1011,7 +1051,7 @@
   // 손님 태블릿 목업: 실제 앱처럼 10칸 판에 뽀짝 도장을 찍는다
   const GOAL=10,REWARD='아메리카노';
   const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function paintBoard(board,count,fresh){
+  function paintBoard(board,count,fresh,tiers=[[GOAL,REWARD]],issued){
     board.querySelector('[data-count]').textContent=count;
     const grid=board.querySelector('[data-grid]');
     if(!grid.children.length){
@@ -1031,11 +1071,16 @@
       if(img)img.classList.toggle('new',!!fresh&&i===count-1);
       c.classList.toggle('on',on);
     });
-    const left=GOAL-count,notice=board.querySelector('[data-notice]');
-    notice.classList.toggle('done',left===0);
-    notice.innerHTML=left>0
-      ?'→ '+left+'회 더 방문하시면 <em>'+REWARD+'</em> 쿠폰을 드립니다!'
-      :REWARD+' 쿠폰이 발급되었습니다!';
+    // 안내 문구·보상 요약은 앱(stamp_popup.dart의 buildNotice/buildRewardSummary)과 같은 규칙:
+    // 다음 보상까지 남은 횟수를 알려주고, 보상이 2단계 이상이면 "5개 다운펌 · 10개 샴푸"를 보여주며 지난 단계는 흐리게 긋는다.
+    // issued=true면 방금 찍은 칸이 보상 칸일 때 "발급되었습니다"를 보여준다(마지막 칸은 issued 없이도 발급 문구).
+    const next=tiers.find(([p])=>p>count),hit=tiers.find(([p])=>p===count);
+    const issuedTitle=hit&&(issued||!next)?hit[1]:null,notice=board.querySelector('[data-notice]');
+    notice.classList.toggle('done',!!issuedTitle);
+    notice.innerHTML=issuedTitle?issuedTitle+' 쿠폰이 발급되었습니다!'
+      :next?'→ '+(next[0]-count)+'회 더 방문하시면 <em>'+next[1]+'</em> 쿠폰을 드립니다!':'';
+    const sum=board.querySelector('[data-tiers]');
+    if(sum)sum.innerHTML=tiers.length<2?'':tiers.map(([p,t])=>p<=count?'<s>'+p+'개 '+t+'</s>':'<span>'+p+'개 '+t+'</span>').join('<i> · </i>');
   }
   document.querySelectorAll('[data-board]').forEach(b=>paintBoard(b,+b.dataset.board));
 
@@ -1061,6 +1106,35 @@
   mainDemo.addEventListener('click',()=>{demoTouched=true;pressAndStamp()});
   // 처음 보일 때 한 번은 저절로 찍어서, 눌러볼 수 있다는 걸 보여준다
   new IntersectionObserver(([e],o)=>{if(e.isIntersecting){o.disconnect();setTimeout(()=>{if(!demoTouched)pressAndStamp()},1200)}},{threshold:.5}).observe(demo);
+
+  // 업종별 예시: 업종을 누르면 빈 판부터 10칸까지 딱딱딱 찍히고, 보상 칸에서 잠깐 멈춰 쿠폰 발급을 보여준다.
+  // 다른 업종을 누르면 진행 중이던 것은 멈추고(exRun) 새로 시작한다. 판을 누르면 같은 업종을 다시 재생.
+  const EX={
+    hair:[[5,'다운펌'],[10,'샴푸']],
+    wash:[[5,'왁스코팅'],[10,'프리미엄 실내 스팀세차']],
+    cafe:[[10,'아메리카노']],
+  };
+  const exBoard=document.getElementById('exBoard'),exTabs=[...document.querySelectorAll('.ex-tab')];
+  let exRun=0,exKey='hair';
+  const exWait=ms=>new Promise(r=>setTimeout(r,ms));
+  async function playEx(key){
+    const run=++exRun,tiers=EX[key];exKey=key;
+    exTabs.forEach(t=>{const on=t.dataset.ex===key;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)});
+    if(reduceMotion){paintBoard(exBoard,GOAL,false,tiers);return}
+    paintBoard(exBoard,0,false,tiers);
+    await exWait(350);
+    for(let n=1;n<=GOAL;n++){
+      if(run!==exRun)return;
+      const hit=tiers.some(([p])=>p===n);
+      paintBoard(exBoard,n,true,tiers,hit);
+      exBoard.classList.remove('thud');void exBoard.offsetWidth;exBoard.classList.add('thud');
+      await exWait(hit?1200:260);
+    }
+  }
+  exTabs.forEach(t=>t.addEventListener('click',()=>playEx(t.dataset.ex)));
+  exBoard.addEventListener('click',()=>playEx(exKey));
+  paintBoard(exBoard,0,false,EX.hair);
+  new IntersectionObserver(([e],o)=>{if(e.isIntersecting){o.disconnect();playEx(exKey)}},{threshold:.5}).observe(exBoard);
 
   // 떠 있는 문의 버튼: 히어로의 문의 버튼이 안 보이고, 맨 아래 도입 안내도 안 보일 때만 띄운다
   const floatCta=document.getElementById('floatCta');
