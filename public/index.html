@@ -238,14 +238,22 @@
   .ex-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
   .ex-board{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 
-  /* 쿠폰 발급 창: 쿠폰이 나오는 도장에서 스탬프 판을 덮는다(앱의 coupon_issue_popup.dart와 같은 문구) */
-  .m-tablet{position:relative}
-  .issue{position:absolute;inset:0;border-radius:inherit;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:24px;opacity:0;transform:scale(.94);transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
-  .issue.show{opacity:1;transform:none}
-  .issue-title{font-size:20px;font-weight:700;letter-spacing:-.03em}
+  /* 쿠폰 발급 창: 앱처럼 쿠폰이 나오는 도장에서는 스탬프 판이 사라지고 작은 알림 카드만 뜬다
+     (앱의 coupon_issue_popup.dart와 같은 문구). 판을 하얗게 덮으면 꽉 차 보였고, 판을 흐리게 남기면
+     실제 앱과 달라 어색해서, 판(.issuing)은 투명하게 비우고 카드만 남긴다(2026-11-24) */
+  .m-tablet{position:relative;transition:background-color .2s,box-shadow .2s,border-color .2s}
+  .m-tablet>*{transition:opacity .15s}
+  .m-tablet.issuing{background-color:transparent;box-shadow:none;border-color:transparent}
+  .m-tablet.issuing>:not(.issue){opacity:0}
+  .issue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    padding:16px;opacity:0;transition:opacity .2s ease;pointer-events:none}
+  .issue.show{opacity:1}
+  .issue-card{background:#fff;border-radius:20px;padding:24px 22px 20px;width:100%;max-width:260px;text-align:center;
+    box-shadow:0 16px 40px rgba(0,29,58,.22);transform:scale(.9);transition:transform .32s cubic-bezier(.3,1.5,.5,1)}
+  .issue.show .issue-card{transform:none}
+  .issue-title{font-size:19px;font-weight:700;letter-spacing:-.03em}
   .issue-sub{font-size:14px;color:var(--g600);margin-top:4px}
-  .issue-body{font-size:16px;font-weight:600;color:var(--g800);line-height:1.6;margin:18px 0 22px;text-wrap:balance}
+  .issue-body{font-size:15px;font-weight:600;color:var(--g800);line-height:1.6;margin:16px 0 18px;text-wrap:balance}
   .issue-body em{font-style:normal;color:#019863}
   .issue-btn{display:inline-block;background:#191919;color:#fff;font-size:14px;font-weight:700;padding:10px 26px;border-radius:10px}
 
@@ -1147,11 +1155,11 @@
   function showIssue(board,title,count){
     let el=board.querySelector('.issue');
     if(!el){el=document.createElement('div');el.className='issue';board.appendChild(el)}
-    el.innerHTML='<div class="issue-title">쿠폰 발급</div><div class="issue-sub">현재 스탬프 '+count+'/10개</div>'
-      +'<p class="issue-body"><em>'+title+'</em> 쿠폰이 발급되었습니다!</p><span class="issue-btn">확인</span>';
-    void el.offsetWidth;el.classList.add('show');
+    el.innerHTML='<div class="issue-card"><div class="issue-title">쿠폰 발급</div><div class="issue-sub">현재 스탬프 '+count+'/10개</div>'
+      +'<p class="issue-body"><em>'+title+'</em> 쿠폰이 발급되었습니다!</p><span class="issue-btn">확인</span></div>';
+    void el.offsetWidth;el.classList.add('show');board.classList.add('issuing');
   }
-  function hideIssue(board){const el=board.querySelector('.issue');if(el)el.classList.remove('show')}
+  function hideIssue(board){const el=board.querySelector('.issue');if(el)el.classList.remove('show');board.classList.remove('issuing')}
 
   function stampOnce(){
     hideIssue(demo);
@@ -1195,12 +1203,15 @@
       if(run!==exRun)return;
       const hit=tiers.find(([p])=>p===n);
       if(hit){
-        // 앱처럼 보상 칸 도장은 판 대신 바로 쿠폰 발급 창이 뜬다. 잠깐 보여주고 닫으면 판에 그 도장까지 찍혀 있다
-        paintBoard(exBoard,n,false,tiers,true);
+        // 앱처럼 보상 칸 도장은 판 대신 바로 쿠폰 발급 창만 뜬다. 잠깐 보여주고 닫으면 판에 그 도장까지 찍혀 있다.
+        // 마지막 칸(10개)이면 앱에서 판이 0개로 새로 시작하므로, 창이 닫히면 빈 판으로 돌아간다
+        // (10개가 다 찍힌 판 + 발급 문구는 실제 앱에서 볼 일이 없는 화면이라 보여주지 않는다)
+        const last=n===GOAL;
+        paintBoard(exBoard,last?0:n,false,tiers);   // 창 뒤에서 미리 갱신
         showIssue(exBoard,hit[1],n);
         await exWait(1900);if(run!==exRun)return;
         hideIssue(exBoard);
-        await exWait(400);
+        await exWait(last?0:300);
       }else{
         paintBoard(exBoard,n,true,tiers);
         exBoard.classList.remove('thud');void exBoard.offsetWidth;exBoard.classList.add('thud');
