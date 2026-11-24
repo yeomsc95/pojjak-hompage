@@ -403,6 +403,18 @@
   .dark .card{background:rgba(255,255,255,.06)}
   .dark .card p{color:var(--g400)}
   .dark .ico{background:rgba(100,168,255,.14);color:#64a8ff}
+  /* 효과 섹션 아래 연구 근거 */
+  .research{margin-top:56px;padding-top:48px;border-top:1px solid rgba(255,255,255,.1);text-align:center}
+  .r-head{font-size:17px;font-weight:600;color:#fff;margin-bottom:32px;text-wrap:balance}
+  .r-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .r-stats b{display:block;font-size:44px;font-weight:800;letter-spacing:-.03em;color:#64a8ff;line-height:1.2;margin-bottom:10px}
+  .r-stats span{display:block;font-size:15px;color:var(--g400);line-height:1.6}
+  .r-src{margin-top:36px;font-size:12.5px;color:var(--g500);line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto}
+  .r-src a{text-decoration:underline;text-underline-offset:2px}
+  @media(max-width:600px){
+    .r-stats{grid-template-columns:1fr;gap:28px}
+    .r-stats b{font-size:38px}
+  }
 
   /* ===== 모바일 관리 ===== */
   .split{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
@@ -597,8 +609,8 @@
     <nav class="menu" id="menu">
       <a href="#service">서비스</a>
       <a href="#screens">화면 예시</a>
+      <a href="#examples">업종별 예시</a>
       <a href="#effect">효과</a>
-      <a href="#why">특징</a>
       <a href="#start">도입 안내</a>
       <a class="menu-login" href="/admin">관리자 로그인</a>
     </nav>
@@ -858,9 +870,25 @@
       <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
         <h3>다시 올 이유가 생겨요</h3><p>"쿠폰까지 3개 남았다"는 작은 동기가 다음 방문으로 이어져요.</p></div>
       <div class="card reveal" style="--d:.08s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-        <h3>단골이라는 소속감</h3><p>스탬프가 한 칸씩 쌓일수록, 손님은 '내 단골 가게'라는 애착을 갖게 돼요.</p></div>
+        <h3>단골이라는 소속감</h3><p>스탬프가 한 칸씩 쌓일수록 '내 단골 가게'가 돼요. 열심히 모은 손님일수록 쿠폰을 받은 뒤 새 판도 다시 시작해요.</p></div>
       <div class="card reveal" style="--d:.16s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
         <h3>단골이 매출을 만들어요</h3><p>꾸준히 오는 단골 한 명이 어쩌다 온 신규 손님보다 매장에 큰 힘이 돼요.</p></div>
+    </div>
+    <!-- 근거: 아래 숫자는 논문 원문에서 직접 확인한 것만 쓴다(2026-11-24 확인). 추정·각색 금지.
+         Kivetz, Urminsky & Zheng (2006) JMR 43(1):39-58 - 카페 "10잔 사면 1잔 무료" 카드 실측.
+         · 첫 구매 간격 대비 마지막 구매 간격이 평균 20% 짧아짐 (average acceleration of 20%)
+         · 첫 간격 기준 한 달 9회 vs 가속을 반영한 실제 한 달 11회
+         · 보너스 도장 2개가 찍힌 12칸 카드가 10칸 카드보다 10번 구매를 약 20%(거의 3일) 빨리 채움
+         · 보상을 향해 가속한 손님일수록 재참여(다음 카드) 확률이 높고 빠름 → 위 '소속감' 카드 문구 -->
+    <div class="research reveal">
+      <p class="r-head">실제 카페 도장 카드를 분석한 미국 연구에서도 확인됐어요</p>
+      <div class="r-stats">
+        <div><b>20%</b><span>보상이 가까워질수록<br>방문 간격이 평균 20% 짧아졌어요</span></div>
+        <div><b>9→11번</b><span>같은 손님의 한 달 방문이<br>약 9번에서 11번 꼴로 늘었어요</span></div>
+        <div><b>20%↑</b><span>도장 2개를 미리 찍어준 카드는<br>10번을 20% 더 빨리 채웠어요</span></div>
+      </div>
+      <p class="r-src">출처: Kivetz, Urminsky &amp; Zheng (2006), <a href="https://business.columbia.edu/faculty/research/goal-gradient-hypothesis-resurrected-purchase-acceleration-illusionary-goal" target="_blank" rel="noopener">“The Goal-Gradient Hypothesis Resurrected”</a>, Journal of Marketing Research.
+        미국 컬럼비아대 연구진이 실제 카페의 ‘10잔 사면 1잔 무료’ 도장 카드를 분석했어요.</p>
     </div>
   </div>
 </section>
@@ -953,7 +981,7 @@
       </div>
       <div class="fcols">
         <div class="fcol"><strong>바로가기</strong>
-          <a href="#service">서비스</a><br><a href="#how">이용 방법</a><br>
+          <a href="#service">서비스</a><br><a href="#how">이용 방법</a><br><a href="#examples">업종별 예시</a><br>
           <a href="#start">도입 안내</a><br><a href="/admin">관리자 로그인</a></div>
         <div class="fcol"><strong>문의</strong>
           전화 <a href="tel:18006235">1800-6235</a><br>
