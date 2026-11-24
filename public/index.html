@@ -436,6 +436,8 @@
   .fcol strong{display:block;color:var(--g800);font-weight:600;margin-bottom:4px}
   .fcol a:hover{color:var(--g900)}
   .copy{margin-top:48px;padding-top:24px;border-top:1px solid var(--g200);font-size:13px;color:var(--g500)}
+  .copy .biz{display:flex;flex-wrap:wrap;column-gap:16px;row-gap:2px;margin-bottom:8px;line-height:1.7}
+  .copy .biz a:hover{color:var(--g800)}
 
   /* ===== 떠 있는 문의 버튼(PC: 오른쪽 아래 / 모바일: 하단 고정 바) ===== */
   .float-cta{position:fixed;right:24px;bottom:24px;z-index:95;opacity:0;transform:translateY(16px);
@@ -912,7 +914,12 @@
           <a href="privacy.html">개인정보처리방침</a></div>
       </div>
     </div>
-    <div class="copy">© 2026 뽀짝(pojjak.kr). All rights reserved.</div>
+    <div class="copy">
+      <!-- 운영자 정보. 결제 없이 문의만 받는 구조라 사업자등록번호·주소는 일부러 뺐다(통신판매업이 되면 추가할 것).
+           이메일은 개인 메일 주소라 넣지 않았다 - 회사 도메인 메일이 생기면 추가 -->
+      <p class="biz"><span>운영 디두</span><span>대표 염성찬</span><span>전화 <a href="tel:18006235">1800-6235</a></span></p>
+      © 2026 뽀짝(pojjak.kr). All rights reserved.
+    </div>
   </div>
 </footer>
 
