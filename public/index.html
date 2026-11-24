@@ -564,8 +564,6 @@
   /* ===== 요금 ===== */
   /* 광고로 들어온 사장님이 제일 먼저 찾는 게 가격이라 숨기지 않고 보여준다(2026-11-24).
      요금: 월 3만 원, 태블릿 비용·설치비는 따로 안 받음. 약정·부가세는 정해지지 않아 적지 않았다 - 정해지면 .pc-note로 추가 */
-  .hero-note{display:inline-block;margin-top:20px;font-size:15px;font-weight:600;color:var(--g500);transition:color .15s}
-  .hero-note:hover{color:var(--blue)}
   .price-card{max-width:520px;margin:0 auto;background:#fff;border-radius:32px;padding:44px 40px 40px;
     box-shadow:0 20px 60px rgba(0,29,58,.06)}
   .pc-name{font-size:17px;font-weight:600;color:var(--g600)}
@@ -765,7 +763,8 @@
         <button class="btn btn-primary btn-lg" onclick="openInquiry()">간편 문의하기</button>
         <a class="btn btn-grey btn-lg" href="#how">이용 방법 보기</a>
       </div>
-      <a class="hero-note" href="#pricing">월 3만 원 · 태블릿 비용·설치비 0원 <span aria-hidden="true">›</span></a>
+      <!-- 버튼 아래 "월 3만 원 · 태블릿 비용·설치비 0원" 줄은 첫 화면이 너무 상업적으로 보여서 뺐다(2026-11-24).
+           가격은 메뉴 "요금"과 #pricing 섹션에서 본다 -->
     </div>
   </div>
   <div class="wrap">
@@ -1082,7 +1081,7 @@
   </div>
 </section>
 
-<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 히어로 .hero-note도 같이 고친다 -->
+<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 여기만 고치면 된다 -->
 <section class="block tint" id="pricing">
   <div class="wrap">
     <div class="head center reveal">
