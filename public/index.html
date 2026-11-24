@@ -257,7 +257,9 @@
   .tm-req{margin-left:14.6px;font-size:10.2px;color:#0059ff}
   .tm-contact{display:flex;align-items:center;gap:11.7px;margin-top:29.2px;padding-left:25.5px}
   .tm-contact span{font-size:13.1px;color:#8a8a8a}
-  .tm-contact b{font-size:19px;font-weight:700}
+  /* ☎는 앱에서 검은 글자 기호로 나온다(앱 글꼴이 이 기호를 갖고 있음). 웹에서 그냥 ☎️로 쓰면
+     빨간 컬러 이모지가 되므로, 글자형 선택자(FE0E)와 font-variant-emoji로 검은 기호를 쓰게 한다 */
+  .tm-contact b{font-size:19px;font-weight:700;font-variant-emoji:text}
   /* "네이버 리뷰 작성하기" 버튼: 관리자 설정에서 리뷰 QR을 켠 매장에만 보인다. 왼쪽 패널 아래 빈 곳에
      겹쳐 얹고, 오른쪽 적립·쿠폰 버튼과 세로 가운데를 맞춘다(앱: bottom 36×0.73, 글자 20×0.73) */
   .tm-info{position:relative}
@@ -622,7 +624,7 @@
                     <span class="tm-box"><svg viewBox="0 0 24 24"><path d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"/></svg></span>
                     <span class="tm-terms">개인정보 이용약관 확인 ▼</span><span class="tm-req">필수</span>
                   </div>
-                  <div class="tm-contact"><span>이용문의</span><b>☎️ 1800 - 6235</b></div>
+                  <div class="tm-contact"><span>이용문의</span><b>&#x260E;&#xFE0E; 1800 - 6235</b></div>
                   <div class="tm-review">네이버 리뷰 작성하기 ▶</div>
                 </div>
                 <div class="tm-input">
