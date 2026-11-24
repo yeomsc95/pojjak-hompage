@@ -1005,7 +1005,14 @@
     }
     [...grid.children].forEach((c,i)=>{
       const on=i<count;let img=c.querySelector('img');
-      if(on&&!img){img=document.createElement('img');img.src='pojjak-stamp.png';img.alt='';c.appendChild(img)}
+      if(on&&!img){
+        // 도장은 PC 팝업에서 약 36px, 폰에서 약 56px로 보인다. 큰 원본 한 장을 브라우저가 줄이면 흐리게 뭉개져서
+        // 미리 줄여 둔 크기 중 화면 밀도에 맞는 것을 고르게 한다 (PC 1배 48px, 2배 96px, 폰 3배 160px).
+        img=document.createElement('img');img.alt='';
+        img.sizes='(max-width:1000px) 56px, 36px';
+        img.srcset='pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w';
+        img.src='pojjak-stamp.png';c.appendChild(img);
+      }
       if(!on&&img)img.remove();
       if(img)img.classList.toggle('new',!!fresh&&i===count-1);
       c.classList.toggle('on',on);
@@ -1088,7 +1095,9 @@
     +'<div class="cu-box cu-list">'+custCard('010-***8-5759',1,'14:32',13,5,3)+custCard('010-***1-0384',0,'14:26',7,4,7)+'</div>'
     +'</div>';
   const admScreens={dashboard:admMain,customers:admCustomers};
-  // 실제 화면 크기(width px)로 그린 첫 자식을 box 폭에 맞게 통째로 줄인다
+  // 실제 화면 크기(width px)로 그린 첫 자식을 box 폭에 맞게 통째로 줄인다.
+  // transform:scale 대신 zoom을 쓴다 - scale은 큰 글자를 그려 놓고 그림처럼 줄여서 작은 글자가 흐려지는데,
+  // zoom은 줄어든 크기로 글자를 다시 그려서 PC에서도 선명하다.
   function fitToBox(box,width){
     const canvas=box.firstElementChild;let lastW=0;
     new ResizeObserver(()=>{
@@ -1096,7 +1105,7 @@
       if(!w||w===lastW)return;   // 숨겨진 쪽(폭 0)이나 높이만 바뀐 경우는 건너뛴다
       lastW=w;
       // 관찰 콜백 안에서 크기를 바꾸면 "ResizeObserver loop" 경고가 나서 다음 프레임에 적용한다
-      requestAnimationFrame(()=>{canvas.style.transform='scale('+w/width+')'});
+      requestAnimationFrame(()=>{canvas.style.zoom=w/width});
     }).observe(box);
   }
   document.querySelectorAll('[data-fit]').forEach(box=>{

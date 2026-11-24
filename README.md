@@ -18,7 +18,9 @@ nginx가 `pojjak.kr/` 루트로 **`public/` 폴더만** (`C:/coupon/homepage/pub
 - `robots.txt` : 검색엔진 수집 허용 + 사이트맵 위치
 - `privacy.html` : 개인정보처리방침 (`pojjak-admin/front/public/privacy.html`과 같은 내용 - 고칠 때 둘 다)
 - `pojjak-icon.png` : 로고
-- `pojjak-stamp.png` : 손님 화면 목업의 빨간 뽀짝 도장. `pojjak-tablet/app/assets/images/`의 같은 파일을 복사한 것
+- `pojjak-stamp.png`(160px), `pojjak-stamp-96.png`, `pojjak-stamp-48.png` : 손님 화면 목업의 빨간 뽀짝 도장.
+  `pojjak-tablet/app/assets/images/pojjak-stamp.png`(400px)를 크기별로 미리 줄인 것 - 큰 원본을 브라우저가
+  36px로 줄이면 흐려져서 화면 밀도에 맞는 것을 `srcset`으로 고른다. 원본이 바뀌면 세 장 다 다시 만들 것
 - `pojjak-of-main-page.png` : 히어로의 태블릿 메인 화면 목업 왼쪽 위 티켓 로고. 위와 같은 폴더의 같은 파일을 복사한 것
   (메인 화면 목업은 `pojjak-tablet` **main 브랜치**의 `main_page.dart` 기준. 매장 브랜치는 도장 이미지 등이 다를 수 있음)
 - `sitemap.xml` : 검색엔진용 사이트맵 (네이버 서치어드바이저에 제출)
