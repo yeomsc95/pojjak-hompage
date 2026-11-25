@@ -692,14 +692,7 @@
     .hero{padding-top:56px}
     .hero h1{font-size:36px}
     .lead{margin-bottom:32px}
-    /* 폰: 문의만 꽉 찬 버튼으로 두고 "이용 방법 보기"는 그 아래 글자 링크로.
-       큰 버튼 두 개가 세로로 쌓이니 무겁고 무엇을 눌러야 할지 애매했다(2026-11-25) */
-    .hero-actions{flex-direction:column;align-items:center}
-    .hero-actions .btn-primary{width:100%}
-    .hero-actions .btn-grey{background:none;padding:12px 8px;font-size:16px;color:var(--g600)}
-    .hero-actions .btn-grey:hover{background:none;color:var(--g900)}
-    .hero-actions .btn-grey::after{content:"";width:7px;height:7px;margin:-4px 0 0 4px;
-      border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg)}
+    /* 폰에서도 첫 화면 버튼은 폭을 꽉 채우지 않고 내용만큼만 둔다 - 꽉 찬 버튼은 앱 입력 화면처럼 무거워 보였다(2026-11-25) */
     .stage{margin-top:56px;padding:32px 16px;border-radius:28px}
     .m-pad{padding:9px;border-radius:20px}
     .m-pad .fit{border-radius:11px}
@@ -777,8 +770,11 @@
         <span>태블릿 한 대로 적립부터 쿠폰, 방문 관리까지 끝내세요.</span></p>
       <div class="hero-actions" id="heroActions">
         <button class="btn btn-primary btn-lg" onclick="openInquiry()">간편 문의하기</button>
-        <a class="btn btn-grey btn-lg" href="#how">이용 방법 보기</a>
       </div>
+      <!-- 첫 화면 버튼은 "간편 문의하기" 하나만 둔다(토스플레이스 모바일과 같은 방식, 2026-11-25).
+           옆에 있던 "이용 방법 보기"는 스크롤하면 바로 나오는 곳으로 내려가기만 해서 눈만 나눴다.
+           둘러보고 싶은 사람에겐 바로 아래 눌러보는 태블릿 데모가 그 역할을 한다.
+           "요금 보기"도 생각했지만, 설명을 건너뛰고 가격부터 보면 종이 쿠폰보다 비싸게만 보일 수 있어 넣지 않았다 -->
       <!-- 버튼 아래 "월 3만 원 · 태블릿 비용·설치비 0원" 줄은 첫 화면이 너무 상업적으로 보여서 뺐다(2026-11-24).
            가격은 메뉴 "요금"과 #pricing 섹션에서 본다 -->
     </div>
