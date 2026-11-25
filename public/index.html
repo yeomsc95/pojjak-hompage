@@ -185,6 +185,30 @@
   .bridge{text-align:center;margin-top:28px;font-size:clamp(24px,3.4vw,36px);font-weight:700;line-height:1.4;letter-spacing:-.045em}
   .bridge span{color:var(--g500);font-weight:600}  /* 앞줄은 흐리게, 해결 문장에 눈이 가게 */
   .bridge b{color:var(--blue);font-weight:700}
+  /* 써 본 분들에게 들은 말: 해결 문장 바로 아래에서 "정말 그렇다"를 받쳐 준다.
+     실제로 들은 말만 짧게 옮긴다. 지어내거나 "10명 중 9명" 같은 숫자를 붙이지 않는다(2026-11-25) */
+  .heard{max-width:760px;margin:72px auto 0}
+  .heard-title{text-align:center;font-size:clamp(20px,2.4vw,24px);font-weight:700;letter-spacing:-.03em;color:var(--g900)}
+  .heard-sub{text-align:center;margin-top:6px;font-size:15px;font-weight:500;color:var(--g500)}
+  .heard-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+  .heard-list li{display:flex;gap:12px;align-items:flex-start;background:var(--g50);border-radius:22px;padding:22px 24px;
+    font-size:18px;font-weight:600;line-height:1.5;letter-spacing:-.02em;color:var(--g800);text-wrap:pretty}
+  /* 따옴표 글자는 Pretendard에서 기울어진 " 처럼 보여서 그림으로 그린다 */
+  .heard-list li::before{content:"";flex:none;width:22px;height:22px;margin-top:2px;background:var(--blue);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.58 17.32C3.55 16.23 3 15 3 13.01c0-3.5 2.46-6.64 6.03-8.19l.89 1.38c-3.34 1.8-4 4.14-4.26 5.61.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.74-1.17zm10 0C13.55 16.23 13 15 13 13.01c0-3.5 2.46-6.64 6.03-8.19l.89 1.38c-3.34 1.8-4 4.14-4.26 5.61.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.74-1.17z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.58 17.32C3.55 16.23 3 15 3 13.01c0-3.5 2.46-6.64 6.03-8.19l.89 1.38c-3.34 1.8-4 4.14-4.26 5.61.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.74-1.17zm10 0C13.55 16.23 13 15 13 13.01c0-3.5 2.46-6.64 6.03-8.19l.89 1.38c-3.34 1.8-4 4.14-4.26 5.61.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.74-1.17z'/%3E%3C/svg%3E") center/contain no-repeat}
+  .heard-list b{color:var(--blue);font-weight:700;white-space:nowrap}  /* "잃어버릴 / 일이 없어요"처럼 강조 문구가 갈라지지 않게 */
+  .heard-fact{margin-top:20px;text-align:center;font-size:16px;font-weight:500;color:var(--g600);text-wrap:balance}
+  .heard-fact b{color:var(--g900);font-weight:700}
+  .heard .nb{display:inline-block}
+  /* 개수가 홀수면 마지막 한 장은 가운데로 */
+  .heard-list li:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 6px)}
+  @media(max-width:600px){
+    .heard-list li:last-child:nth-child(odd){width:auto;justify-self:stretch}
+    .heard{margin-top:56px}
+    .heard-list{grid-template-columns:1fr;gap:10px}
+    .heard-list li{font-size:17px;padding:18px 20px}
+  }
 
   /* ===== 화면 예시: 히어로에 없는 태블릿 화면들(쿠폰 발급·쿠폰 조회·네이버 리뷰 QR) =====
      pojjak-tablet main 브랜치의 coupon_issue_popup / coupon_list_popup / review_qr_popup 내용과
@@ -515,6 +539,11 @@
   .r-stats span{display:block;font-size:15px;color:var(--g400);line-height:1.6}
   .r-src{margin-top:36px;font-size:12.5px;color:var(--g500);line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto}
   .r-src a{text-decoration:underline;text-underline-offset:2px}
+  #effect .nb{display:inline-block}
+  .effect-close{margin-top:64px;text-align:center}
+  .ec-main{font-size:clamp(26px,3.6vw,36px);font-weight:700;letter-spacing:-.04em;line-height:1.35;color:#fff}
+  .ec-main b{color:#64a8ff;font-weight:800}
+  .effect-close .btn{margin-top:28px}
   @media(max-width:600px){
     .r-stats{grid-template-columns:1fr;gap:28px}
     .r-stats b{font-size:38px}
@@ -742,10 +771,10 @@
   <div class="wrap nav">
     <a class="brand" href="#top"><img src="pojjak-icon.png" alt="뽀짝"><span class="brand-name">스탬프 적립</span></a>
     <nav class="menu" id="menu">
+      <a href="#effect">효과</a>
       <a href="#how">이용 방법</a>
       <a href="#screens">화면 예시</a>
       <a href="#examples">업종별 예시</a>
-      <a href="#effect">효과</a>
       <a href="#pricing">요금</a>
       <a href="#start">도입 안내</a>
       <a class="menu-login" href="/admin">관리자 로그인</a>
@@ -837,6 +866,51 @@
   </div>
 </section>
 
+<!-- 효과(왜 스탬프인가): 첫 화면 바로 다음에 둔다(2026-11-25). 광고로 들어온 사장님에게 먼저
+     "스탬프는 재방문 마케팅이다 → 안 하면 다녀간 손님이 그냥 지나간다 → 연구 근거 → 그게 하루 1,000원꼴"을 보여주고,
+     그다음 "그런데 종이 스탬프는 불편하죠"(#pain)로 넘어간다 -->
+<section class="block dark" id="effect">
+  <div class="wrap">
+    <div class="head center reveal">
+      <p class="kicker">왜 스탬프일까요</p>
+      <h2>스탬프는<br><span class="hl">재방문 마케팅</span>이에요</h2>
+      <p class="desc"><span class="nb">스탬프가 없으면,</span> <span class="nb">다녀간 손님은 그냥 지나가는 손님으로 끝나요.</span></p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+        <h3>다시 올 이유가 생겨요</h3><p>"쿠폰까지 3개 남았다"는 작은 동기가 다음 방문으로 이어져요.</p></div>
+      <div class="card reveal" style="--d:.08s"><div class="ico red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>단골이라는 소속감</h3><p>스탬프가 한 칸씩 쌓일수록 '내 단골 가게'가 돼요. 열심히 모은 손님일수록 쿠폰을 받은 뒤 새 판도 다시 시작해요.</p></div>
+      <div class="card reveal" style="--d:.16s"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <h3>단골이 매출을 만들어요</h3><p>꾸준히 오는 단골 한 명이 어쩌다 온 신규 손님보다 매장에 큰 힘이 돼요.</p></div>
+    </div>
+    <!-- 근거: 아래 숫자는 논문 원문에서 직접 확인한 것만 쓴다(2026-11-24 확인). 추정·각색 금지.
+         Kivetz, Urminsky & Zheng (2006) JMR 43(1):39-58 - 카페 "10잔 사면 1잔 무료" 카드 실측.
+         · 첫 구매 간격 대비 마지막 구매 간격이 평균 20% 짧아짐 (average acceleration of 20%)
+         · 첫 간격 기준 한 달 9회 vs 가속을 반영한 실제 한 달 11회
+         · 보너스 도장 2개가 찍힌 12칸 카드가 10칸 카드보다 10번 구매를 약 20%(거의 3일) 빨리 채움
+         · 보상을 향해 가속한 손님일수록 재참여(다음 카드) 확률이 높고 빠름 → 위 '소속감' 카드 문구 -->
+    <div class="research reveal">
+      <p class="r-head">실제 카페 도장 카드를 분석한 미국 연구에서도 확인됐어요</p>
+      <div class="r-stats">
+        <div><b>20%</b><span>보상이 가까워질수록<br>방문 간격이 평균 20% 짧아졌어요</span></div>
+        <div><b>9→11번</b><span>같은 손님의 한 달 방문이<br>약 9번에서 11번 꼴로 늘었어요</span></div>
+        <div><b>20%↑</b><span>도장 2개를 미리 찍어준 카드는<br>10번을 20% 더 빨리 채웠어요</span></div>
+      </div>
+      <p class="r-src">출처: Kivetz, Urminsky &amp; Zheng (2006), <a href="https://business.columbia.edu/faculty/research/goal-gradient-hypothesis-resurrected-purchase-acceleration-illusionary-goal" target="_blank" rel="noopener">“The Goal-Gradient Hypothesis Resurrected”</a>, Journal of Marketing Research.
+        미국 컬럼비아대 연구진이 실제 카페의 ‘10잔 사면 1잔 무료’ 도장 카드를 분석했어요.</p>
+    </div>
+    <!-- 값어치 다음에 가격: 설명 없이 가격만 보면 종이보다 비싸 보이지만, 재방문 이야기 바로 뒤라 "고작 하루 1,000원"으로 읽힌다(대표 의견 2026-11-25).
+         요금이 바뀌면 #pricing과 같이 고친다 -->
+    <div class="effect-close reveal">
+      <!-- "음료수 한 잔 값도 안 돼요"처럼 싸다고 밀어붙이는 말은 쓰지 않는다 - 부드럽게 권하는 말투로(대표 의견 2026-11-25) -->
+      <!-- 스탬프 = 다녀간 손님과 가게를 잇는 연결고리(대표 의견 2026-11-25) -->
+      <p class="ec-main"><span class="nb">손님과 가게를 잇는</span> <span class="nb">연결고리,</span><br><span class="nb"><b>하루 1,000원꼴</b>로</span> <span class="nb">시작해 보세요</span></p>
+      <button class="btn btn-white btn-lg" onclick="openInquiry()">간편 문의하기</button>
+    </div>
+  </div>
+</section>
+
 <!-- 공감 (pain point) -->
 <section class="block" id="pain">
   <div class="wrap">
@@ -856,6 +930,21 @@
     <div class="bridge-wrap reveal">
       <div class="bridge-ico"><img src="pojjak-icon.png" alt=""></div>
       <p class="bridge"><span>이 모든 번거로움,</span><br><b>뽀짝</b>은 전화번호 하나로 해결해요</p>
+    </div>
+    <!-- 써 본 분들에게 들은 말(2026-11-25): 실제 사용 매장의 사장님과 손님들에게 들은 내용을 짧게 옮겼다.
+         분실(종이 도장과 비교), 쓰기 편함, 디자인이 귀여움, 받은 쿠폰을 친구에게 줌, 리뷰를 쓰고 도장을 받아 감.
+         매장 이름은 밝히지 않기로 했다. 새로 넣을 때도 실제로 들은 말만 - 지어내거나 숫자를 붙이지 않는다 -->
+    <div class="heard reveal">
+      <!-- "직접 물어봤어요"는 쓰지 않는다: 설문을 한 게 아니라 사장님을 통해 들은 말이라서. 실제로 물어보게 되면 바꿔도 된다 -->
+      <h3 class="heard-title">실제 고객에게 들었어요</h3>
+      <p class="heard-sub">뽀짝을 쓰는 매장 손님들이 한 말을 옮겼어요</p>
+      <ul class="heard-list">
+        <li><span>종이는 잃어버리면 끝인데, <b>잃어버릴 일이 없어요</b></span></li>
+        <li><span>번호만 누르면 돼서 <b>쓰기 편해요</b></span></li>
+        <li><span>디자인이 <b>귀여워요</b></span></li>
+        <li><span>쿠폰이 생겨서 <b>친구한테 주었어요</b></span></li>
+      </ul>
+      <p class="heard-fact"><span class="nb">리뷰를 남기면 도장을 주는 매장에선,</span> <span class="nb">도장 받으려고 <b>리뷰까지 쓰고 가요</b></span></p>
     </div>
   </div>
 </section>
@@ -1012,37 +1101,29 @@
   </div>
 </section>
 
-<!-- 효과 -->
-<section class="block dark" id="effect">
-  <div class="wrap">
-    <div class="head center reveal">
-      <p class="kicker">효과</p>
-      <h2>스탬프의 힘은<br><span class="hl">'재방문'</span>이에요</h2>
-      <p class="desc">새 손님을 찾는 것보다, 온 손님을 다시 오게 하는 게<br>더 큰 매출로 이어져요.</p>
-    </div>
-    <div class="cards">
-      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
-        <h3>다시 올 이유가 생겨요</h3><p>"쿠폰까지 3개 남았다"는 작은 동기가 다음 방문으로 이어져요.</p></div>
-      <div class="card reveal" style="--d:.08s"><div class="ico red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-        <h3>단골이라는 소속감</h3><p>스탬프가 한 칸씩 쌓일수록 '내 단골 가게'가 돼요. 열심히 모은 손님일수록 쿠폰을 받은 뒤 새 판도 다시 시작해요.</p></div>
-      <div class="card reveal" style="--d:.16s"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-        <h3>단골이 매출을 만들어요</h3><p>꾸준히 오는 단골 한 명이 어쩌다 온 신규 손님보다 매장에 큰 힘이 돼요.</p></div>
-    </div>
-    <!-- 근거: 아래 숫자는 논문 원문에서 직접 확인한 것만 쓴다(2026-11-24 확인). 추정·각색 금지.
-         Kivetz, Urminsky & Zheng (2006) JMR 43(1):39-58 - 카페 "10잔 사면 1잔 무료" 카드 실측.
-         · 첫 구매 간격 대비 마지막 구매 간격이 평균 20% 짧아짐 (average acceleration of 20%)
-         · 첫 간격 기준 한 달 9회 vs 가속을 반영한 실제 한 달 11회
-         · 보너스 도장 2개가 찍힌 12칸 카드가 10칸 카드보다 10번 구매를 약 20%(거의 3일) 빨리 채움
-         · 보상을 향해 가속한 손님일수록 재참여(다음 카드) 확률이 높고 빠름 → 위 '소속감' 카드 문구 -->
-    <div class="research reveal">
-      <p class="r-head">실제 카페 도장 카드를 분석한 미국 연구에서도 확인됐어요</p>
-      <div class="r-stats">
-        <div><b>20%</b><span>보상이 가까워질수록<br>방문 간격이 평균 20% 짧아졌어요</span></div>
-        <div><b>9→11번</b><span>같은 손님의 한 달 방문이<br>약 9번에서 11번 꼴로 늘었어요</span></div>
-        <div><b>20%↑</b><span>도장 2개를 미리 찍어준 카드는<br>10번을 20% 더 빨리 채웠어요</span></div>
-      </div>
-      <p class="r-src">출처: Kivetz, Urminsky &amp; Zheng (2006), <a href="https://business.columbia.edu/faculty/research/goal-gradient-hypothesis-resurrected-purchase-acceleration-illusionary-goal" target="_blank" rel="noopener">“The Goal-Gradient Hypothesis Resurrected”</a>, Journal of Marketing Research.
-        미국 컬럼비아대 연구진이 실제 카페의 ‘10잔 사면 1잔 무료’ 도장 카드를 분석했어요.</p>
+<!-- 스토리: churchweb.co.kr의 이야기 섹션처럼 어두운 바탕 + 왼쪽 정렬 글 + 핵심 문장은 왼쪽 파란 막대 강조(2026-11-24).
+     가운데 정렬 흰 바탕일 때는 문단이 눈에 잘 안 들어왔다 -->
+<section class="block dark" id="story">
+  <div class="wrap story reveal">
+    <p class="kicker">우리의 이야기</p>
+    <!-- 손님(사장님)의 가게를 "작은 가게"라고 부르지 않는다 - 낮춰 부르는 느낌이 나서 (2026-11-24) -->
+    <h2>어느 가게에나,<br><span class="hl">단골</span>은 필요하니까</h2>
+    <div class="story-body">
+      <!-- 멤버십·포인트 앱·데이터 분석 = 한 번 온 손님을 다시 오게 하는 마케팅(대표 의견 2026-11-25).
+           "비싼 시스템"이라고만 하면 무엇이 없는지 흐려서, 다녀간 손님 대상 마케팅이라고 풀어 썼다 -->
+      <p>큰 프랜차이즈는 멤버십, 포인트 앱, 데이터 분석으로 한 번 온 손님을 다시 오게 만들어요.
+        하지만 동네 가게에는 여전히 도장 찍는 종이 한 장뿐이었어요.</p>
+      <p class="callout">뽀짝은 그 차이를 줄이고 싶어서 시작했어요.</p>
+      <p>큰돈 들이지 않아도, 태블릿 한 대로 우리 가게만의 단골 마케팅을 할 수 있도록요.</p>
+      <!-- 앱으로 만들지 않은 이유: 앱을 깔고 가입해야 쓰는 쿠폰은 어르신 손님이 쓰기 어렵다(대표 의견 2026-11-25).
+           특정 회사를 집어 비교하지 않고 "앱으로 쓰는 쿠폰" 일반으로만 말한다 -->
+      <p>앱으로 만들지 않은 데도 이유가 있어요.
+        앱을 깔고 가입해야 쓰는 쿠폰은 어르신 손님들께 너무 어렵거든요. 그래서 뽀짝은 전화번호만 누르면 끝나요. 나이와 상관없이 누구나요.</p>
+      <!-- 디지털이지만 종이 도장의 아날로그 감성을 남기려 했다(대표 의견 2026-11-25). 도장이 한 칸씩 찍히는 도장판 화면이 그 예 -->
+      <p>종이 도장의 좋은 점도 놓치고 싶지 않았어요.
+        도장이 한 칸씩 꾹 찍히고, 다 채우면 괜히 뿌듯해지는 그 기분이요.</p>
+      <p class="callout">뽀짝은 디지털이지만,<br>도장 찍던 아날로그 감성을 담으려고 했어요.</p>
+      <p class="callout">오늘도 문을 여는<br>모든 사장님을 응원해요.</p>
     </div>
   </div>
 </section>
@@ -1077,24 +1158,7 @@
   </div>
 </section>
 
-<!-- 스토리: churchweb.co.kr의 이야기 섹션처럼 어두운 바탕 + 왼쪽 정렬 글 + 핵심 문장은 왼쪽 파란 막대 강조(2026-11-24).
-     가운데 정렬 흰 바탕일 때는 문단이 눈에 잘 안 들어왔다 -->
-<section class="block dark" id="story">
-  <div class="wrap story reveal">
-    <p class="kicker">우리의 이야기</p>
-    <!-- 손님(사장님)의 가게를 "작은 가게"라고 부르지 않는다 - 낮춰 부르는 느낌이 나서 (2026-11-24) -->
-    <h2>어느 가게에나,<br><span class="hl">단골</span>은 필요하니까</h2>
-    <div class="story-body">
-      <p>큰 프랜차이즈에는 멤버십도, 포인트 앱도, 데이터 분석도 있어요.
-        하지만 동네 가게에는 여전히 도장 찍는 종이 한 장뿐이었어요.</p>
-      <p class="callout">뽀짝은 그 차이를 줄이고 싶어서 시작했어요.</p>
-      <p>비싼 시스템 없이도, 태블릿 한 대로 단골을 쌓아갈 수 있도록요.</p>
-      <p class="callout">오늘도 문을 여는<br>모든 사장님을 응원해요.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 여기만 고치면 된다 -->
+<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 여기와 #effect의 "하루 1,000원꼴"을 같이 고친다 -->
 <section class="block tint" id="pricing">
   <div class="wrap">
     <div class="head center reveal">
