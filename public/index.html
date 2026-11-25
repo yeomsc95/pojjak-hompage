@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>뽀짝 | 매장 스탬프 적립·쿠폰 서비스</title>
-<meta name="description" content="뽀짝은 태블릿 한 대로 스탬프 적립과 쿠폰 발급, 단골 관리를 해결하는 매장용 적립 서비스예요.">
+<title>뽀짝 | 단골을 만드는 마케팅의 시작 · 스탬프 적립 태블릿</title>
+<meta name="description" content="다녀간 손님을 다시 오게 하는 스탬프 마케팅, 뽀짝. 태블릿 한 대로 시작하고, 손님은 전화번호만 누르면 돼요.">
 <meta name="theme-color" content="#ffffff">
 <meta name="naver-site-verification" content="e6417fe1206ccb272f5711012b468bb060af2f5f">
 <link rel="canonical" href="https://pojjak.kr/">
@@ -153,6 +153,8 @@
   .block h2{font-size:clamp(30px,4.6vw,48px);line-height:1.3;font-weight:700;letter-spacing:-.045em}
   .desc{font-size:clamp(17px,2vw,20px);color:var(--g600);font-weight:500;margin-top:18px;line-height:1.6}
   .head.center .desc{max-width:600px;margin-left:auto;margin-right:auto}
+  .desc .nb{display:inline-block}  /* 폰에서 구절 사이에서만 줄바꿈 */
+  #mobile .desc b{color:var(--g900);font-weight:700}  /* 긴 설명에서 첫 문장(왜 필요한지)만 진하게 */
 
   /* 카드 */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -794,9 +796,10 @@
     <div class="reveal">
       <!-- 헤더 로고 속 "뽀짝" 글자는 작아서 안 읽힌다. 첫 화면에서 이름이 한 번은 읽히도록 여기에 둔다(2026-11-24) -->
       <span class="eyebrow">뽀짝 · 매장용 스탬프 적립</span>
-      <h1>모으는 재미가<br><span class="hl">단골</span>을 만들어요</h1>
-      <p class="lead"><span><span class="nb">전화번호만 누르면 도장이 쌓이고,</span> <span class="nb">다 모으면 쿠폰이 나와요.</span></span>
-        <span>태블릿 한 대로 적립부터 쿠폰, 방문 관리까지 끝내세요.</span></p>
+      <!-- 제목: 스탬프는 기능이 아니라 마케팅이라는 걸 첫 줄에서 말한다(대표 문구 2026-11-25). 예전 제목 "모으는 재미가 단골을 만들어요"는 설명 첫 문장으로 -->
+      <h1><span class="hl">단골</span>을 만드는<br>마케팅의 시작</h1>
+      <p class="lead"><span><span class="nb">모으는 재미가</span> <span class="nb">손님을 다시 오게 해요.</span></span>
+        <span><span class="nb">손님은 전화번호만 누르면 되고,</span> <span class="nb">사장님은 태블릿 한 대면 돼요.</span></span></p>
       <div class="hero-actions" id="heroActions">
         <button class="btn btn-primary btn-lg" onclick="openInquiry()">간편 문의하기</button>
       </div>
@@ -904,8 +907,8 @@
          요금이 바뀌면 #pricing과 같이 고친다 -->
     <div class="effect-close reveal">
       <!-- "음료수 한 잔 값도 안 돼요"처럼 싸다고 밀어붙이는 말은 쓰지 않는다 - 부드럽게 권하는 말투로(대표 의견 2026-11-25) -->
-      <!-- 스탬프 = 다녀간 손님과 가게를 잇는 연결고리(대표 의견 2026-11-25) -->
-      <p class="ec-main"><span class="nb">손님과 가게를 잇는</span> <span class="nb">연결고리,</span><br><span class="nb"><b>하루 1,000원꼴</b>로</span> <span class="nb">시작해 보세요</span></p>
+      <!-- 스탬프 = 다녀간 손님과 가게를 잇는 첫 연결고리(대표 의견 2026-11-25) -->
+      <p class="ec-main"><span class="nb">손님과 가게를 잇는</span> <span class="nb">첫 연결고리,</span><br><span class="nb"><b>하루 천 원</b>으로</span> <span class="nb">시작해 보세요</span></p>
       <button class="btn btn-white btn-lg" onclick="openInquiry()">간편 문의하기</button>
     </div>
   </div>
@@ -915,10 +918,11 @@
 <section class="block" id="pain">
   <div class="wrap">
     <div class="head center reveal">
-      <p class="kicker">종이 스탬프의 불편함</p>
+      <p class="kicker">종이 스탬프의 한계</p>
       <h2>이런 적, 한 번쯤<br>있으셨죠?</h2>
-      <!-- "바쁜 가게일수록…"은 바쁜 가게만 치켜세우는 느낌이라 바꿨다(2026-11-24) -->
-      <p class="desc">사소해 보여도, 매일 겪으면 꽤 번거로운 일들이에요.</p>
+      <!-- "바쁜 가게일수록…"은 바쁜 가게만 치켜세우는 느낌이라 바꿨다(2026-11-24).
+           번거로움보다 마케팅 손실로 말한다: 종이를 잃어버리면 다시 올 이유도 사라진다(2026-11-25) -->
+      <p class="desc"><span class="nb">종이를 잃어버리는 순간,</span> <span class="nb">손님이 다시 올 이유도 같이 사라져요.</span></p>
     </div>
     <div class="chat">
       <!-- 종이를 잃어버린 손님은 보통 "다시 찍어달라"고 한다. 말하는 쪽도 들어주는 쪽도 불편한 그 순간을 보여준다 -->
@@ -972,8 +976,9 @@
   <div class="wrap">
     <div class="head center reveal">
       <p class="kicker">화면 예시</p>
-      <h2><span class="hl">쿠폰부터 리뷰까지,</span><br>태블릿 하나로</h2>
-      <p class="desc">도장 적립 다음, 태블릿에서 이어지는 화면들이에요.</p>
+      <!-- 기능 나열이 아니라 마케팅 효과로: 쿠폰 = 다시 올 이유, 리뷰 = 새 손님(2026-11-25) -->
+      <h2>다시 오게 하고,<br><span class="hl">리뷰로 새 손님까지</span></h2>
+      <p class="desc"><span class="nb">단골은 쿠폰을 쓰러 다시 오고,</span> <span class="nb">새 손님은 리뷰를 보고 찾아와요.</span></p>
     </div>
     <!-- 스탬프 팝업·대시보드는 히어로에 이미 있어서, 여기서는 그 다음 화면들을 보여준다 -->
     <div class="features">
@@ -1021,7 +1026,7 @@
             <div class="pp-btns"><span class="pp-btn close">닫기</span></div>
           </div>
         </div>
-        <div class="feat-txt"><h3>네이버 리뷰도 받아요</h3>
+        <div class="feat-txt"><h3>리뷰가 쌓이면 새 손님이 와요</h3>
         <p>태블릿에서 '네이버 리뷰 작성하기'를 누르면 QR이 떠요. 손님은 자기 휴대폰으로 찍고, 영수증 인증 후 리뷰를 남겨요.</p></div>
       </div>
     </div>
@@ -1034,7 +1039,7 @@
   <div class="wrap">
     <div class="head center reveal">
       <p class="kicker">업종별 예시</p>
-      <h2>보상은 <span class="hl">우리 가게에</span><br>맞게 정해요</h2>
+      <h2><span class="hl">우리 가게에 맞는</span><br>혜택을 설계해요</h2>
       <p class="desc">몇 번째 방문에 어떤 쿠폰을 줄지 사장님이 정해요.<br>업종 예시를 눌러 보세요.</p>
     </div>
     <div class="ex reveal">
@@ -1063,7 +1068,8 @@
     <div class="head center reveal">
       <p class="kicker">다른 점</p>
       <h2>손님이 <span class="hl">먼저 눌러보는</span><br>적립 태블릿</h2>
-      <p class="desc">딱딱한 키오스크나 앱을 깔아야 하는 적립과는 달라요.</p>
+      <!-- 참여율이 마케팅의 성패: 손님이 안 누르면 아무 효과가 없다(2026-11-25) -->
+      <p class="desc"><span class="nb">마케팅은 손님이 참여해야 효과가 나요.</span> <span class="nb">뽀짝은 손님이 먼저 눌러보게 만들었어요.</span></p>
     </div>
     <!-- 그림이 먼저 눈에 들어오도록: 위에 큰 그림, 아래에 제목 + 한 줄 설명 (2026-11-24, 글 위주 카드가 눈에 안 감겨서) -->
     <div class="tiles">
@@ -1140,7 +1146,8 @@
       <h2>그동안 몰랐던 <span class="hl">단골</span>,<br>이제 폰으로 보여요</h2>
       <!-- 다른 적립 서비스와 비교하는 말("다른 곳은 못 본다")은 쓰지 않는다 - 회사마다 다르고 근거를 대기 어렵다.
            대신 "우리 가게 손님 기록을 사장님이 직접 본다"는 점만 말한다 -->
-      <p class="desc">우리 가게 손님이 몇 번 왔는지, 며칠마다 오는지 사장님이 직접 폰으로 확인해요.
+      <p class="desc"><b>누가 단골인지 알아야 단골 마케팅도 할 수 있어요.</b>
+        우리 가게 손님이 몇 번 왔는지, 며칠마다 오는지 사장님이 직접 폰으로 확인해요.
         적립과 쿠폰 사용은 계산대 태블릿에서 하고, 태블릿을 잠시 못 쓸 때는 폰으로 대신 처리할 수 있어요.</p>
       <ul class="checks">
         <li>손님별 방문 횟수·방문 주기</li>
@@ -1158,7 +1165,7 @@
   </div>
 </section>
 
-<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 여기와 #effect의 "하루 1,000원꼴"을 같이 고친다 -->
+<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 여기와 #effect의 "하루 천 원"을 같이 고친다 -->
 <section class="block tint" id="pricing">
   <div class="wrap">
     <div class="head center reveal">
@@ -1189,7 +1196,7 @@
 <section class="block" id="start">
   <div class="wrap">
     <div class="cta reveal">
-      <h2>우리 매장에<br>도입해볼까요?</h2>
+      <h2>우리 가게 단골 마케팅,<br>오늘 시작해 보세요</h2>
       <p>간편 문의를 남겨주시면 확인 후 설치 일정을 안내해 드릴게요.</p>
       <div class="cta-actions">
         <button class="btn btn-white btn-lg" onclick="openInquiry()">간편 문의하기</button>
