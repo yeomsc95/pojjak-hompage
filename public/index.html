@@ -130,6 +130,14 @@
   .lead span{display:block;text-wrap:balance}
   .lead .nb{display:inline-block}  /* 폰에서 쉼표 뒤에서만 줄바꿈 */
   .hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .hero-proof{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:9px 16px;border-radius:999px;
+    background:var(--g50);font-size:14px;font-weight:500;color:var(--g600);transition:background-color .2s}
+  .hero-proof:hover{background:var(--g100)}
+  .hero-proof b{color:var(--blue);font-weight:700}
+  .hero-proof b,.hero-proof span{white-space:nowrap}
+  .hero-proof i{font-style:normal}
+  /* 좁은 폰에선 한 줄에 들어가게 "실제"를 빼고 조금 작게 */
+  @media(max-width:400px){.hero-proof{font-size:13px;padding:8px 14px;gap:6px}.hero-proof i{display:none}}
 
   /* 히어로 무대: 가운데 손님 태블릿 메인 화면을 깔고, 그 위에 스탬프 팝업(왼쪽)과 사장님 폰(오른쪽)을 겹친다.
      팝업·폰은 태블릿의 흰 여백까지만 덮고 로고·상호명·키패드·버튼은 가리지 않게 자리를 잡았다. */
@@ -815,20 +823,25 @@
   <div class="wrap">
     <div class="reveal">
       <!-- 헤더 로고 속 "뽀짝" 글자는 작아서 안 읽힌다. 첫 화면에서 이름이 한 번은 읽히도록 여기에 둔다(2026-11-24) -->
-      <span class="eyebrow">뽀짝 · 매장용 스탬프 적립</span>
-      <!-- 제목: 스탬프는 기능이 아니라 마케팅이라는 걸 첫 줄에서 말한다(대표 문구 2026-11-25). 예전 제목 "모으는 재미가 단골을 만들어요"는 설명 첫 문장으로 -->
-      <h1><span class="hl">단골</span>을 만드는<br>마케팅의 시작</h1>
-      <p class="lead"><span><span class="nb">모으는 재미가</span> <span class="nb">손님을 다시 오게 해요.</span></span>
-        <span><span class="nb">손님은 전화번호만 누르면 되고,</span> <span class="nb">사장님은 태블릿 한 대면 돼요.</span></span></p>
+      <!-- 대표 문구 "단골을 만드는 마케팅의 시작"은 제목 위 작은 글씨로(2026-11-25) -->
+      <span class="eyebrow">뽀짝 · 단골을 만드는 마케팅의 시작</span>
+      <!-- 제목: 광고로 들어온 사장님이 속으로 "…아니요" 하게 되는 질문으로 시작한다(2026-11-25, 시안 A).
+           설명: 스탬프 = 손님과 가게를 잇는 연결고리, 하루 천 원(가격을 밀어붙이지 않고 "시작하세요"로 권한다) -->
+      <h1>다녀간 손님,<br><span class="hl">다시</span> 오나요?</h1>
+      <p class="lead"><span><span class="nb">스탬프는 손님과 가게를 잇는</span> <span class="nb">연결고리예요.</span></span>
+        <span><span class="nb">하루 천 원으로</span> <span class="nb">재방문 마케팅을 시작하세요.</span></span></p>
       <div class="hero-actions" id="heroActions">
         <button class="btn btn-primary btn-lg" onclick="openInquiry()">간편 문의하기</button>
       </div>
+      <!-- 재방문 효과 근거를 첫 화면에서 바로 보이게: 누르면 #effect의 연구 숫자로 내려간다.
+           "재방문률이 확실히 는다"처럼 보장하는 말은 쓰지 않는다 - 연구 결과라는 출처를 붙여 숫자만 -->
+      <a class="hero-proof" href="#effect"><b>방문 간격 20% 단축</b><span><i>실제 </i>도장 카드 연구 결과 →</span></a>
       <!-- 첫 화면 버튼은 "간편 문의하기" 하나만 둔다(토스플레이스 모바일과 같은 방식, 2026-11-25).
            옆에 있던 "이용 방법 보기"는 스크롤하면 바로 나오는 곳으로 내려가기만 해서 눈만 나눴다.
            둘러보고 싶은 사람에겐 바로 아래 눌러보는 태블릿 데모가 그 역할을 한다.
            "요금 보기"도 생각했지만, 설명을 건너뛰고 가격부터 보면 종이 쿠폰보다 비싸게만 보일 수 있어 넣지 않았다 -->
       <!-- 버튼 아래 "월 3만 원 · 태블릿 비용·설치비 0원" 줄은 첫 화면이 너무 상업적으로 보여서 뺐다(2026-11-24).
-           가격은 메뉴 "요금"과 #pricing 섹션에서 본다 -->
+           첫 화면 가격은 설명 속 "하루 천 원" 한마디로만 말하고, 자세한 건 메뉴 "요금"과 #pricing 섹션에서 본다 -->
     </div>
   </div>
   <div class="wrap">
