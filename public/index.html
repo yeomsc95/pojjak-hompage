@@ -322,7 +322,9 @@
   .tv-no{display:flex;gap:8px}
   .tv-no span{display:flex;align-items:center;gap:5px;background:#fff;color:var(--g700);font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px}
   .tv-no i{font-style:normal;color:#e5533f;font-weight:800}
-  @media(max-width:900px){.tiles{grid-template-columns:1fr;max-width:560px}}
+  /* 카드가 홀수 개면 마지막 한 장은 가운데로 */
+  .tiles .tile:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 8px)}
+  @media(max-width:900px){.tiles{grid-template-columns:1fr;max-width:560px}.tiles .tile:last-child:nth-child(odd){width:auto;justify-self:stretch}}
   @media(max-width:600px){.tile-vis{height:176px}.tile-txt{padding:20px 22px 24px}.tile h3{font-size:20px}}
   @media(prefers-reduced-motion:reduce){.tv-tap .ring,.tv-num .caret{animation:none}}
 
@@ -928,22 +930,18 @@
       </div>
       <p class="va-note"><span class="nb">광고로 온 손님도,</span> <span class="nb"><b>스탬프가 있어야 단골이 돼요</b></span></p>
     </div>
-    <div class="cards">
-      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
-        <h3>다시 올 이유가 생겨요</h3><p>"쿠폰까지 3개 남았다"는 작은 동기가 다음 방문으로 이어져요.</p></div>
-      <div class="card reveal" style="--d:.08s"><div class="ico red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-        <h3>단골이라는 소속감</h3><p>스탬프가 한 칸씩 쌓일수록 '내 단골 가게'가 돼요. 열심히 모은 손님일수록 쿠폰을 받은 뒤 새 판도 다시 시작해요.</p></div>
-      <div class="card reveal" style="--d:.16s"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-        <h3>단골이 매출을 만들어요</h3><p>꾸준히 오는 단골 한 명이 어쩌다 온 신규 손님보다 매장에 큰 힘이 돼요.</p></div>
-    </div>
+    <!-- 이유 카드 3장(다시 올 이유·소속감·단골이 매출)은 뺐다(2026-11-25): 광고 비교 카드와 하는 말이 겹치고,
+         첫 화면 바로 다음 섹션이 폰에서 너무 길었다. "광고 비교 → 연구 숫자 → 마무리"로 짧게 간다 -->
     <!-- 근거: 아래 숫자는 논문 원문에서 직접 확인한 것만 쓴다(2026-11-24 확인). 추정·각색 금지.
          Kivetz, Urminsky & Zheng (2006) JMR 43(1):39-58 - 카페 "10잔 사면 1잔 무료" 카드 실측.
          · 첫 구매 간격 대비 마지막 구매 간격이 평균 20% 짧아짐 (average acceleration of 20%)
          · 첫 간격 기준 한 달 9회 vs 가속을 반영한 실제 한 달 11회
          · 보너스 도장 2개가 찍힌 12칸 카드가 10칸 카드보다 10번 구매를 약 20%(거의 3일) 빨리 채움
-         · 보상을 향해 가속한 손님일수록 재참여(다음 카드) 확률이 높고 빠름 → 위 '소속감' 카드 문구 -->
+         · 보상을 향해 가속한 손님일수록 재참여(다음 카드) 확률이 높고 빠름 -->
     <div class="research reveal">
-      <p class="r-head">실제 카페 도장 카드를 분석한 미국 연구에서도 확인됐어요</p>
+      <!-- 바로 위 광고 비교 카드와 이어지게: "광고는 한 번, 스탬프는 다시" → 그 재방문 효과의 숫자.
+           "뽀짝 재방문 20%"처럼 뽀짝이 잰 숫자로 쓰지 않는다 - 종이 도장 카드 연구이고, 재방문율이 아니라 방문 간격이다 -->
+      <p class="r-head">스탬프의 재방문 효과, 실제 카페 도장 카드 연구로도 확인됐어요</p>
       <div class="r-stats">
         <div><b>20%</b><span>보상이 가까워질수록<br>방문 간격이 평균 20% 짧아졌어요</span></div>
         <div><b>9→11번</b><span>같은 손님의 한 달 방문이<br>약 9번에서 11번 꼴로 늘었어요</span></div>
@@ -952,12 +950,11 @@
       <p class="r-src">출처: Kivetz, Urminsky &amp; Zheng (2006), <a href="https://business.columbia.edu/faculty/research/goal-gradient-hypothesis-resurrected-purchase-acceleration-illusionary-goal" target="_blank" rel="noopener">“The Goal-Gradient Hypothesis Resurrected”</a>, Journal of Marketing Research.
         미국 컬럼비아대 연구진이 실제 카페의 ‘10잔 사면 1잔 무료’ 도장 카드를 분석했어요.</p>
     </div>
-    <!-- 값어치 다음에 가격: 설명 없이 가격만 보면 종이보다 비싸 보이지만, 재방문 이야기 바로 뒤라 "고작 하루 1,000원"으로 읽힌다(대표 의견 2026-11-25).
-         요금이 바뀌면 #pricing과 같이 고친다 -->
+    <!-- 마무리: 위 광고 비교 카드("계속 쓰다 보면 지치는")를 받아서 권한다(2026-11-25).
+         "연결고리·하루 천 원"은 첫 화면 설명에 이미 있어 여기서 또 말하지 않는다.
+         "음료수 한 잔 값도 안 돼요"처럼 밀어붙이는 말은 쓰지 않는다 - 부드럽게 권하는 말투로 -->
     <div class="effect-close reveal">
-      <!-- "음료수 한 잔 값도 안 돼요"처럼 싸다고 밀어붙이는 말은 쓰지 않는다 - 부드럽게 권하는 말투로(대표 의견 2026-11-25) -->
-      <!-- 스탬프 = 다녀간 손님과 가게를 잇는 연결고리(대표 의견 2026-11-25). "첫 연결고리"는 첫 만남은 방문이라 과해서 뺐다 -->
-      <p class="ec-main"><span class="nb">손님과 가게를 잇는</span> <span class="nb">연결고리,</span><br><span class="nb"><b>하루 천 원</b>으로</span> <span class="nb">시작해 보세요</span></p>
+      <p class="ec-main"><span class="nb">광고비에 지치셨다면,</span><br><span class="nb"><b>다녀간 손님</b>부터</span> <span class="nb">붙잡아 보세요</span></p>
       <button class="btn btn-white btn-lg" onclick="openInquiry()">간편 문의하기</button>
     </div>
   </div>
@@ -1140,15 +1137,8 @@
         </div>
         <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 보여요.</p></div>
       </div>
-      <!-- 키오스크는 적립만 하고 쓰는 법이 어려워 쿠폰을 못 쓰는 경우가 많다 -->
+      <!-- "쓰는 것도 쉬워요"(쿠폰 사용) 카드는 뺐다(2026-11-25): 이용 방법 3단계·화면 예시 "쿠폰 사용도 태블릿에서"와 같은 말이었다 -->
       <div class="tile reveal">
-        <div class="tile-vis yellow" aria-hidden="true">
-          <div class="tv-coupon"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>아메리카노</b><small>쿠폰 1장</small></span></div>
-          <span class="tv-btn">선택한 쿠폰 사용하기</span>
-        </div>
-        <div class="tile-txt"><h3>쓰는 것도 쉬워요</h3><p>번호만 누르면 가진 쿠폰이 떠요. 골라서 누르면 끝이에요.</p></div>
-      </div>
-      <div class="tile reveal" style="--d:.08s">
         <div class="tile-vis teal" aria-hidden="true">
           <div class="tv-num">010-1234-5678<span class="caret"></span></div>
           <div class="tv-no"><span><i>✕</i>앱 설치</span><span><i>✕</i>회원가입</span></div>
@@ -1217,7 +1207,8 @@
   </div>
 </section>
 
-<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 금액이 바뀌면 여기와 #effect의 "하루 천 원"을 같이 고친다 -->
+<!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 최소 1년(태블릿을 무료로 드려서) - 페이지에는 안 적고 상담 때 설명.
+     "구독"·"언제든 해지"처럼 읽히는 말은 쓰지 않는다. 금액이 바뀌면 여기와 첫 화면 설명의 "하루 천 원"을 같이 고친다 -->
 <section class="block tint" id="pricing">
   <div class="wrap">
     <div class="head center reveal">
