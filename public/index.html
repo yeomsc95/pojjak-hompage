@@ -588,7 +588,8 @@
   .calc-row output{font-size:17px;font-weight:700;color:#64a8ff;white-space:nowrap}
   .calc-row input{grid-column:1/-1;width:100%;margin:0;accent-color:#3182f6;height:24px;cursor:pointer}
   .calc-result{background:var(--blue);border-radius:22px;padding:28px 24px;text-align:center;color:#fff}
-  .calc-result span{display:block;font-size:15px;font-weight:600;color:rgba(255,255,255,.85)}
+  .calc-result>span{display:block;font-size:15px;font-weight:600;color:rgba(255,255,255,.85)}
+  .calc-result small .nb{display:inline-block}
   .calc-result b{display:block;margin-top:6px;font-size:clamp(34px,4.4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.2}
   .calc-result small{display:block;margin-top:8px;font-size:15px;font-weight:600;color:rgba(255,255,255,.9)}
   .calc-note{grid-column:1/-1;text-align:center;font-size:13.5px;color:var(--g500);line-height:1.6}
@@ -644,6 +645,7 @@
   .cta{background:var(--blue);border-radius:36px;padding:80px 40px;text-align:center;color:#fff}
   .cta h2{color:#fff}
   .cta p{font-size:clamp(17px,2vw,19px);color:rgba(255,255,255,.82);font-weight:500;margin:16px auto 36px;max-width:480px}
+  .cta p .nb{display:inline-block}
   .cta-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
   .btn-white{background:#fff;color:var(--blue)}
   .btn-white:hover{background:#f0f6ff}
@@ -659,6 +661,12 @@
   .pc-price{margin-top:6px;font-size:24px;font-weight:700;color:var(--g900);letter-spacing:-.03em}
   .pc-price b{font-size:56px;letter-spacing:-.045em;line-height:1.15}
   .pc-day{margin-top:4px;font-size:16px;font-weight:500;color:var(--g500)}
+  /* 가격을 보는 순간 "비싼가?"에 바로 답한다: 다시 온 손님 몇 명이면 요금만큼인지(2026-11-25).
+     계산일 뿐 효과를 약속하지 않는다 - "늘어요"가 아니라 "~만 다시 와도"로 쓴다 */
+  .pc-even{margin-top:20px;padding:14px 18px;border-radius:16px;background:var(--g50);
+    font-size:15px;font-weight:500;color:var(--g700);line-height:1.55}
+  .pc-even b{color:var(--blue);font-weight:700}
+  .pc-even .nb{display:inline-block}
   .pc-zero{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
   .pc-zero li{background:var(--blue-soft);border-radius:18px;padding:16px 20px}
   .pc-zero span{display:block;font-size:15px;font-weight:600;color:var(--g600)}
@@ -821,6 +829,9 @@
       margin:0 -20px;padding:4px 20px 12px;scroll-padding:0 20px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
     .features::-webkit-scrollbar,.tiles::-webkit-scrollbar{display:none}
     .features>.feat,.tiles>.tile{flex:0 0 84%;scroll-snap-align:start}
+    /* 카드 높이는 제일 큰 카드(쿠폰 조회)에 맞춰 늘어난다. 남는 높이를 그림 칸이 받게 해서 글 아래가 휑하게 비지 않게 */
+    .features>.feat{display:flex;flex-direction:column}
+    .features>.feat>.feat-stage{flex:1}
     .tiles .tile:last-child:nth-child(odd){width:auto;justify-self:auto}
     .features>.reveal,.tiles>.reveal{opacity:1;transform:none;transition:none}
   }
@@ -994,16 +1005,17 @@
           <input type="range" id="calcPrice" min="3000" max="100000" step="1000" value="10000">
         </div>
         <div class="calc-row">
-          <label for="calcRate">그중 한 번 더 오는 손님</label><output id="calcRateOut" for="calcRate">5% · 50명</output>
+          <label for="calcRate">그중 재방문 손님</label><output id="calcRateOut" for="calcRate">5% · 50명</output>
           <input type="range" id="calcRate" min="1" max="20" step="1" value="5">
         </div>
       </div>
       <div class="calc-result" aria-live="polite">
-        <span>다시 온 손님 매출 · 한 달</span>
+        <!-- "다시 온 손님 매출"보다 첫 화면·효과 제목의 "재방문 마케팅"과 같은 말로(대표 의견 2026-11-25) -->
+        <span>재방문 손님 매출 · 한 달</span>
         <b id="calcResult">+50만 원</b>
         <small id="calcRatio">월 요금 3만 원의 약 17배</small>
       </div>
-      <p class="calc-note"><span class="nb">직접 넣어 보는 예시 계산이에요.</span> <span class="nb">다시 오는 손님 비율은 가게마다 달라요.</span></p>
+      <p class="calc-note"><span class="nb">직접 넣어 보는 예시 계산이에요.</span> <span class="nb">재방문 손님 비율은 가게마다 달라요.</span></p>
     </div>
     <!-- 마무리: 위 광고 비교 카드("계속 쓰다 보면 지치는")를 받아서 권한다(2026-11-25).
          "연결고리·하루 천 원"은 첫 화면 설명에 이미 있어 여기서 또 말하지 않는다.
@@ -1261,7 +1273,7 @@
 </section>
 
 <!-- 요금: 월 3만 원, 태블릿 비용·설치비 없음(사장님 확인 2026-11-24). 최소 1년(태블릿을 무료로 드려서) - 페이지에는 안 적고 상담 때 설명.
-     "구독"·"언제든 해지"처럼 읽히는 말은 쓰지 않는다. 금액이 바뀌면 여기와 첫 화면 설명의 "하루 천 원",
+     "구독"·"언제든 해지"처럼 읽히는 말은 쓰지 않는다. 금액이 바뀌면 여기(.pc-even "손님 3명" 포함)와 첫 화면 설명의 "하루 천 원",
      #effect 계산기(스크립트의 FEE와 "월 요금 3만 원" 문구)를 같이 고친다 -->
 <section class="block tint" id="pricing">
   <div class="wrap">
@@ -1274,6 +1286,7 @@
       <p class="pc-name">뽀짝 스탬프 적립</p>
       <p class="pc-price">월 <b>30,000</b>원</p>
       <p class="pc-day">하루 1,000원꼴이에요</p>
+      <p class="pc-even"><span class="nb">평균 결제가 1만 원인 가게라면,</span><br><span class="nb"><b>한 달에 손님 3명</b>만 다시 와도</span> <span class="nb">요금만큼 매출이 나요</span></p>
       <ul class="pc-zero">
         <li><span>태블릿 비용</span><b>0원</b></li>
         <li><span>설치비</span><b>0원</b></li>
@@ -1294,7 +1307,9 @@
   <div class="wrap">
     <div class="cta reveal">
       <h2>우리 가게 단골 마케팅,<br>오늘 시작해 보세요</h2>
-      <p>간편 문의를 남겨주시면 확인 후 설치 일정을 안내해 드릴게요.</p>
+      <!-- "확인 후 설치 일정을 안내해 드릴게요"는 문의하면 설치가 정해지는 것처럼 읽혀서, 문의해서 얻는 것(혜택 상담)을 말한다(2026-11-25).
+           연락은 문의 온 순서대로 해서 "당일 연락"처럼 시간을 약속하지 않는다 -->
+      <p>문의를 남겨 주시면,<br><span class="nb">우리 가게에 맞는 혜택부터</span> <span class="nb">같이 고민해 드릴게요.</span></p>
       <div class="cta-actions">
         <button class="btn btn-white btn-lg" onclick="openInquiry()">간편 문의하기</button>
         <a class="btn btn-glass btn-lg" href="tel:18006235">전화 1800-6235</a>
@@ -1412,14 +1427,24 @@
     const v=$('calcVisits'),p=$('calcPrice'),r=$('calcRate');
     if(!v)return;
     const n=x=>x.toLocaleString('ko-KR');
-    const won=x=>x>=10000?n(Math.round(x/10000))+'만 원':n(x)+'원';
+    // 10만 원 아래는 천 원 단위까지: 15,000원을 만 원 단위로 반올림하면 "2만 원"으로 부풀어서 "1만 5천 원"으로 보여준다
+    const won=x=>{
+      if(x<10000)return n(x)+'원';
+      if(x>=1e8){const e=Math.floor(x/1e8),r=Math.round(x%1e8/1e4);return e+'억 '+(r?n(r)+'만 ':'')+'원'}  // "10,000만 원" 대신 "1억 원"
+      if(x>=100000)return n(Math.round(x/10000))+'만 원';
+      const k=Math.round(x/1000),m=Math.floor(k/10),c=k%10;
+      return m+'만 '+(c?c+'천 ':'')+'원';
+    };
     const draw=()=>{
       const visits=+v.value,price=+p.value,rate=+r.value,again=Math.round(visits*rate/100),extra=again*price,times=extra/FEE;
       $('calcVisitsOut').textContent=n(visits)+'명';
       $('calcPriceOut').textContent=n(price)+'원';
       $('calcRateOut').textContent=rate+'% · '+n(again)+'명';
       $('calcResult').textContent='+'+won(extra);
-      $('calcRatio').textContent=times>=1?'월 요금 3만 원의 약 '+(times>=10?n(Math.round(times)):times.toFixed(1))+'배':'월 요금 3만 원보다 적어요';
+      // 요금보다 적게 나오면 "적어요"로 끝내지 않고, 몇 명이 다시 오면 요금만큼인지 보여준다(2026-11-25).
+      // 비율 최솟값(1%)은 그대로 둔다 - 막으면 좋은 결과만 나오게 만든 계산기로 보이고, "최소 5%는 온다"는 근거 없는 약속이 된다
+      if(times>=1)$('calcRatio').textContent=times<1.05?'월 요금 3만 원만큼이에요':'월 요금 3만 원의 약 '+(times>=10?n(Math.round(times)):times.toFixed(1))+'배';
+      else $('calcRatio').innerHTML='<span class="nb">한 달에 손님 '+Math.ceil(FEE/price)+'명이</span> <span class="nb">다시 오면 요금만큼이에요</span>';
     };
     [v,p,r].forEach(el=>el.addEventListener('input',draw));draw();
   })();
