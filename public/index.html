@@ -298,6 +298,7 @@
   .ex-tab{border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--g500);padding:9px 18px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s}
   .ex-tab.on{background:#fff;color:var(--g900);box-shadow:0 1px 4px rgba(0,29,58,.08)}
   .ex-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  @media(max-width:600px){.ex-tab{padding:9px 14px}}  /* 탭 4개가 좁은 폰(320px)에서도 한 줄 안에 들어가게 */
   .ex-board{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 
   /* 쿠폰 발급 창: 앱처럼 쿠폰이 나오는 도장에서는 스탬프 판이 사라지고 작은 알림 카드만 뜬다
@@ -949,13 +950,14 @@
     <div class="head center reveal">
       <p class="kicker">업종별 예시</p>
       <h2>보상은 <span class="hl">우리 가게에</span><br>맞게 정해요</h2>
-      <p class="desc">몇 번째 방문에 어떤 쿠폰을 줄지 사장님이 정해요.<br>업종을 눌러 보세요.</p>
+      <p class="desc">몇 번째 방문에 어떤 쿠폰을 줄지 사장님이 정해요.<br>업종 예시를 눌러 보세요.</p>
     </div>
     <div class="ex reveal">
       <div class="ex-tabs" role="tablist" aria-label="업종 예시">
         <button type="button" class="ex-tab on" role="tab" aria-selected="true" data-ex="hair">미용실</button>
         <button type="button" class="ex-tab" role="tab" aria-selected="false" data-ex="wash">세차장</button>
         <button type="button" class="ex-tab" role="tab" aria-selected="false" data-ex="cafe">카페</button>
+        <button type="button" class="ex-tab" role="tab" aria-selected="false" data-ex="food">식당</button>
       </div>
       <div class="m-tablet ex-board" id="exBoard" aria-hidden="true">
         <div class="t-title">스탬프 적립 완료</div>
@@ -1325,6 +1327,7 @@
     hair:[[5,'다운펌'],[10,'샴푸']],
     wash:[[5,'왁스코팅'],[10,'프리미엄 실내 스팀세차']],
     cafe:[[10,'아메리카노']],
+    food:[[3,'음료수'],[6,'음료수'],[9,'음료수'],[10,'볶음밥']],   // 관리자 스탬프 규칙은 1~10개 사이에 여러 개 둘 수 있다(StampSettings.js)
   };
   const exBoard=document.getElementById('exBoard'),exTabs=[...document.querySelectorAll('.ex-tab')];
   let exRun=0,exKey='hair';
