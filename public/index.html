@@ -542,6 +542,26 @@
   .r-src{margin-top:36px;font-size:12.5px;color:var(--g500);line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto}
   .r-src a{text-decoration:underline;text-underline-offset:2px}
   #effect .nb{display:inline-block}
+  /* 광고 vs 스탬프: 왼쪽은 흐리게, 오른쪽(스탬프)은 파란 카드로 */
+  .vs-ad{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:760px;margin:0 auto 64px}
+  .va-col{border-radius:24px;padding:28px 26px;background:rgba(255,255,255,.05)}
+  .va-col.on{background:var(--blue)}
+  .va-label{font-size:15px;font-weight:600;color:var(--g500)}
+  .va-col.on .va-label{color:rgba(255,255,255,.8)}
+  .va-main{margin-top:10px;font-size:clamp(21px,2.6vw,26px);font-weight:700;line-height:1.35;letter-spacing:-.03em;color:var(--g400)}
+  .va-col.on .va-main{color:#fff}
+  .va-sub{margin-top:10px;font-size:15px;font-weight:500;line-height:1.5;color:var(--g500);text-wrap:balance}
+  .va-col.on .va-sub{color:rgba(255,255,255,.85)}
+  .va-note{grid-column:1/-1;margin-top:12px;text-align:center;font-size:clamp(17px,2vw,19px);font-weight:500;color:var(--g400)}
+  .va-note b{color:#fff;font-weight:700}
+  @media(max-width:600px){
+    .vs-ad{gap:10px;margin-bottom:48px}
+    .va-col{padding:22px 18px;border-radius:20px}
+    .va-label{font-size:14px}
+    .va-sub{font-size:14px}
+  }
+  /* 아주 좁은 폰(360px 이하)에선 두 칸이면 "네이버· / 인스타 광고"처럼 잘게 끊겨서 위아래로 */
+  @media(max-width:360px){.vs-ad{grid-template-columns:1fr}}
   .effect-close{margin-top:64px;text-align:center}
   .ec-main{font-size:clamp(26px,3.6vw,36px);font-weight:700;letter-spacing:-.04em;line-height:1.35;color:#fff}
   .ec-main b{color:#64a8ff;font-weight:800}
@@ -879,6 +899,22 @@
       <h2>스탬프는<br><span class="hl">재방문 마케팅</span>이에요</h2>
       <p class="desc"><span class="nb">스탬프가 없으면,</span> <span class="nb">다녀간 손님은 그냥 지나가는 손님으로 끝나요.</span></p>
     </div>
+    <!-- 광고 vs 스탬프(대표 의견 2026-11-25): 광고는 돈을 쓸 때만 손님이 오고 계속 쓰다 보면 지치는 1회성 비용,
+         스탬프는 하루 천 원으로 방문 손님을 붙잡는 재방문 마케팅(하루 천 원은 아래 마무리 문장에서 말한다).
+         광고를 깎아내리지 않는다 - 광고로 온 손님을 단골로 만드는 게 스탬프라는 한 줄로 맺는다 -->
+    <div class="vs-ad reveal">
+      <div class="va-col">
+        <p class="va-label">네이버·인스타 광고</p>
+        <p class="va-main">돈을 쓸 때만<br>손님이 와요</p>
+        <p class="va-sub"><span class="nb">계속 쓰다 보면</span> <span class="nb">지치는 1회성 비용</span></p>
+      </div>
+      <div class="va-col on">
+        <p class="va-label">스탬프</p>
+        <p class="va-main">한 번 온 손님이<br>다시 와요</p>
+        <p class="va-sub"><span class="nb">방문 손님을 붙잡는</span> <span class="nb">재방문 마케팅</span></p>
+      </div>
+      <p class="va-note"><span class="nb">광고로 온 손님도,</span> <span class="nb"><b>스탬프가 있어야 단골이 돼요</b></span></p>
+    </div>
     <div class="cards">
       <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
         <h3>다시 올 이유가 생겨요</h3><p>"쿠폰까지 3개 남았다"는 작은 동기가 다음 방문으로 이어져요.</p></div>
@@ -918,18 +954,21 @@
 <section class="block" id="pain">
   <div class="wrap">
     <div class="head center reveal">
-      <p class="kicker">종이 스탬프의 한계</p>
+      <p class="kicker">종이 스탬프의 불편함</p>
       <h2>이런 적, 한 번쯤<br>있으셨죠?</h2>
       <!-- "바쁜 가게일수록…"은 바쁜 가게만 치켜세우는 느낌이라 바꿨다(2026-11-24).
-           번거로움보다 마케팅 손실로 말한다: 종이를 잃어버리면 다시 올 이유도 사라진다(2026-11-25) -->
-      <p class="desc"><span class="nb">종이를 잃어버리는 순간,</span> <span class="nb">손님이 다시 올 이유도 같이 사라져요.</span></p>
+           종이 스탬프를 "효과 없다"고 하지 않는다: 효과는 있지만(위 연구도 종이 카드) 사장님도 손님도 번거로웠다(대표 의견 2026-11-25) -->
+      <p class="desc"><span class="nb">종이 스탬프도 효과는 있어요.</span> <span class="nb">다만 사장님도, 손님도 번거로웠죠.</span></p>
     </div>
     <div class="chat">
+      <!-- 종이는 안 가지고 오면 못 찍는다. 언제 들를지 모르니 매번 챙겨 다닐 수도 없다(대표 의견 2026-11-25). 가장 흔한 일이라 맨 앞에 -->
+      <div class="msg l reveal"><span class="who">손님</span><div class="bubble"><span class="nb">지나가다 들른 거라</span> <span class="nb">도장 종이를 안 가져왔어요…</span> <span class="nb">다음에 같이 찍어 주세요!</span></div></div>
+      <div class="msg r reveal" style="--d:.08s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">다음에 기억할 수 있을까…</span> <span class="nb">어디 적어 둘 데도 없고</span></div></div>
       <!-- 종이를 잃어버린 손님은 보통 "다시 찍어달라"고 한다. 말하는 쪽도 들어주는 쪽도 불편한 그 순간을 보여준다 -->
-      <div class="msg l reveal"><span class="who">손님</span><div class="bubble"><span class="nb">저… 도장 종이를 잃어버렸는데,</span> <span class="nb">다시 찍어주시면 안 될까요?</span></div></div>
-      <div class="msg r reveal" style="--d:.08s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">몇 개였는지 알 수도 없고…</span> <span class="nb">안 해주자니 미안하고, 해주자니 찜찜하고</span></div></div>
-      <div class="msg l reveal" style="--d:.16s"><span class="who">손님</span><div class="bubble">도장 종이가 여러 장인데 하나로 합쳐 주세요!</div></div>
-      <div class="msg r reveal" style="--d:.24s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">메뉴 바뀔 때마다 종이 새로 뽑고,</span> <span class="nb">인쇄비도 은근히 계속 나가네…</span></div></div>
+      <div class="msg l reveal" style="--d:.16s"><span class="who">손님</span><div class="bubble"><span class="nb">저… 도장 종이를 잃어버렸는데,</span> <span class="nb">다시 찍어주시면 안 될까요?</span></div></div>
+      <div class="msg r reveal" style="--d:.24s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">몇 개였는지 알 수도 없고…</span> <span class="nb">안 해주자니 미안하고, 해주자니 찜찜하고</span></div></div>
+      <div class="msg l reveal" style="--d:.32s"><span class="who">손님</span><div class="bubble">도장 종이가 여러 장인데 하나로 합쳐 주세요!</div></div>
+      <div class="msg r reveal" style="--d:.4s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">메뉴 바뀔 때마다 종이 새로 뽑고,</span> <span class="nb">인쇄비도 은근히 계속 나가네…</span></div></div>
     </div>
     <div class="bridge-wrap reveal">
       <div class="bridge-ico"><img src="pojjak-icon.png" alt=""></div>
