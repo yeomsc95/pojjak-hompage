@@ -299,12 +299,11 @@
   .tile-txt{padding:24px 28px 28px}
   .tile h3{font-size:21px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
   .tile p{font-size:16px;color:var(--g600);line-height:1.6;text-wrap:pretty}
-  .tv-tap{position:relative;width:96px;height:96px}
-  .tv-tap img{width:100%;height:100%;transform:rotate(-8deg)}
-  .tv-tap .ring{position:absolute;inset:-12px;border:2px solid rgba(229,83,63,.35);border-radius:50%;animation:tvRing 2.4s ease-out infinite}
-  .tv-tap .ring.r2{animation-delay:1.2s}
-  @keyframes tvRing{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.4);opacity:0}}
-  .tv-pill{position:absolute;right:-44px;top:-6px;background:#fff;color:#e5533f;font-size:14px;font-weight:800;padding:6px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(229,83,63,.18)}
+  /* 궁금해서 눌러봐요: 도장 그림 대신 손님 말풍선 - 도장 그림이 카드마다 나와서 나열처럼 보였다(2026-11-25) */
+  .tv-talk{display:flex;flex-direction:column;gap:10px;width:230px}
+  .tv-talk span{align-self:flex-start;background:#fff;color:var(--g800);font-size:15px;font-weight:700;padding:10px 16px;
+    border-radius:18px 18px 18px 6px;box-shadow:0 4px 14px rgba(229,83,63,.12)}
+  .tv-talk .me{align-self:flex-end;background:#e5533f;color:#fff;border-radius:18px 18px 6px 18px}
   .tv-row{display:flex;gap:8px}
   .tv-cell{position:relative;width:42px;height:42px;border-radius:50%;background:#e0e0e0;color:#b2b2b2;font-weight:700;font-size:14px;display:grid;place-items:center}
   .tv-cell img{position:absolute;inset:-4%;width:108%;height:108%}
@@ -328,7 +327,7 @@
   .tiles .tile:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 8px)}
   @media(max-width:900px){.tiles{grid-template-columns:1fr;max-width:560px}.tiles .tile:last-child:nth-child(odd){width:auto;justify-self:stretch}}
   @media(max-width:600px){.tile-vis{height:176px}.tile-txt{padding:20px 22px 24px}.tile h3{font-size:20px}}
-  @media(prefers-reduced-motion:reduce){.tv-tap .ring,.tv-num .caret{animation:none}}
+  @media(prefers-reduced-motion:reduce){.tv-num .caret{animation:none}}
 
   /* 업종별 예시 */
   .ex{max-width:420px;margin:0 auto}
@@ -1126,7 +1125,7 @@
     <div class="tiles">
       <div class="tile reveal">
         <div class="tile-vis red" aria-hidden="true">
-          <div class="tv-tap"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="96px" alt=""><span class="ring"></span><span class="ring r2"></span><span class="tv-pill">톡!</span></div>
+          <div class="tv-talk"><span>어? 저건 뭐예요?</span><span class="me">저도 찍어 주세요!</span></div>
         </div>
         <!-- 도장판은 적립해야 뜨고 평소엔 번호 입력 화면이라, "도장판이 눈에 띄어서"가 아니라 앞 손님이 찍는 걸 보고 궁금해지는 것 -->
         <div class="tile-txt"><h3>궁금해서 눌러봐요</h3><p>앞 손님이 도장 쾅 받는 걸 보면, 처음 온 손님도 궁금해서 번호를 눌러봐요.</p></div>
@@ -1140,7 +1139,8 @@
         <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 보여요.</p></div>
       </div>
       <!-- "쓰는 것도 쉬워요"(쿠폰 사용) 카드는 뺐다(2026-11-25): 이용 방법 3단계·화면 예시 "쿠폰 사용도 태블릿에서"와 같은 말이었다.
-           대신 "종이 도장 감성 그대로": 디지털이지만 도장 모으는 아날로그 재미를 살렸다(대표 의견 2026-11-25, 손님 반응 "디자인이 귀여워요") -->
+           대신 "아날로그 감성 그대로": 디지털이지만 도장 모으는 아날로그 재미를 살렸다(대표 의견 2026-11-25, 손님 반응 "디자인이 귀여워요").
+           제목에 "종이"를 넣지 않은 건 위 "종이 스탬프의 불편함"과 부딪혀서. 우리의 이야기 "아날로그 감성"과 같은 말을 쓴다 -->
       <div class="tile reveal">
         <div class="tile-vis yellow" aria-hidden="true">
           <div class="tv-paper">
@@ -1151,7 +1151,7 @@
             </div>
           </div>
         </div>
-        <div class="tile-txt"><h3>종이 도장 감성 그대로</h3><p>도장이 한 칸씩 꾹 찍혀요. 디지털이지만 도장 모으는 재미는 그대로예요.</p></div>
+        <div class="tile-txt"><h3>아날로그 감성 그대로</h3><p>도장이 한 칸씩 꾹 찍혀요. 디지털이지만 도장 모으는 재미는 그대로예요.</p></div>
       </div>
       <div class="tile reveal" style="--d:.08s">
         <div class="tile-vis teal" aria-hidden="true">
