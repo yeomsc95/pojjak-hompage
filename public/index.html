@@ -689,24 +689,14 @@
   /* ===== 요금 ===== */
   /* 광고로 들어온 사장님이 제일 먼저 찾는 게 가격이라 숨기지 않고 보여준다(2026-11-24).
      요금: 월 3만 원, 태블릿 비용·설치비는 따로 안 받음. 약정·부가세는 정해지지 않아 적지 않았다 - 정해지면 .pc-note로 추가 */
-  /* 제공 태블릿 쇼케이스(2026-11-26): 아이뮤즈 제품 사진(앞·뒤 두 대, 어두운 배경)에 앞쪽 화면만 뽀짝 메인 화면으로 바꿔 끼운다.
-     사진은 아이뮤즈와 계약 관계라 쓴다(대표 확인). 원본은 제품 홍보 페이지 캡처(728x752) - 고해상도 원본을 받으면 tablet-showcase.jpg만 바꾸고
-     아래 화면 네 모서리 좌표(matrix3d)도 다시 잰다.
+  /* 제공 태블릿 쇼케이스(2026-11-26): 아이뮤즈 제품 사진(앞·뒤 두 대, 어두운 배경)을 그대로 쓴다.
+     사진은 아이뮤즈와 계약 관계라 쓴다(대표 확인). 원본은 제품 홍보 페이지 캡처(728x752) - 고해상도 원본을 받으면 tablet-showcase.jpg만 바꾼다.
+     앞쪽 화면에 뽀짝 메인 화면을 원근 변환으로 끼웠다가 뺐다(대표 의견 2026-11-26): 뽀짝 화면은 첫 화면 데모에서 이미 크게 보여주고,
+     여기는 "이 태블릿을 무료로 준다"를 보여주는 자리라 제품 사진 그대로가 낫다. 끼웠던 버전(matrix3d 좌표)은 git 기록에 있다.
      카드 바탕색은 사진 가장자리 평균색(#323541)이라 사진이 카드 위쪽을 가득 채워도 이음매가 안 보인다 */
   .pc-show{position:relative;max-width:600px;margin:0 auto 32px;padding:0 0 40px;border-radius:32px;overflow:hidden;
     background:#323541;color:#fff;text-align:center}
-  /* 사진 좌표(728x752) 그대로 두고 통째로 줄인다(fitToBox) - 화면 좌표가 사진 픽셀 기준이라 */
-  .pc-photo{aspect-ratio:728/752}
-  .pc-photo-in{position:absolute;left:0;top:0;width:728px;height:752px}
-  .pc-photo-in>img{display:block;width:728px;height:752px}
-  /* 앞쪽 태블릿 화면: 960x600 메인 화면을 사진 속 화면 네 모서리에 맞춰 원근 변환.
-     모서리(사진 픽셀): 왼위 394.7,435.6 / 오른위 681.0,342.1 / 오른아래 591.6,668.9 / 왼아래 309.1,715.7 - 원래 바탕화면이 테두리에 비치지 않게 2.6px씩 바깥으로 */
-  .pc-photo-scr{position:absolute;left:0;top:0;width:960px;height:600px;transform-origin:0 0;overflow:hidden;border-radius:6px;background:#fff;
-    transform:matrix3d(0.197683794,-0.149352264,0,-0.000152704924,-0.159356181,0.434372086,0,-0.0000537804266,0,0,1,0,392.912338,433.712074,0,1)}
-  /* 사진 속 조명과 맞게: 왼쪽 위 반사광 + 오른쪽 아래로 어두워지는 음영. 흰 화면이 사진에서 혼자 튀지 않게 */
-  .pc-glare{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(118deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 35%),
-      linear-gradient(118deg,rgba(20,24,40,0) 30%,rgba(20,24,40,.22) 100%)}
+  .pc-photo{display:block;width:100%;height:auto}
   /* 사진 아래 가장자리 색이 가로로 조금씩 달라서(#2e303c~#363a47) 카드 바탕과 경계선이 보였다.
      글 영역 위쪽을 사진 맨 아래 줄 색으로 시작해 카드 바탕색으로 서서히 바꾼다 */
   .pc-show-txt{position:relative;padding:14px 20px 0;
@@ -1022,7 +1012,7 @@
     <div class="head center reveal">
       <p class="kicker">왜 스탬프일까요</p>
       <h2>스탬프는<br><span class="hl">재방문 마케팅</span>이에요</h2>
-      <p class="desc"><span class="nb">스탬프가 없으면,</span> <span class="nb">다녀간 손님은 그냥 지나가는 손님으로 끝나요.</span></p>
+      <p class="desc"><span class="nb">스탬프가 없으면,</span> <span class="nb">한 번 온 손님은 한 번으로 끝나요.</span></p>
     </div>
     <!-- 광고 vs 스탬프(대표 의견 2026-11-25): 광고는 돈을 쓸 때만 손님이 오고 계속 쓰다 보면 지치는 1회성 비용,
          스탬프는 하루 천 원으로 방문 손님을 붙잡는 재방문 마케팅(하루 천 원은 아래 마무리 문장에서 말한다).
@@ -1054,8 +1044,8 @@
       <p class="r-head">스탬프의 재방문 효과, 실제 카페 도장 카드 연구로도 확인됐어요</p>
       <div class="r-stats">
         <div><b>20%</b><span>보상이 가까워질수록<br>방문 간격이 평균 20% 짧아졌어요</span></div>
-        <div><b>9→11번</b><span>같은 손님의 한 달 방문이<br>약 9번에서 11번 꼴로 늘었어요</span></div>
-        <div><b>20%↑</b><span>도장 2개를 미리 찍어준 카드는<br>10번을 20% 더 빨리 채웠어요</span></div>
+        <div><b>9→11번</b><span>같은 손님의 한 달 방문이<br>약 9번에서 11번으로 늘었어요</span></div>
+        <div><b>20%↑</b><span>도장 2개를 미리 찍어준 카드는<br>남은 10칸을 20% 더 빨리 채웠어요</span></div>
       </div>
       <p class="r-src">출처: Kivetz, Urminsky &amp; Zheng (2006), <a href="https://business.columbia.edu/faculty/research/goal-gradient-hypothesis-resurrected-purchase-acceleration-illusionary-goal" target="_blank" rel="noopener">“The Goal-Gradient Hypothesis Resurrected”</a>, Journal of Marketing Research.
         미국 컬럼비아대 연구진이 실제 카페의 ‘10잔 사면 1잔 무료’ 도장 카드를 분석했어요.</p>
@@ -1115,7 +1105,7 @@
       <div class="msg l reveal" style="--d:.16s"><span class="who">손님</span><div class="bubble"><span class="nb">저… 도장 종이를 잃어버렸는데,</span> <span class="nb">다시 찍어주시면 안 될까요?</span></div></div>
       <div class="msg r reveal" style="--d:.24s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">몇 개였는지 알 수도 없고…</span> <span class="nb">안 해주자니 미안하고, 해주자니 찜찜하고</span></div></div>
       <div class="msg l reveal" style="--d:.32s"><span class="who">손님</span><div class="bubble">도장 종이가 여러 장인데 하나로 합쳐 주세요!</div></div>
-      <div class="msg r reveal" style="--d:.4s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">메뉴 바뀔 때마다 종이 새로 뽑고,</span> <span class="nb">인쇄비도 은근히 계속 나가네…</span></div></div>
+      <div class="msg r reveal" style="--d:.4s"><span class="who">사장님 속마음</span><div class="bubble"><span class="nb">이걸 또 하나하나 세서 옮겨야 하네…</span> <span class="nb">인쇄비도 은근히 나가는데</span></div></div>
     </div>
     <div class="bridge-wrap reveal">
       <div class="bridge-ico"><img src="pojjak-icon.png" alt=""></div>
@@ -1126,7 +1116,7 @@
          매장 이름은 밝히지 않기로 했다. 새로 넣을 때도 실제로 들은 말만 - 지어내거나 숫자를 붙이지 않는다 -->
     <div class="heard reveal">
       <!-- "직접 물어봤어요"는 쓰지 않는다: 설문을 한 게 아니라 사장님을 통해 들은 말이라서. 실제로 물어보게 되면 바꿔도 된다 -->
-      <h3 class="heard-title">실제 고객에게 들었어요</h3>
+      <h3 class="heard-title">실제 손님들에게 들었어요</h3>
       <p class="heard-sub">뽀짝을 쓰는 매장 손님들이 한 말을 옮겼어요</p>
       <ul class="heard-list">
         <li><span>종이는 잃어버리면 끝인데, <b>잃어버릴 일이 없어요</b></span></li>
@@ -1134,7 +1124,7 @@
              손님이 한 말이라 줄을 채우려고 말을 덧붙이지 않는다 -->
         <li><span>번호만 누르면 돼서<br><b>쓰기 편해요</b></span></li>
         <li><span>디자인이 <b>귀여워요</b></span></li>
-        <li><span>쿠폰이 생겨서 <b>친구한테 주었어요</b></span></li>
+        <li><span>쿠폰이 생겨서 <b>친구한테 줬어요</b></span></li>
       </ul>
       <p class="heard-fact"><span class="nb">리뷰를 남기면 도장을 주는 매장에선,</span> <span class="nb">도장 받으려고 <b>리뷰까지 쓰고 가요</b></span></p>
     </div>
@@ -1221,7 +1211,7 @@
           <div class="tv-talk"><span>어? 저건 뭐예요?</span><span class="me">저도 찍어 주세요!</span></div>
         </div>
         <!-- 도장판은 적립해야 뜨고 평소엔 번호 입력 화면이라, "도장판이 눈에 띄어서"가 아니라 앞 손님이 찍는 걸 보고 궁금해지는 것 -->
-        <div class="tile-txt"><h3>궁금해서 눌러봐요</h3><p>앞 손님이 도장 쾅 받는 걸 보면, 처음 온 손님도 궁금해서 번호를 눌러봐요.</p></div>
+        <div class="tile-txt"><h3>궁금해서 눌러봐요</h3><p>앞 손님이 도장을 쾅 받는 걸 보면, 처음 온 손님도 따라서 번호를 눌러봐요.</p></div>
       </div>
       <!-- 키오스크 적립은 "적립되었습니다"·점수 같은 글자로 끝나는데, 뽀짝은 도장판과 받을 보상이 바로 보인다 -->
       <div class="tile reveal" style="--d:.08s">
@@ -1229,7 +1219,7 @@
           <div class="tv-row"><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell">4</span><span class="tv-cell">5</span></div>
           <div class="tv-chip">→ 2회 더 방문하시면 <em>아메리카노</em> 쿠폰!</div>
         </div>
-        <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 보여요.</p></div>
+        <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 알 수 있어요.</p></div>
       </div>
       <!-- "쓰는 것도 쉬워요"(쿠폰 사용) 카드는 뺐다(2026-11-25): 이용 방법 3단계·화면 예시 "쿠폰 사용도 태블릿에서"와 같은 말이었다.
            대신 "아날로그 감성 그대로": 디지털이지만 도장 모으는 아날로그 재미를 살렸다(대표 의견 2026-11-25, 손님 반응 "디자인이 귀여워요").
@@ -1244,7 +1234,7 @@
             </div>
           </div>
         </div>
-        <div class="tile-txt"><h3>아날로그 감성 그대로</h3><p>도장이 한 칸씩 꾹 찍혀요. 디지털이지만 도장 모으는 재미는 그대로예요.</p></div>
+        <div class="tile-txt"><h3>아날로그 감성 그대로</h3><p>도장이 한 칸씩 꾹 찍혀요. 디지털이어도 도장 모으는 재미가 살아 있어요.</p></div>
       </div>
       <div class="tile reveal" style="--d:.08s">
         <div class="tile-vis teal" aria-hidden="true">
@@ -1299,12 +1289,12 @@
           <text x="20" y="32.4" text-anchor="middle" font-size="6.2" font-weight="800" letter-spacing=".6" fill="#f3e6d8">ONDO</text>
         </symbol>
       </svg>
-      <p class="custom-t">가게 이름도, 도장도<br><span class="hl">우리 가게 것으로</span></p>
-      <p class="custom-s"><span class="nb">태블릿 화면에는 우리 가게 이름이 나오고,</span> <span class="nb">도장은 가게 로고로 바꿀 수 있어요.</span></p>
+      <p class="custom-t">가게 이름도, 도장도<br><span class="hl">우리 가게 맞춤</span></p>
+      <p class="custom-s"><span class="nb">태블릿 화면에는 매장 이름이 나오고,</span> <span class="nb">도장도 로고로 바꿀 수 있어요.</span></p>
       <div class="custom-vis" aria-hidden="true">
         <div class="cs-item">
           <div class="cs-row"><span class="on"><img src="pojjak-stamp-96.png" alt=""></span><span class="on"><img src="pojjak-stamp-96.png" alt=""></span><span>3</span></div>
-          <span class="cs-cap">기본 뽀짝 도장<small>처음 설치하면</small></span>
+          <span class="cs-cap">뽀짝 도장<small>기본</small></span>
         </div>
         <svg class="cs-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         <div class="cs-group">
@@ -1343,7 +1333,7 @@
       <!-- 디지털이지만 종이 도장의 아날로그 감성을 남기려 했다(대표 의견 2026-11-25). 도장이 한 칸씩 찍히는 도장판 화면이 그 예 -->
       <p>종이 도장의 좋은 점도 놓치고 싶지 않았어요.
         도장이 한 칸씩 꾹 찍히고, 다 채우면 괜히 뿌듯해지는 그 기분이요.</p>
-      <p class="callout">뽀짝은 디지털이지만,<br>도장 찍던 아날로그 감성을 담으려고 했어요.</p>
+      <p class="callout">뽀짝은 디지털이지만,<br>도장 찍는 손맛은 그대로 담았어요.</p>
       <p class="callout">오늘도 문을 여는<br>모든 사장님을 응원해요.</p>
     </div>
   </div>
@@ -1362,7 +1352,7 @@
       <!-- 다른 적립 서비스와 비교하는 말("다른 곳은 못 본다")은 쓰지 않는다 - 회사마다 다르고 근거를 대기 어렵다.
            대신 "우리 가게 손님 기록을 사장님이 직접 본다"는 점만 말한다 -->
       <p class="desc"><b>누가 단골인지 알아야 단골 마케팅도 할 수 있어요.</b>
-        우리 가게 손님이 몇 번 왔는지, 며칠마다 오는지 사장님이 직접 폰으로 확인해요.
+        손님이 몇 번 왔는지, 며칠마다 오는지 사장님이 직접 폰으로 확인해요.
         적립과 쿠폰 사용은 계산대 태블릿에서 하고, 태블릿을 잠시 못 쓸 때는 폰으로 대신 처리할 수 있어요.</p>
       <ul class="checks">
         <li>손님별 방문 횟수·방문 주기</li>
@@ -1395,14 +1385,9 @@
          모델명은 글로 적지 않는다 - 제공하는 태블릿이 바뀔 수 있다. 바뀌면 사진과 아래 사양 칩도 고친다.
          사양은 내세울 만한 것만(제조사 사양표 그대로): 안드로이드 16, 6,050mAh, 7.9mm 알루미늄 합금, 454g.
          램 3GB·밝기 350nit는 숫자가 낮아 아는 사람에겐 저가형으로 읽혀서 넣지 않는다. Gemini는 스탬프와 상관없어서 뺐다.
-         "드려요"는 소유가 넘어가는 것처럼 읽혀서 "제공"으로 쓴다. 앞쪽 화면은 스크립트가 첫 화면 메인 화면을 복제해 넣는다(data-clone) -->
+         "드려요"는 소유가 넘어가는 것처럼 읽혀서 "제공"으로 쓴다 -->
     <div class="pc-show reveal">
-      <div class="pc-photo fit" data-scale="728" aria-hidden="true">
-        <div class="pc-photo-in">
-          <img src="tablet-showcase.jpg" width="728" height="752" alt="" loading="lazy">
-          <div class="pc-photo-scr" data-clone="#mainDemo .tm"><span class="pc-glare"></span></div>
-        </div>
-      </div>
+      <img class="pc-photo" src="tablet-showcase.jpg" width="728" height="752" alt="" loading="lazy">
       <div class="pc-show-txt">
         <p class="pc-show-t">10.1인치 태블릿, <em>무료 제공</em></p>
         <ul class="pc-spec">
@@ -1440,7 +1425,7 @@
       <h2>우리 가게 단골 마케팅,<br>오늘 시작해 보세요</h2>
       <!-- "확인 후 설치 일정을 안내해 드릴게요"는 문의하면 설치가 정해지는 것처럼 읽혀서, 문의해서 얻는 것(혜택 상담)을 말한다(2026-11-25).
            연락은 문의 온 순서대로 해서 "당일 연락"처럼 시간을 약속하지 않는다 -->
-      <p>문의를 남겨 주시면,<br><span class="nb">우리 가게에 맞는 혜택부터</span> <span class="nb">같이 고민해 드릴게요.</span></p>
+      <p>문의를 남겨 주시면,<br><span class="nb">매장에 맞는 혜택부터</span> <span class="nb">같이 고민해 드릴게요.</span></p>
       <div class="cta-actions">
         <button class="btn btn-white btn-lg" onclick="openInquiry()">간편 문의하기</button>
         <a class="btn btn-glass btn-lg" href="tel:18006235">전화 1800-6235</a>
@@ -1485,7 +1470,7 @@
     <button class="sheet-close" onclick="closeInquiry()" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div id="inquiryForm">
       <h3 id="inquiryTitle">간편 문의</h3>
-      <p class="sub">남겨주시면 확인 후 빠르게 연락드릴게요.</p>
+      <p class="sub">문의를 남겨 주시면 순서대로 연락드릴게요.</p>
       <form onsubmit="return submitInquiry(event)">
         <div class="field">
           <label for="inqName">이름</label>
@@ -1518,7 +1503,7 @@
     <div id="inquiryDone" class="done" style="display:none">
       <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
       <h3>문의가 접수됐어요</h3>
-      <p>확인 후 빠르게 연락드릴게요.<br>감사합니다.</p>
+      <p>확인 후 순서대로 연락드릴게요.<br>감사합니다.</p>
       <button class="btn btn-primary submit" onclick="closeInquiry()">확인</button>
     </div>
   </div>
@@ -1775,13 +1760,6 @@
     const width=+box.dataset.fit;
     box.innerHTML='<div class="adm m" style="width:'+width+'px">'+admScreens[box.dataset.screen||'dashboard']+'</div>';
     fitToBox(box,width);
-  });
-  // 요금 섹션의 제공 태블릿 그림은 첫 화면 메인 화면을 복제해서 쓴다 - 목업을 두 군데서 고치지 않게.
-  // 줄이기(fitToBox) 전에 넣어야 한다. 복제본의 적립 버튼 표시는 지워서 첫 화면 데모와 엮이지 않게 한다
-  document.querySelectorAll('[data-clone]').forEach(box=>{
-    const src=document.querySelector(box.dataset.clone);if(!src)return;
-    const copy=src.cloneNode(true);copy.querySelectorAll('[data-stamp-btn]').forEach(el=>el.removeAttribute('data-stamp-btn'));
-    box.appendChild(copy);
   });
   // 태블릿 메인 화면은 마크업에 그대로 들어 있어서 줄이기만 한다
   document.querySelectorAll('[data-scale]').forEach(box=>fitToBox(box,+box.dataset.scale));
