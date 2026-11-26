@@ -338,6 +338,29 @@
   .ex-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
   @media(max-width:600px){.ex-tab{padding:9px 14px}}  /* 탭 4개가 좁은 폰(320px)에서도 한 줄 안에 들어가게 */
   .ex-board{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+  /* 우리 가게 맞춤: 가게 이름·도장 로고를 바꿀 수 있다는 걸 그림으로(2026-11-26, 대표 의견).
+     실제 앱도 매장마다 도장 그림(stamp_popup.dart의 도장 로고)만 바꿔 끼운다 - 기본은 뽀짝 도장 */
+  .custom{max-width:560px;margin:40px auto 0;padding:32px 28px 30px;border-radius:28px;background:#fff;text-align:center}
+  .custom-t{font-size:21px;font-weight:700;letter-spacing:-.03em;line-height:1.4}
+  .custom-t .hl{color:var(--blue)}
+  .custom-s{margin-top:6px;font-size:15px;color:var(--g600);line-height:1.6}
+  .custom-s .nb{display:inline-block}
+  .custom-vis{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:24px}
+  .cs-item{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .cs-row{display:flex;gap:6px;padding:12px;border-radius:18px;background:var(--g50)}
+  .cs-row>span{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#ebedf0;
+    font-size:14px;font-weight:700;color:#b2b2b2}
+  .cs-row>span.on{background:none}
+  .cs-row img,.cs-row svg{display:block;width:40px;height:40px}
+  .cs-cap{font-size:14px;font-weight:600;color:var(--g500)}
+  .cs-item.mine .cs-cap{color:var(--blue)}
+  .cs-arrow{flex:none;width:22px;height:22px;color:var(--blue)}
+  @media(max-width:600px){
+    .custom{margin-top:32px;padding:26px 18px 24px;border-radius:24px}
+    .custom-t{font-size:19px}
+    .custom-vis{flex-direction:column;gap:10px}
+    .cs-arrow{transform:rotate(90deg)}
+  }
 
   /* 쿠폰 발급 창: 앱처럼 쿠폰이 나오는 도장에서는 스탬프 판이 사라지고 작은 알림 카드만 뜬다
      (앱의 coupon_issue_popup.dart와 같은 문구). 판을 하얗게 덮으면 꽉 차 보였고, 판을 흐리게 남기면
@@ -655,29 +678,29 @@
   /* ===== 요금 ===== */
   /* 광고로 들어온 사장님이 제일 먼저 찾는 게 가격이라 숨기지 않고 보여준다(2026-11-24).
      요금: 월 3만 원, 태블릿 비용·설치비는 따로 안 받음. 약정·부가세는 정해지지 않아 적지 않았다 - 정해지면 .pc-note로 추가 */
-  /* 제공 태블릿 쇼케이스: 제조사 제품 사진처럼 어두운 무대 + 비스듬히 기운 태블릿(2026-11-26, 대표가 "고급스럽게").
-     사진 대신 그린다 - 제조사 사진은 저작권 문제가 있고 화면에 뽀짝이 떠 있어야 해서. 화면은 첫 화면 메인 화면 목업을 복제한다.
-     테두리: 알루미늄 모서리(회색 그라데이션) 안에 검정 베젤, 위 가운데 전면 카메라. 화면에는 비스듬한 반사광 */
-  .pc-show{position:relative;max-width:760px;margin:0 auto 32px;padding:64px 48px 44px;border-radius:32px;overflow:hidden;
-    background:radial-gradient(120% 90% at 50% 30%,#3b4354 0%,#232833 45%,#14171d 100%);color:#fff;text-align:center}
-  .pc-show::before{content:"";position:absolute;left:50%;top:40%;width:80%;height:70%;transform:translate(-50%,-50%);
-    background:radial-gradient(closest-side,rgba(90,140,255,.4),transparent);pointer-events:none}
-  .pc-stage{position:relative;max-width:520px;margin:0 auto;perspective:1800px}
-  .pc-dev{position:relative;padding:2.5px;border-radius:26px;transform:rotateX(14deg) rotateY(-22deg) rotateZ(4deg);
-    background:linear-gradient(135deg,#a3acbb 0%,#4b5262 22%,#262b35 55%,#737b8c 100%);
-    box-shadow:0 40px 60px -10px rgba(0,0,0,.6),0 18px 30px rgba(0,0,0,.35)}
-  /* 베젤 두께는 실제 기기 비율로: 몸체 239mm에 화면(10.1인치 16:10) 약 217.5mm → 사방 약 10.8mm = 몸체 가로의 약 4.5%.
-     padding %는 가로 기준이라 위아래도 같은 두께가 된다. 카메라는 위 베젤 가운데(높이 기준 약 3%) */
-  .pc-bezel{position:relative;padding:4.3%;border-radius:24px;background:#07090c}
-  .pc-cam{position:absolute;top:calc(3.2% - 2.5px);left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#1b2030;box-shadow:0 0 0 1px #2c3240}
-  .pc-scr{position:relative;border-radius:6px;overflow:hidden}
-  .pc-scr .fit{aspect-ratio:960/600;background:#fff}
-  /* 흰 화면이라 반사광만으로는 티가 안 나서, 오른쪽 아래로 살짝 어두워지는 음영을 같이 준다 */
-  .pc-glare{position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(118deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 38%),
-      linear-gradient(118deg,rgba(10,25,60,0) 45%,rgba(10,25,60,.1) 100%)}
-  .pc-floor{width:78%;height:28px;margin:8px auto 0;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent)}
-  .pc-show-txt{position:relative;margin-top:22px}
+  /* 제공 태블릿 쇼케이스(2026-11-26): 아이뮤즈 제품 사진(앞·뒤 두 대, 어두운 배경)에 앞쪽 화면만 뽀짝 메인 화면으로 바꿔 끼운다.
+     사진은 아이뮤즈와 계약 관계라 쓴다(대표 확인). 원본은 제품 홍보 페이지 캡처(728x752) - 고해상도 원본을 받으면 tablet-showcase.jpg만 바꾸고
+     아래 화면 네 모서리 좌표(matrix3d)도 다시 잰다.
+     카드 바탕색은 사진 가장자리 평균색(#323541)이라 사진이 카드 위쪽을 가득 채워도 이음매가 안 보인다 */
+  .pc-show{position:relative;max-width:600px;margin:0 auto 32px;padding:0 0 40px;border-radius:32px;overflow:hidden;
+    background:#323541;color:#fff;text-align:center}
+  /* 사진 좌표(728x752) 그대로 두고 통째로 줄인다(fitToBox) - 화면 좌표가 사진 픽셀 기준이라 */
+  .pc-photo{aspect-ratio:728/752}
+  .pc-photo-in{position:absolute;left:0;top:0;width:728px;height:752px}
+  .pc-photo-in>img{display:block;width:728px;height:752px}
+  /* 앞쪽 태블릿 화면: 960x600 메인 화면을 사진 속 화면 네 모서리에 맞춰 원근 변환.
+     모서리(사진 픽셀): 왼위 394.7,435.6 / 오른위 681.0,342.1 / 오른아래 591.6,668.9 / 왼아래 309.1,715.7 - 원래 바탕화면이 테두리에 비치지 않게 2.6px씩 바깥으로 */
+  .pc-photo-scr{position:absolute;left:0;top:0;width:960px;height:600px;transform-origin:0 0;overflow:hidden;border-radius:6px;background:#fff;
+    transform:matrix3d(0.197683794,-0.149352264,0,-0.000152704924,-0.159356181,0.434372086,0,-0.0000537804266,0,0,1,0,392.912338,433.712074,0,1)}
+  /* 사진 속 조명과 맞게: 왼쪽 위 반사광 + 오른쪽 아래로 어두워지는 음영. 흰 화면이 사진에서 혼자 튀지 않게 */
+  .pc-glare{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(118deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 35%),
+      linear-gradient(118deg,rgba(20,24,40,0) 30%,rgba(20,24,40,.22) 100%)}
+  /* 사진 아래 가장자리 색이 가로로 조금씩 달라서(#2e303c~#363a47) 카드 바탕과 경계선이 보였다.
+     글 영역 위쪽을 사진 맨 아래 줄 색으로 시작해 카드 바탕색으로 서서히 바꾼다 */
+  .pc-show-txt{position:relative;padding:14px 20px 0;
+    background:linear-gradient(to bottom,rgba(50,53,65,0),#323541 56px),
+      linear-gradient(to right,#2e303c,#30343f 16.5%,#333541 33%,#353a46 49.5%,#363a47 58%,#333743 66%,#313540 82.5%,#2f333e 90.6%,#313540)}
   .pc-show-t{font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-.03em;line-height:1.35}
   .pc-show-t em{font-style:normal;color:#7fb0ff}
   .pc-spec{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
@@ -837,11 +860,7 @@
     .cta-actions{flex-direction:column}
     .cta-actions .btn{width:100%}
     .price-card{padding:32px 24px 30px;border-radius:24px}
-    .pc-show{padding:44px 20px 30px;border-radius:24px;margin-bottom:24px}
-    .pc-dev{padding:2px;border-radius:18px}
-    .pc-bezel{border-radius:16px}
-    .pc-cam{top:calc(3.2% - 2px);width:4px;height:4px;margin-left:-2px}
-    .pc-scr{border-radius:4px}
+    .pc-show{padding-bottom:30px;border-radius:24px;margin-bottom:24px}
     .pc-spec li{font-size:13px;padding:6px 12px}
     .pc-price b{font-size:46px}
     .pc-zero li{padding:14px 16px}
@@ -931,7 +950,9 @@
               <div class="tm-card">
                 <div class="tm-info">
                   <div class="tm-brand"><img src="pojjak-of-main-page.png" alt=""><span>스탬프 적립</span></div>
-                  <div class="tm-store">우리동네 카페</div>
+                  <!-- 예시 매장 이름. "우리동네 카페"는 너무 밋밋해서 바꿨다(2026-11-26). 실제로는 매장마다 자기 가게 이름이 나온다.
+                       7글자 안팎이 좋다 - 위 줄(로고+"스탬프 적립")이 길어서 이름이 짧으면 아래가 작아 보였다("카페 온도"로 해 보고 바꿈) -->
+                  <div class="tm-store">모퉁이 커피 상점</div>
                   <div class="tm-agree">
                     <span class="tm-box"><svg viewBox="0 0 24 24"><path d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"/></svg></span>
                     <span class="tm-terms">개인정보 이용약관 확인 ▼</span><span class="tm-req">필수</span>
@@ -1247,6 +1268,34 @@
         </div>
       </div>
     </div>
+    <!-- 우리 가게 맞춤(2026-11-26, 대표 의견 "변경할 수 있다고 잘 전달해야"): 태블릿 화면의 가게 이름은 매장마다 자기 이름,
+         도장은 기본 뽀짝 도장이고 가게 로고로 바꿀 수 있다(실제 앱도 매장마다 도장 그림만 바꿔 끼움).
+         오른쪽 "모퉁이" 로고는 태블릿 화면 예시 매장 "모퉁이 커피 상점"에 맞춰 그린 가상의 로고다 -->
+    <div class="custom reveal">
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="shopLogo" viewBox="0 0 40 40">
+          <circle cx="20" cy="20" r="19" fill="#6b4a35"/>
+          <circle cx="20" cy="20" r="16.4" fill="none" stroke="#f3e6d8" stroke-width=".8" opacity=".5"/>
+          <path d="M13.2 14.6h11.6l-1.1 8.1a2.2 2.2 0 0 1-2.2 1.9h-5a2.2 2.2 0 0 1-2.2-1.9z" fill="#f3e6d8"/>
+          <path d="M24.6 16.2h1.2a2.3 2.3 0 0 1 0 4.6h-1.7" fill="none" stroke="#f3e6d8" stroke-width="1.4"/>
+          <path d="M17.3 12.4c-.9-1 .9-1.7 0-2.9M20.9 12.4c-.9-1 .9-1.7 0-2.9" fill="none" stroke="#f3e6d8" stroke-width="1.1" stroke-linecap="round"/>
+          <text x="20" y="32.6" text-anchor="middle" font-size="6.4" font-weight="800" fill="#f3e6d8">모퉁이</text>
+        </symbol>
+      </svg>
+      <p class="custom-t">가게 이름도, 도장도<br><span class="hl">우리 가게 것으로</span></p>
+      <p class="custom-s"><span class="nb">태블릿 화면에는 우리 가게 이름이 나오고,</span> <span class="nb">도장은 가게 로고로 바꿀 수 있어요.</span></p>
+      <div class="custom-vis" aria-hidden="true">
+        <div class="cs-item">
+          <div class="cs-row"><span class="on"><img src="pojjak-stamp-96.png" alt=""></span><span class="on"><img src="pojjak-stamp-96.png" alt=""></span><span class="on"><img src="pojjak-stamp-96.png" alt=""></span><span>4</span></div>
+          <span class="cs-cap">기본 뽀짝 도장</span>
+        </div>
+        <svg class="cs-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <div class="cs-item mine">
+          <div class="cs-row"><span class="on"><svg><use href="#shopLogo"/></svg></span><span class="on"><svg><use href="#shopLogo"/></svg></span><span class="on"><svg><use href="#shopLogo"/></svg></span><span>4</span></div>
+          <span class="cs-cap">우리 가게 로고 도장</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1318,20 +1367,17 @@
       <h2>요금은<br><span class="hl">월 3만 원</span>이에요</h2>
       <p class="desc">태블릿 비용도, 설치비도 따로 받지 않아요.</p>
     </div>
-    <!-- 제공 태블릿 쇼케이스(2026-11-26): "태블릿 0원"을 글자로만 두면 와닿지 않아서, 계산대에 놓일 태블릿을 제품 사진처럼 보여준다.
-         제공 태블릿: 아이뮤즈 T11, 10.1인치, 안드로이드 16, 알루미늄 7.9mm(제조사 사양표, 대표 확인).
-         모델명은 적지 않는다 - 제공하는 태블릿이 바뀔 수 있다. 바뀌면 아래 사양 칩도 고친다.
+    <!-- 제공 태블릿 쇼케이스(2026-11-26): "태블릿 0원"을 글자로만 두면 와닿지 않아서, 계산대에 놓일 실제 태블릿을 제품 사진으로 보여준다.
+         제공 태블릿: 아이뮤즈 T11, 10.1인치, 안드로이드 16, 알루미늄 7.9mm(제조사 사양표, 대표 확인). 사진은 아이뮤즈 제품 사진(계약 관계).
+         모델명은 글로 적지 않는다 - 제공하는 태블릿이 바뀔 수 있다. 바뀌면 사진과 아래 사양 칩도 고친다.
          사양은 고급스럽게 보이는 것만: 램 3GB·밝기 350nit는 숫자가 낮아 저가형처럼 보이고, 배터리는 계산대에서 늘 충전해 두니 뺐다.
-         "드려요"는 소유가 넘어가는 것처럼 읽혀서 "제공"으로 쓴다. 화면은 스크립트가 첫 화면 메인 화면을 복제해 넣는다(data-clone) -->
+         "드려요"는 소유가 넘어가는 것처럼 읽혀서 "제공"으로 쓴다. 앞쪽 화면은 스크립트가 첫 화면 메인 화면을 복제해 넣는다(data-clone) -->
     <div class="pc-show reveal">
-      <div class="pc-stage" aria-hidden="true">
-        <div class="pc-dev">
-          <div class="pc-bezel">
-            <span class="pc-cam"></span>
-            <div class="pc-scr"><div class="fit" data-scale="960" data-clone="#mainDemo .tm"></div><span class="pc-glare"></span></div>
-          </div>
+      <div class="pc-photo fit" data-scale="728" aria-hidden="true">
+        <div class="pc-photo-in">
+          <img src="tablet-showcase.jpg" width="728" height="752" alt="" loading="lazy">
+          <div class="pc-photo-scr" data-clone="#mainDemo .tm"><span class="pc-glare"></span></div>
         </div>
-        <div class="pc-floor"></div>
       </div>
       <div class="pc-show-txt">
         <p class="pc-show-t">10.1인치 태블릿, <em>무료 제공</em></p>
