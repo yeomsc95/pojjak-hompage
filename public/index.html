@@ -297,6 +297,7 @@
   .tile-vis.yellow{background:#fff7dc}
   .tile-vis.teal{background:#e2f7f6}
   .tile-txt{padding:24px 28px 28px}
+  .tile-txt .nb{display:inline-block}  /* 좁은 폰에서 "나이 / 상관없이"처럼 갈라지지 않게 */
   .tile h3{font-size:21px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
   .tile p{font-size:16px;color:var(--g600);line-height:1.6;text-wrap:pretty}
   /* 궁금해서 눌러봐요: 도장 그림 대신 손님 말풍선 - 도장 그림이 카드마다 나와서 나열처럼 보였다(2026-11-25) */
@@ -709,6 +710,12 @@
       linear-gradient(to right,#2e303c,#30343f 16.5%,#333541 33%,#353a46 49.5%,#363a47 58%,#333743 66%,#313540 82.5%,#2f333e 90.6%,#313540)}
   .pc-show-t{font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-.03em;line-height:1.35}
   .pc-show-t em{font-style:normal;color:#7fb0ff}
+  .pc-show-s{margin-top:4px;font-size:15px;font-weight:500;color:rgba(255,255,255,.66)}
+  .pc-show-s .nb{display:inline-block}
+  /* 좁은 폰에서 두 줄이 돼도 체크 표시가 글 앞에 붙어 있게 글줄 안에 둔다 */
+  .pc-show-note{margin-top:16px;font-size:14px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.78)}
+  .pc-show-note .nb{display:inline-block}
+  .pc-show-note svg{display:inline-block;width:16px;height:16px;margin-right:5px;vertical-align:-3px;color:#7fb0ff}
   /* 사양: 제품 페이지처럼 큰 숫자 + 짧은 설명 칸(2026-11-26, 대표 "성능 좋은 걸 더 넣자"). PC 4칸, 폰 2x2 */
   .pc-spec{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
   .pc-spec li{display:flex;flex-direction:column;gap:3px;padding:14px 8px 13px;border-radius:16px;
@@ -727,7 +734,7 @@
     font-size:15px;font-weight:500;color:var(--g700);line-height:1.55}
   .pc-even b{color:var(--blue);font-weight:700}
   .pc-even .nb{display:inline-block}
-  .pc-zero{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+  .pc-zero{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}
   .pc-zero li{background:var(--blue-soft);border-radius:18px;padding:16px 20px}
   .pc-zero span{display:block;font-size:15px;font-weight:600;color:var(--g600)}
   .pc-zero b{display:block;margin-top:2px;font-size:26px;font-weight:700;color:var(--blue);letter-spacing:-.03em}
@@ -873,7 +880,8 @@
     .pc-spec{grid-template-columns:1fr 1fr}
     .pc-spec b{font-size:17px}
     .pc-price b{font-size:46px}
-    .pc-zero li{padding:14px 16px}
+    .pc-zero{gap:8px}
+    .pc-zero li{padding:14px 12px}
     .pc-zero b{font-size:22px}
     .fcols{gap:40px}
 
@@ -1239,26 +1247,30 @@
   <div class="wrap">
     <div class="head center reveal">
       <p class="kicker">다른 점</p>
-      <h2>손님이 <span class="hl">먼저 눌러보는</span><br>적립 태블릿</h2>
-      <!-- 참여율이 마케팅의 성패: 손님이 안 누르면 아무 효과가 없다(2026-11-25) -->
-      <p class="desc"><span class="nb">마케팅은 손님이 참여해야 효과가 나요.</span> <span class="nb">뽀짝은 손님이 먼저 눌러보게 만들었어요.</span></p>
+      <!-- 가장 중요한 다른 점(대표 의견 2026-11-26): 포인트 적립과 달리 보상이 바로 눈에 보인다 → 연구(보상이 가까워질수록 방문 간격이 짧아짐)와 같은 이야기.
+           "즉시 보상"은 찍자마자 뭘 준다는 뜻으로 읽혀서 "보상이 눈에 보여야"로. "키오스크"를 콕 집어 비교하지 않는다 -
+           보상까지 남은 걸 보여주는 키오스크도 있어서, 포인트(숫자)와 도장(칸)의 차이로만 말한다.
+           예전 제목 "손님이 먼저 눌러보는 적립 태블릿"은 "궁금해서 눌러봐요" 카드가 맡는다 -->
+      <h2><span class="hl">보상이 눈에 보여야</span><br>손님이 다시 와요</h2>
+      <p class="desc"><span class="nb">포인트는 숫자로 쌓이지만,</span> <span class="nb">뽀짝은 몇 번 더 오면 무엇을 받는지</span> <span class="nb">도장판으로 바로 보여줘요.</span></p>
     </div>
     <!-- 그림이 먼저 눈에 들어오도록: 위에 큰 그림, 아래에 제목 + 한 줄 설명 (2026-11-24, 글 위주 카드가 눈에 안 감겨서) -->
     <div class="tiles">
+      <!-- 섹션 제목("보상이 눈에 보여야")을 그대로 보여주는 카드라 맨 앞에(2026-11-26) -->
       <div class="tile reveal">
+        <div class="tile-vis blue" aria-hidden="true">
+          <div class="tv-row"><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell">4</span><span class="tv-cell">5</span></div>
+          <div class="tv-chip">→ 2회 더 방문하시면 <em>아메리카노</em> 쿠폰!</div>
+        </div>
+        <!-- 둘째 문장은 #effect 연구 카드("보상이 가까워질수록 방문 간격이 평균 20% 짧아졌어요")와 같은 이야기 -->
+        <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 알 수 있어요. <span class="nb">보상이 가까워질수록</span> <span class="nb">손님은 더 자주 와요.</span></p></div>
+      </div>
+      <div class="tile reveal" style="--d:.08s">
         <div class="tile-vis red" aria-hidden="true">
           <div class="tv-talk"><span>어? 저건 뭐예요?</span><span class="me">저도 찍어 주세요!</span></div>
         </div>
         <!-- 도장판은 적립해야 뜨고 평소엔 번호 입력 화면이라, "도장판이 눈에 띄어서"가 아니라 앞 손님이 찍는 걸 보고 궁금해지는 것 -->
         <div class="tile-txt"><h3>궁금해서 눌러봐요</h3><p>앞 손님이 도장을 쾅 받는 걸 보면, 처음 온 손님도 따라서 번호를 눌러봐요.</p></div>
-      </div>
-      <!-- 키오스크 적립은 "적립되었습니다"·점수 같은 글자로 끝나는데, 뽀짝은 도장판과 받을 보상이 바로 보인다 -->
-      <div class="tile reveal" style="--d:.08s">
-        <div class="tile-vis blue" aria-hidden="true">
-          <div class="tv-row"><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell on"><img src="pojjak-stamp.png" srcset="pojjak-stamp-48.png 48w, pojjak-stamp-96.png 96w, pojjak-stamp.png 160w" sizes="42px" alt=""></span><span class="tv-cell">4</span><span class="tv-cell">5</span></div>
-          <div class="tv-chip">→ 2회 더 방문하시면 <em>아메리카노</em> 쿠폰!</div>
-        </div>
-        <div class="tile-txt"><h3>도장도 보상도 바로 보여요</h3><p>몇 개 모였는지, 몇 번 더 오면 무엇을 받는지 한눈에 알 수 있어요.</p></div>
       </div>
       <!-- "쓰는 것도 쉬워요"(쿠폰 사용) 카드는 뺐다(2026-11-25): 이용 방법 3단계·화면 예시 "쿠폰 사용도 태블릿에서"와 같은 말이었다.
            대신 "아날로그 감성 그대로": 디지털이지만 도장 모으는 아날로그 재미를 살렸다(대표 의견 2026-11-25, 손님 반응 "디자인이 귀여워요").
@@ -1280,7 +1292,7 @@
           <div class="tv-num">010-1234-5678<span class="caret"></span></div>
           <div class="tv-no"><span><i>✕</i>앱 설치</span><span><i>✕</i>회원가입</span></div>
         </div>
-        <div class="tile-txt"><h3>앱 다운로드가 필요 없어요</h3><p>번호만 누르면 끝이라 어르신 손님도 쉽게 써요.</p></div>
+        <div class="tile-txt"><h3>앱 다운로드가 필요 없어요</h3><p><span class="nb">번호만 누르면 끝이라</span> <span class="nb">나이 상관없이</span> <span class="nb">누구나 쉽게 써요.</span></p></div>
       </div>
     </div>
   </div>
@@ -1385,7 +1397,9 @@
 <section class="block" id="mobile">
   <div class="wrap split">
     <div class="reveal">
-      <p class="kicker">사장님 휴대폰</p>
+      <!-- 사장님 폰에는 뽀짝 관리 앱을 설치해 준다(대표 의견 2026-11-26). 관리자 웹(pojjak-admin)이 홈 화면에 "뽀짝" 앱으로 설치되는 PWA라
+           앱 마켓에서 받는 앱처럼 쓰지 않는다 - "설치해 드려요"(방문 설치 때). 손님은 앱이 필요 없다("다른 점" 카드)와 헷갈리지 않게 "사장님 전용"으로 -->
+      <p class="kicker">사장님 전용 앱</p>
       <!-- 단골 확인을 이 섹션의 중심으로 둔다: 종이 도장으로는 절대 알 수 없고, 도입해 봐야 아는 기능이라(사장님 의견 2026-11-24).
            근거: 관리자 고객 화면의 "총 N회 · 평균 N일마다", "방문 많은 순" 정렬(pojjak-admin CustomerCard.js, Customer.js).
            태블릿이 메인이라는 건 설명 둘째 문장에서 말한다 - 폰에서만 쓰는 서비스처럼 보이지 않게 -->
@@ -1394,7 +1408,7 @@
       <!-- 다른 적립 서비스와 비교하는 말("다른 곳은 못 본다")은 쓰지 않는다 - 회사마다 다르고 근거를 대기 어렵다.
            대신 "우리 가게 손님 기록을 사장님이 직접 본다"는 점만 말한다 -->
       <p class="desc"><b>누가 단골인지 알아야 단골 마케팅도 할 수 있어요.</b>
-        손님이 몇 번 왔는지, 며칠마다 오는지 사장님이 직접 폰으로 확인해요.
+        사장님 휴대폰에 뽀짝 관리 앱을 설치해 드려요. 손님이 몇 번 왔는지, 며칠마다 오는지 앱에서 바로 확인해요.
         적립과 쿠폰 사용은 계산대 태블릿에서 하고, 태블릿을 잠시 못 쓸 때는 폰으로 대신 처리할 수 있어요.</p>
       <ul class="checks">
         <li>손님별 방문 횟수·방문 주기</li>
@@ -1434,13 +1448,19 @@
     <div class="pc-show reveal">
       <img class="pc-photo" src="tablet-showcase.jpg" width="728" height="752" alt="" loading="lazy">
       <div class="pc-show-txt">
-        <p class="pc-show-t">10.1인치 태블릿, <em>무료 제공</em></p>
+        <!-- "10.1인치 태블릿"보다 "최신 태블릿"(대표 의견 2026-11-26, 2026년 4월 출시·안드로이드 16). 크기와 거치대는 아랫줄에.
+             "30만 원 상당"은 아직 안 적었다 - 아이뮤즈 공식몰 T11(4GB/64GB) 정가 239,000원(판매가 219,000원, 2026-11-26 확인)이라
+             태블릿만으로는 30만 원이 안 된다. 거치대 값까지 확인되면 "OO만 원 상당"을 이 줄 앞에 붙인다 -->
+        <p class="pc-show-t">최신 태블릿, <em>무료 제공</em></p>
+        <p class="pc-show-s"><span class="nb">10.1인치 · 거치대 포함</span> <span class="nb">· 방문 설치까지</span></p>
         <ul class="pc-spec">
           <li><b>안드로이드 16</b><span>최신 OS</span></li>
           <li><b>IPS 화면</b><span>매우 선명한 화질</span></li>
           <li><b>7.9mm</b><span>얇은 알루미늄 바디</span></li>
           <li><b>454g</b><span>가벼운 무게</span></li>
         </ul>
+        <!-- 대표 문구(2026-11-26) "품질이 저하되는 저가 태블릿은 일체 제공하지 않습니다" - "전혀"라는 뜻이라 "일절", 해요체로 -->
+        <p class="pc-show-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span class="nb">품질이 떨어지는 저가 태블릿은</span> <span class="nb">일절 제공하지 않아요</span></p>
       </div>
     </div>
     <div class="price-card reveal" style="--d:.08s">
@@ -1449,13 +1469,15 @@
       <p class="pc-day">하루 1,000원꼴이에요</p>
       <p class="pc-even"><span class="nb">평균 결제가 1만 원인 가게라면,</span><br><span class="nb"><b>한 달에 손님 3명</b>만 다시 와도</span> <span class="nb">요금만큼 매출이 나요</span></p>
       <ul class="pc-zero">
-        <li><span>태블릿 비용</span><b>0원</b></li>
+        <!-- 태블릿·거치대·설치비를 한 칸씩(2026-11-26): "태블릿·거치대"를 한 칸에 넣으니 폰에서 "태블릿· / 거치대"로 갈라졌다 -->
+        <li><span>태블릿</span><b>0원</b></li>
+        <li><span>거치대</span><b>0원</b></li>
         <li><span>설치비</span><b>0원</b></li>
       </ul>
       <ul class="checks">
         <li>스탬프 적립과 쿠폰 발급·사용</li>
         <li>네이버 리뷰 QR</li>
-        <li>사장님 폰·PC로 매장 관리</li>
+        <li>사장님 전용 관리 앱(PC에서도 관리)</li>
         <li>방문 설치와 적립 규칙 세팅</li>
         <li>데이터 암호화·백업</li>
       </ul>
