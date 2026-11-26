@@ -714,9 +714,12 @@
       linear-gradient(to right,#2e303c,#30343f 16.5%,#333541 33%,#353a46 49.5%,#363a47 58%,#333743 66%,#313540 82.5%,#2f333e 90.6%,#313540)}
   .pc-show-t{font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-.03em;line-height:1.35}
   .pc-show-t em{font-style:normal;color:#7fb0ff}
-  .pc-spec{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
-  .pc-spec li{padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
-    font-size:14px;font-weight:600;color:rgba(255,255,255,.78)}
+  /* 사양: 제품 페이지처럼 큰 숫자 + 짧은 설명 칸(2026-11-26, 대표 "성능 좋은 걸 더 넣자"). PC 4칸, 폰 2x2 */
+  .pc-spec{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+  .pc-spec li{display:flex;flex-direction:column;gap:3px;padding:14px 8px 13px;border-radius:16px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
+  .pc-spec b{font-size:18px;font-weight:700;letter-spacing:-.02em;color:#fff;white-space:nowrap}
+  .pc-spec span{font-size:13px;font-weight:500;color:rgba(255,255,255,.62)}
   .price-card{max-width:520px;margin:0 auto;background:#fff;border-radius:32px;padding:44px 40px 40px;
     box-shadow:0 20px 60px rgba(0,29,58,.06)}
   .pc-name{font-size:17px;font-weight:600;color:var(--g600)}
@@ -872,7 +875,8 @@
     .cta-actions .btn{width:100%}
     .price-card{padding:32px 24px 30px;border-radius:24px}
     .pc-show{padding-bottom:30px;border-radius:24px;margin-bottom:24px}
-    .pc-spec li{font-size:13px;padding:6px 12px}
+    .pc-spec{grid-template-columns:1fr 1fr}
+    .pc-spec b{font-size:17px}
     .pc-price b{font-size:46px}
     .pc-zero li{padding:14px 16px}
     .pc-zero b{font-size:22px}
@@ -1389,7 +1393,8 @@
     <!-- 제공 태블릿 쇼케이스(2026-11-26): "태블릿 0원"을 글자로만 두면 와닿지 않아서, 계산대에 놓일 실제 태블릿을 제품 사진으로 보여준다.
          제공 태블릿: 아이뮤즈 T11, 10.1인치, 안드로이드 16, 알루미늄 7.9mm(제조사 사양표, 대표 확인). 사진은 아이뮤즈 제품 사진(계약 관계).
          모델명은 글로 적지 않는다 - 제공하는 태블릿이 바뀔 수 있다. 바뀌면 사진과 아래 사양 칩도 고친다.
-         사양은 고급스럽게 보이는 것만: 램 3GB·밝기 350nit는 숫자가 낮아 저가형처럼 보이고, 배터리는 계산대에서 늘 충전해 두니 뺐다.
+         사양은 내세울 만한 것만(제조사 사양표 그대로): 안드로이드 16, 6,050mAh, 7.9mm 알루미늄 합금, 454g.
+         램 3GB·밝기 350nit는 숫자가 낮아 아는 사람에겐 저가형으로 읽혀서 넣지 않는다. Gemini는 스탬프와 상관없어서 뺐다.
          "드려요"는 소유가 넘어가는 것처럼 읽혀서 "제공"으로 쓴다. 앞쪽 화면은 스크립트가 첫 화면 메인 화면을 복제해 넣는다(data-clone) -->
     <div class="pc-show reveal">
       <div class="pc-photo fit" data-scale="728" aria-hidden="true">
@@ -1400,7 +1405,12 @@
       </div>
       <div class="pc-show-txt">
         <p class="pc-show-t">10.1인치 태블릿, <em>무료 제공</em></p>
-        <ul class="pc-spec"><li>안드로이드 16</li><li>알루미늄 바디</li><li>두께 7.9mm</li></ul>
+        <ul class="pc-spec">
+          <li><b>안드로이드 16</b><span>최신 OS</span></li>
+          <li><b>6,050mAh</b><span>대용량 배터리</span></li>
+          <li><b>7.9mm</b><span>얇은 알루미늄 바디</span></li>
+          <li><b>454g</b><span>가벼운 무게</span></li>
+        </ul>
       </div>
     </div>
     <div class="price-card reveal" style="--d:.08s">
