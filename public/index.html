@@ -655,6 +655,34 @@
   /* ===== 요금 ===== */
   /* 광고로 들어온 사장님이 제일 먼저 찾는 게 가격이라 숨기지 않고 보여준다(2026-11-24).
      요금: 월 3만 원, 태블릿 비용·설치비는 따로 안 받음. 약정·부가세는 정해지지 않아 적지 않았다 - 정해지면 .pc-note로 추가 */
+  /* 제공 태블릿 쇼케이스: 제조사 제품 사진처럼 어두운 무대 + 비스듬히 기운 태블릿(2026-11-26, 대표가 "고급스럽게").
+     사진 대신 그린다 - 제조사 사진은 저작권 문제가 있고 화면에 뽀짝이 떠 있어야 해서. 화면은 첫 화면 메인 화면 목업을 복제한다.
+     테두리: 알루미늄 모서리(회색 그라데이션) 안에 검정 베젤, 위 가운데 전면 카메라. 화면에는 비스듬한 반사광 */
+  .pc-show{position:relative;max-width:760px;margin:0 auto 32px;padding:64px 48px 44px;border-radius:32px;overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 30%,#3b4354 0%,#232833 45%,#14171d 100%);color:#fff;text-align:center}
+  .pc-show::before{content:"";position:absolute;left:50%;top:40%;width:80%;height:70%;transform:translate(-50%,-50%);
+    background:radial-gradient(closest-side,rgba(90,140,255,.4),transparent);pointer-events:none}
+  .pc-stage{position:relative;max-width:520px;margin:0 auto;perspective:1800px}
+  .pc-dev{position:relative;padding:2.5px;border-radius:26px;transform:rotateX(14deg) rotateY(-22deg) rotateZ(4deg);
+    background:linear-gradient(135deg,#a3acbb 0%,#4b5262 22%,#262b35 55%,#737b8c 100%);
+    box-shadow:0 40px 60px -10px rgba(0,0,0,.6),0 18px 30px rgba(0,0,0,.35)}
+  /* 베젤 두께는 실제 기기 비율로: 몸체 239mm에 화면(10.1인치 16:10) 약 217.5mm → 사방 약 10.8mm = 몸체 가로의 약 4.5%.
+     padding %는 가로 기준이라 위아래도 같은 두께가 된다. 카메라는 위 베젤 가운데(높이 기준 약 3%) */
+  .pc-bezel{position:relative;padding:4.3%;border-radius:24px;background:#07090c}
+  .pc-cam{position:absolute;top:calc(3.2% - 2.5px);left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#1b2030;box-shadow:0 0 0 1px #2c3240}
+  .pc-scr{position:relative;border-radius:6px;overflow:hidden}
+  .pc-scr .fit{aspect-ratio:960/600;background:#fff}
+  /* 흰 화면이라 반사광만으로는 티가 안 나서, 오른쪽 아래로 살짝 어두워지는 음영을 같이 준다 */
+  .pc-glare{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(118deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 38%),
+      linear-gradient(118deg,rgba(10,25,60,0) 45%,rgba(10,25,60,.1) 100%)}
+  .pc-floor{width:78%;height:28px;margin:8px auto 0;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent)}
+  .pc-show-txt{position:relative;margin-top:22px}
+  .pc-show-t{font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-.03em;line-height:1.35}
+  .pc-show-t em{font-style:normal;color:#7fb0ff}
+  .pc-spec{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+  .pc-spec li{padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+    font-size:14px;font-weight:600;color:rgba(255,255,255,.78)}
   .price-card{max-width:520px;margin:0 auto;background:#fff;border-radius:32px;padding:44px 40px 40px;
     box-shadow:0 20px 60px rgba(0,29,58,.06)}
   .pc-name{font-size:17px;font-weight:600;color:var(--g600)}
@@ -809,6 +837,12 @@
     .cta-actions{flex-direction:column}
     .cta-actions .btn{width:100%}
     .price-card{padding:32px 24px 30px;border-radius:24px}
+    .pc-show{padding:44px 20px 30px;border-radius:24px;margin-bottom:24px}
+    .pc-dev{padding:2px;border-radius:18px}
+    .pc-bezel{border-radius:16px}
+    .pc-cam{top:calc(3.2% - 2px);width:4px;height:4px;margin-left:-2px}
+    .pc-scr{border-radius:4px}
+    .pc-spec li{font-size:13px;padding:6px 12px}
     .pc-price b{font-size:46px}
     .pc-zero li{padding:14px 16px}
     .pc-zero b{font-size:22px}
@@ -1284,6 +1318,26 @@
       <h2>요금은<br><span class="hl">월 3만 원</span>이에요</h2>
       <p class="desc">태블릿 비용도, 설치비도 따로 받지 않아요.</p>
     </div>
+    <!-- 제공 태블릿 쇼케이스(2026-11-26): "태블릿 0원"을 글자로만 두면 와닿지 않아서, 계산대에 놓일 태블릿을 제품 사진처럼 보여준다.
+         제공 태블릿: 아이뮤즈 T11, 10.1인치, 안드로이드 16, 알루미늄 7.9mm(제조사 사양표, 대표 확인).
+         모델명은 적지 않는다 - 제공하는 태블릿이 바뀔 수 있다. 바뀌면 아래 사양 칩도 고친다.
+         사양은 고급스럽게 보이는 것만: 램 3GB·밝기 350nit는 숫자가 낮아 저가형처럼 보이고, 배터리는 계산대에서 늘 충전해 두니 뺐다.
+         "드려요"는 소유가 넘어가는 것처럼 읽혀서 "제공"으로 쓴다. 화면은 스크립트가 첫 화면 메인 화면을 복제해 넣는다(data-clone) -->
+    <div class="pc-show reveal">
+      <div class="pc-stage" aria-hidden="true">
+        <div class="pc-dev">
+          <div class="pc-bezel">
+            <span class="pc-cam"></span>
+            <div class="pc-scr"><div class="fit" data-scale="960" data-clone="#mainDemo .tm"></div><span class="pc-glare"></span></div>
+          </div>
+        </div>
+        <div class="pc-floor"></div>
+      </div>
+      <div class="pc-show-txt">
+        <p class="pc-show-t">10.1인치 태블릿, <em>무료 제공</em></p>
+        <ul class="pc-spec"><li>안드로이드 16</li><li>알루미늄 바디</li><li>두께 7.9mm</li></ul>
+      </div>
+    </div>
     <div class="price-card reveal" style="--d:.08s">
       <p class="pc-name">뽀짝 스탬프 적립</p>
       <p class="pc-price">월 <b>30,000</b>원</p>
@@ -1646,6 +1700,13 @@
     const width=+box.dataset.fit;
     box.innerHTML='<div class="adm m" style="width:'+width+'px">'+admScreens[box.dataset.screen||'dashboard']+'</div>';
     fitToBox(box,width);
+  });
+  // 요금 섹션의 제공 태블릿 그림은 첫 화면 메인 화면을 복제해서 쓴다 - 목업을 두 군데서 고치지 않게.
+  // 줄이기(fitToBox) 전에 넣어야 한다. 복제본의 적립 버튼 표시는 지워서 첫 화면 데모와 엮이지 않게 한다
+  document.querySelectorAll('[data-clone]').forEach(box=>{
+    const src=document.querySelector(box.dataset.clone);if(!src)return;
+    const copy=src.cloneNode(true);copy.querySelectorAll('[data-stamp-btn]').forEach(el=>el.removeAttribute('data-stamp-btn'));
+    box.appendChild(copy);
   });
   // 태블릿 메인 화면은 마크업에 그대로 들어 있어서 줄이기만 한다
   document.querySelectorAll('[data-scale]').forEach(box=>fitToBox(box,+box.dataset.scale));
