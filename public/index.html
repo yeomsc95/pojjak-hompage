@@ -827,16 +827,21 @@
       background:repeating-linear-gradient(180deg,#a9cbfb 0 6px,transparent 6px 12px)}
     .split{grid-template-columns:1fr;gap:48px}
   }
+  .s-cap{display:none}
   /* 히어로 무대는 세 화면을 옆으로 겹치느라 폭 960이 거의 다 필요하다.
-     그보다 좁으면 폰은 빼고, 태블릿 메인 화면과 팝업을 살짝 띄워 세로로 쌓는다
+     그보다 좁으면 태블릿 메인 화면과 팝업을 살짝 띄워 세로로 쌓는다
      (팝업을 태블릿에 걸치면 어수선했다). 팝업도 태블릿과 같은 검은 테두리를 둘러 짝을 맞춘다.
-     테두리는 border로 그려야 도장 찍을 때 흔들리는 애니메이션(.thud)에 같이 움직인다. */
+     테두리는 border로 그려야 도장 찍을 때 흔들리는 애니메이션(.thud)에 같이 움직인다.
+     사장님 폰(대시보드)은 예전엔 여기서 뺐는데, 핵심 화면이라 폰에서도 팝업 아래에 설명 한 줄과 함께 둔다(대표 의견 2026-11-26) */
   @media(max-width:1000px){
     .stage{height:auto;padding:48px 24px}
     .stage .s-main{position:static;width:auto;max-width:520px;margin:0 auto}
     .stage .s-tablet{position:relative;left:auto;top:auto;width:auto;max-width:400px;margin:16px auto 0}
     .stage .m-tablet{border:14px solid var(--g900);border-radius:30px;box-shadow:0 30px 70px rgba(0,29,58,.18)}
-    .stage .s-phone{display:none}
+    .stage .s-phone{position:static;margin:32px auto 0;text-align:center}
+    .stage .s-phone .m-phone{width:250px;margin:0 auto;text-align:left}
+    .s-cap{display:inline-block;margin:0 0 16px;padding:9px 16px;border-radius:999px;background:#fff;
+      box-shadow:0 6px 18px rgba(0,29,58,.08);font-size:14.5px;font-weight:600;color:var(--g700)}
     .demo-hint{position:static;margin:0 auto 20px}
   }
   @media(max-width:600px){
@@ -1034,6 +1039,8 @@
         </div>
       </div>
       <div class="s-phone reveal" style="--d:.3s">
+        <!-- 폰에서만 보이는 설명(2026-11-26): 세로로 쌓이면 세 번째 화면이 무엇인지 안 읽혀서 -->
+        <p class="s-cap">사장님 휴대폰에는 이렇게 보여요</p>
         <div class="m-phone">
           <div class="scr"><div class="fit" data-fit="375"></div></div>
         </div>
