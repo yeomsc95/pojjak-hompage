@@ -8,6 +8,19 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="naver-site-verification" content="e6417fe1206ccb272f5711012b468bb060af2f5f">
 <link rel="canonical" href="https://pojjak.kr/">
+<!-- 카톡·문자·밴드에 링크를 보낼 때 뜨는 미리보기(2026-11-26, 홍보 전 점검). 이미지는 첫 화면 제목 + 도장판(og-image.png, 1200x630).
+     첫 화면 문구를 바꾸면 이 설명과 이미지도 같이 고친다. 카톡은 미리보기를 캐시하므로 바꾼 뒤엔 카카오 개발자 "공유 디버거"에서 초기화 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="뽀짝">
+<meta property="og:url" content="https://pojjak.kr/">
+<meta property="og:title" content="뽀짝 | 단골을 만드는 마케팅의 시작">
+<meta property="og:description" content="종이 도장은 마케팅이 아니라, 손님께 드리는 감사의 보답이었어요. 태블릿 한 대로 시작하는 스탬프 적립, 뽀짝.">
+<meta property="og:image" content="https://pojjak.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="단골을 만드는 마케팅의 시작 - 뽀짝 스탬프 적립">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -1576,7 +1589,9 @@
         </div>
         <div class="field">
           <label for="inqPhone">휴대폰 번호</label>
-          <input id="inqPhone" type="tel" name="phone" placeholder="숫자만 입력해 주세요" inputmode="numeric" autocomplete="tel" pattern="[0-9]{9,11}" required>
+          <!-- "-"나 띄어쓰기를 넣어도 받는다(2026-11-26): 예전엔 pattern이 숫자만 허용해서 "010-1234-5678"을 치면 브라우저가 막았다.
+               보낼 때 스크립트가 숫자만 남기고 자릿수를 확인한다(submitInquiry) -->
+          <input id="inqPhone" type="tel" name="phone" placeholder="예) 010-1234-5678" inputmode="tel" autocomplete="tel" maxlength="20" required>
         </div>
         <div class="field">
           <span class="lbl">어떤 게 궁금하세요?</span>
@@ -1963,9 +1978,17 @@
     const form=e.target;
     const btn=form.querySelector('.submit');
     const topicVal=form.topic.value;
+    // 번호는 숫자만 남긴다. 자동완성이 "+82 10-…"으로 채우면 82를 0으로 바꾼다. 0으로 시작하는 9~11자리만 받는다
+    let phone=form.phone.value.replace(/\D/g,'');
+    if(/^82\d{9,10}$/.test(phone))phone='0'+phone.slice(2);
+    if(!/^0\d{8,10}$/.test(phone)){
+      alert('휴대폰 번호를 다시 확인해 주세요.');
+      form.phone.focus();
+      return false;
+    }
     const body={
       name:form.name.value.trim(),
-      phone:form.phone.value.trim(),
+      phone,
       topic:topicVal,
       memo:(topicVal==='기타'&&form.memo)?form.memo.value.trim():''
     };
