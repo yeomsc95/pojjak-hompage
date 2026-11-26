@@ -348,7 +348,9 @@
   /* 기본 도장 → (예시 로고, 실제 매장 로고). 화살표는 아래 설명 글까지 합친 높이가 아니라 도장 줄 가운데에 맞춘다
      (가운데 정렬로 두면 설명 글 때문에 화살표가 도장 줄보다 아래로 처져 보였다) */
   .custom-vis{display:flex;align-items:flex-start;justify-content:center;gap:14px;margin-top:24px}
-  .cs-group{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+  /* 로고 도장 두 줄은 설명 하나("매장 로고 / 예시")로 묶는다. 업종별로 "카페 로고"·"미용실 로고"라고 붙였더니
+     미용실 로고(튤립)가 미용실처럼 안 보여서 어색했다(대표 의견 2026-11-26) */
+  .cs-rows{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
   .cs-item{display:flex;flex-direction:column;align-items:center;gap:10px}
   .cs-row{display:flex;gap:6px;padding:12px;border-radius:18px;background:var(--g50)}
   .cs-row>span{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#ebedf0;
@@ -370,7 +372,7 @@
     .custom{margin-top:32px;padding:26px 16px 24px;border-radius:24px}
     .custom-t{font-size:19px}
     .custom-vis{flex-direction:column;align-items:center;gap:10px}
-    .cs-group{gap:10px}
+    .cs-rows{gap:10px}
     .cs-row{gap:5px;padding:10px}
     .cs-row>span,.cs-row img,.cs-row svg{width:36px;height:36px}
     .cs-row>span.logo img{width:33px;height:28px}
@@ -1280,8 +1282,8 @@
     <!-- 우리 가게 맞춤(2026-11-26, 대표 의견 "변경할 수 있다고 잘 전달해야"): 태블릿 화면의 가게 이름은 매장마다 자기 이름,
          도장은 기본 뽀짝 도장이고 가게 로고로 바꿀 수 있다(실제 앱도 매장마다 도장 그림만 바꿔 끼움).
          "ONDO" 커피잔 로고는 그려 넣은 가상의 예시("모퉁이"는 도장 안에서 너무 길어 대표 의견으로 ONDO로).
-         미용실 로고는 실제 사용 매장의 태블릿이 쓰는 도장 그림이다(pojjak-tablet 매장 브랜치 purple_logo_icon.png를 줄임).
-         설명은 카페 로고와 같은 모양으로 "미용실 로고 / 예시" - 매장 이름은 적지 않는다(대표 의견 2026-11-26) -->
+         두 번째(튤립) 로고는 실제 사용 매장의 태블릿이 쓰는 도장 그림이다(pojjak-tablet 매장 브랜치 purple_logo_icon.png를 줄임).
+         두 로고는 "매장 로고 / 예시" 하나로 묶는다 - 업종 이름도, 매장 이름도 적지 않는다(대표 의견 2026-11-26) -->
     <div class="custom reveal">
       <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <symbol id="shopLogo" viewBox="0 0 40 40">
@@ -1303,15 +1305,12 @@
           <span class="cs-cap">뽀짝 도장<small>추천</small></span>
         </div>
         <span class="cs-or">또는</span>
-        <div class="cs-group">
-          <div class="cs-item">
+        <div class="cs-item">
+          <div class="cs-rows">
             <div class="cs-row"><span class="on"><svg><use href="#shopLogo"/></svg></span><span class="on"><svg><use href="#shopLogo"/></svg></span><span>3</span></div>
-            <span class="cs-cap">카페 로고<small>예시</small></span>
-          </div>
-          <div class="cs-item">
             <div class="cs-row"><span class="on logo"><img src="stamp-logo-hair.png" alt=""></span><span class="on logo"><img src="stamp-logo-hair.png" alt=""></span><span>3</span></div>
-            <span class="cs-cap">미용실 로고<small>예시</small></span>
           </div>
+          <span class="cs-cap">매장 로고<small>예시</small></span>
         </div>
       </div>
     </div>
