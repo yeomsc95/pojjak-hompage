@@ -163,7 +163,6 @@
   .head.center .desc{max-width:600px;margin-left:auto;margin-right:auto}
   .desc .nb{display:inline-block}  /* 폰에서 구절 사이에서만 줄바꿈 */
   #mobile .desc b{color:var(--g900);font-weight:700}  /* 긴 설명에서 첫 문장(왜 필요한지)만 진하게 */
-
   /* 카드 */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   .cards.two{grid-template-columns:repeat(2,1fr);max-width:840px;margin:0 auto}
@@ -932,10 +931,14 @@
       <span class="eyebrow">뽀짝 · 매장용 스탬프 적립</span>
       <!-- 제목: 대표 문구 "단골을 만드는 마케팅의 시작"(2026-11-25).
            "다녀간 손님, 다시 오나요?"(질문형)도 써 봤지만 사장님께 너무 도발적이라 되돌렸다.
-           설명: 스탬프 = 손님과 가게를 잇는 연결고리, 하루 천 원(가격을 밀어붙이지 않고 "시작하세요"로 권한다) -->
+           설명(2026-11-26, 대표 문구를 첫 화면으로): 스탬프는 마케팅이 아니라 손님께 드리는 감사의 보답이고, 손님도 답례하듯 더 자주 온다.
+           제목 "마케팅의 시작"과 붙어 "마케팅의 시작은 고마움"이라는 반전이 된다. 바로 아래 "방문 간격 20% 단축"이 "더 자주"를 받쳐 준다.
+           원문의 "재방문율이 높아졌습니다"는 우리가 잰 숫자가 없어 "더 자주 찾아왔답니다"로. "~답니다"는 옛이야기처럼 감성을 건드리는 말투라
+           대표가 골랐다(2026-11-26). 그래서 앞 문장도 지난 이야기("종이 도장은 … 보답이었어요")로 맞췄다.
+           예전 설명("스탬프는 손님과 가게를 잇는 연결고리예요. 하루 천 원으로 재방문 마케팅을 시작하세요.")은 뺐다 - 하루 천 원은 요금 칸에 있다 -->
       <h1><span class="hl">단골</span>을 만드는<br>마케팅의 시작</h1>
-      <p class="lead"><span><span class="nb">스탬프는 손님과 가게를 잇는</span> <span class="nb">연결고리예요.</span></span>
-        <span><span class="nb">하루 천 원으로</span> <span class="nb">재방문 마케팅을 시작하세요.</span></span></p>
+      <p class="lead"><span><span class="nb">종이 도장은 마케팅이 아니라,</span> <span class="nb">손님께 드리는 감사의 보답이었어요.</span></span>
+        <span><span class="nb">손님도 답례하듯,</span> <span class="nb">더 자주 찾아왔답니다.</span></span></p>
       <div class="hero-actions" id="heroActions">
         <button class="btn btn-primary btn-lg" onclick="openInquiry()">간편 문의하기</button>
       </div>
@@ -1017,14 +1020,10 @@
   <div class="wrap">
     <div class="head center reveal">
       <p class="kicker">왜 스탬프일까요</p>
-      <!-- 제목은 "재방문 마케팅"보다 "감사의 보답"으로 - 그래야 따뜻하다(대표 의견 2026-11-26) -->
-      <h2>스탬프는<br><span class="hl">감사의 보답</span>이에요</h2>
-      <!-- 대표 문구(2026-11-26): "종이 스탬프는 마케팅이 아닌 고객에 대한 보답으로 시작했습니다. 하지만 고객도 보답에 대한 답례로 재방문율이 높아졌습니다."
-           이야기 모양(보답 → 손님의 답례)은 그대로 두고 세 군데만 다듬었다:
-           · "시작했습니다"는 도장의 기원을 말하는 역사처럼 읽혀서(도장 카드는 처음부터 가게 홍보용이기도 했다, 1896 S&H 그린 스탬프) "~이었어요"로.
-           · "재방문율이 높아졌습니다"는 우리가 잰 숫자가 없어 "더 자주 찾아왔어요"로. 근거는 바로 아래 연구 카드(방문 간격 20% 단축)가 맡는다.
-           · 사이트 전체 말투에 맞춰 "고객" 대신 "손님", 합니다체 대신 해요체. 제목에 "보답"이 있어 설명은 "고마움"으로 -->
-      <p class="desc"><span class="nb">종이 도장은 마케팅이 아니라,</span> <span class="nb">손님께 드리는 고마움이었어요.</span><br><span class="nb">손님도 답례하듯,</span> <span class="nb">더 자주 찾아왔어요.</span></p>
+      <!-- "감사의 보답" 이야기는 첫 화면 설명으로 올렸다(2026-11-26). 여기는 첫 화면과 겹치지 않게
+           "재방문 마케팅"으로 두고, 광고 비교·연구·계산기로 숫자 근거를 맡는다 -->
+      <h2>스탬프는<br><span class="hl">재방문 마케팅</span>이에요</h2>
+      <p class="desc"><span class="nb">스탬프가 없으면,</span> <span class="nb">한 번 온 손님은 한 번으로 끝나요.</span></p>
     </div>
     <!-- 광고 vs 스탬프(대표 의견 2026-11-25): 광고는 돈을 쓸 때만 손님이 오고 계속 쓰다 보면 지치는 1회성 비용,
          스탬프는 하루 천 원으로 방문 손님을 붙잡는 재방문 마케팅(하루 천 원은 아래 마무리 문장에서 말한다).
