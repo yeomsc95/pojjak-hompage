@@ -745,6 +745,7 @@
   footer{background:var(--g50);padding:64px 0 72px}
   .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px}
   .foot .about{font-size:15px;color:var(--g600);margin-top:12px}
+  .foot .cheer{font-size:15px;font-weight:600;color:var(--blue);margin-top:6px}
   .fcols{display:flex;gap:64px;flex-wrap:wrap}
   .fcol{font-size:15px;color:var(--g600);line-height:2.1}
   .fcol strong{display:block;color:var(--g800);font-weight:600;margin-bottom:4px}
@@ -1391,7 +1392,8 @@
       <p>종이 도장의 좋은 점도 놓치고 싶지 않았어요.
         도장이 한 칸씩 꾹 찍히고, 다 채우면 괜히 뿌듯해지는 그 기분이요.</p>
       <p class="callout">뽀짝은 디지털이지만,<br>도장 찍는 손맛은 그대로 담았어요.</p>
-      <p class="callout">오늘도 문을 여는<br>모든 사장님을 응원해요.</p>
+      <!-- 맺음말 "오늘도 문을 여는 모든 사장님을 응원해요"는 뺐다(대표 의견 2026-11-26) - 강조 막대가 두 번 이어지고 말이 막연했다.
+           이야기는 "도장 찍는 손맛"으로 끝난다 -->
     </div>
   </div>
 </section>
@@ -1407,17 +1409,19 @@
            근거: 관리자 고객 화면의 "총 N회 · 평균 N일마다", "방문 많은 순" 정렬(pojjak-admin CustomerCard.js, Customer.js).
            태블릿이 메인이라는 건 설명 둘째 문장에서 말한다 - 폰에서만 쓰는 서비스처럼 보이지 않게 -->
       <!-- "종이로는 몰랐던"은 종이만 탓하는 말이라 "그동안"으로 - 종이 도장이 아니어도 손님별 방문 횟수는 원래 알 수 없었다 -->
-      <h2>그동안 몰랐던 <span class="hl">단골</span>,<br>이제 폰으로 보여요</h2>
+      <!-- "이제 폰으로 보여요" → "데이터로"(대표 의견 2026-11-26): 위 작은 제목이 "사장님 전용 앱"이라 "폰"은 겹쳤다.
+           "우리의 이야기"의 "큰 프랜차이즈는 … 데이터 분석으로"와 이어져, 동네 가게도 단골을 데이터로 본다는 뜻이 된다 -->
+      <h2>그동안 몰랐던 <span class="hl">단골</span>,<br>이제 데이터로 보여요</h2>
       <!-- 다른 적립 서비스와 비교하는 말("다른 곳은 못 본다")은 쓰지 않는다 - 회사마다 다르고 근거를 대기 어렵다.
            대신 "우리 가게 손님 기록을 사장님이 직접 본다"는 점만 말한다 -->
       <p class="desc"><b>누가 단골인지 알아야 단골 마케팅도 할 수 있어요.</b>
-        사장님 휴대폰에 뽀짝 관리 앱을 설치해 드려요. 손님이 몇 번 왔는지, 며칠마다 오는지 앱에서 바로 확인해요.
-        적립과 쿠폰 사용은 계산대 태블릿에서 하고, 태블릿을 잠시 못 쓸 때는 폰으로 대신 처리할 수 있어요.</p>
+        사장님 휴대폰에 뽀짝 관리 앱을 설치해 드립니다. 손님이 몇 번 왔는지, 며칠마다 오는지 앱에서 바로 확인해요.
+        적립과 쿠폰 사용은 계산대 태블릿에서 하고, 태블릿을 잠시 못 쓸 때는 휴대폰으로 대신 처리할 수 있어요.</p>
       <ul class="checks">
         <li>손님별 방문 횟수·방문 주기</li>
         <li>방문 많은 순으로 단골 한눈에</li>
         <li>실시간 방문 현황·매장 설정</li>
-        <li>필요할 땐 폰으로 적립·쿠폰 처리</li>
+        <li>필요할 땐 휴대폰으로 적립·쿠폰 처리</li>
       </ul>
     </div>
     <div class="phone-stage reveal" style="--d:.12s">
@@ -1516,6 +1520,8 @@
       <div>
         <a class="brand" href="#top"><img src="pojjak-icon.png" alt="뽀짝"><span class="brand-name">스탬프 적립</span></a>
         <p class="about">매장을 위한 스탬프 적립·쿠폰 서비스</p>
+        <!-- 이야기 끝에 있던 응원 문구를 맨 아래 인사로 옮겼다(대표 의견 2026-11-26). 크게 강조하지 않고 작게 -->
+        <p class="cheer">뽀짝은 모든 사장님을 응원합니다</p>
       </div>
       <div class="fcols">
         <div class="fcol"><strong>바로가기</strong>
